@@ -2,5 +2,6 @@
 
 Saum Emami - NetID: semami, Github: semami1
 Parker Kaufmann - - NetID, Github: parkerkaufmann
+Dawson Heykoop - NetID: dheykoop1, Github: dawsonheykoop
 
 csc335-puzzleplat-semami1parkerkaufmannomarraef1dheykoop1 created by GitHub Classroom
