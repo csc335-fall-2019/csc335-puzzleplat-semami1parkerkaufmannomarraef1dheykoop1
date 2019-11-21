@@ -68,6 +68,9 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		}
 	}
 	
+	/**
+	 * draw all text for the tutorial.
+	 */
 	private void drawTutorialText() {
 		gc.setFill(Color.BLACK);
 		gc.setTextAlign(TextAlignment.CENTER);
