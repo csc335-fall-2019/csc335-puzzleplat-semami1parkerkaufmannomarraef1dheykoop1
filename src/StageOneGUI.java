@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class StageOneGUI extends Application implements java.util.Observer{
@@ -36,6 +37,8 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		controller.makeRain(0, 1);//makes rain
 		controller.makeStageOneObstacles();
 		drawShapes(controller.getObstacles());
+		
+		drawTutorialText();
 		
 		Group root = new Group();
 		root.getChildren().add(canvas);
@@ -64,6 +67,17 @@ public class StageOneGUI extends Application implements java.util.Observer{
 			}
 		}
 	}
+	
+	private void drawTutorialText() {
+		gc.setFill(Color.BLACK);
+		gc.setTextAlign(TextAlignment.CENTER);
+		gc.fillText("Use arrow keys \n to move", 50, 180);
+		gc.fillText("Hide under shelter \n to avoid poisonous rain", 175, 130);
+		gc.fillText("Don't fall \n into the lava", 325, 200);
+		gc.fillText("Jump over obstacles", 400, 130);
+		gc.fillText("Get creative on how you \n finish the level", 800, 100);
+		gc.fillText("Reach the \n end of the level \n without dying to win!", 1100, 200);
+	}
 
 	/**
 	 * 
@@ -82,11 +96,9 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		if(controller.getObstacles().size() < 50) {
 			controller.makeRain(0, 1);
 		}
+		drawTutorialText();
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(1)));
-		
-		
-		
 	}
 
 }
