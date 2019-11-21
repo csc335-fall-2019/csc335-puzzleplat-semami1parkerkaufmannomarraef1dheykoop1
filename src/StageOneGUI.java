@@ -33,7 +33,7 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		controller.makeStageOneFloors();//sets up level
 		drawShapes(controller.getFloors());
 		
-		controller.makeRain(1, 1);//makes rain
+		controller.makeRain(0, 1);//makes rain
 		controller.makeStageOneObstacles();
 		drawShapes(controller.getObstacles());
 		
@@ -80,7 +80,7 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		gc.setFill(Color.LIGHTSKYBLUE);
 		gc.fillRect(0, 0, 1200, 300);
 		if(controller.getObstacles().size() < 50) {
-			controller.makeRain(1, 1);
+			controller.makeRain(0, 1);
 		}
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(1)));

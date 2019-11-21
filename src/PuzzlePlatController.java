@@ -103,7 +103,7 @@ public class PuzzlePlatController {
 		int numCircles = randomNum(min, max);
 		
 		for(int i = 0; i < numCircles; i++) {
-			circ = new myCircle(randomNum(100, 1100), 0, 5, randomNum(1,3));
+			circ = new myCircle(randomNum(100, 1100), 0, 5, randomNum(1,2));
 			circ.setFill(Color.DARKBLUE);
 			model.addObstacle(circ);
 		}
@@ -187,7 +187,9 @@ public class PuzzlePlatController {
 		ArrayList<Shape> newRain = new ArrayList<>();
 		
 		for(Shape shape: model.getObstacles()) {
-			if(shape instanceof myCircle && ((Circle) shape).getCenterY() < 250) {//limits amount of rain in game
+			if(shape instanceof myCircle && ((Circle) shape).getCenterY() 
+					+ ((Circle) shape).getRadius()< 275
+					&& !endRain(shape)) {//limits amount of rain in game
 				newCirc = new myCircle(((myCircle) shape).getCenterX(), 
 						((myCircle) shape).getCenterY() + ((myCircle) shape).getMoveSpeed(), 
 						((myCircle) shape).getRadius(), ((myCircle) shape).getMoveSpeed());
@@ -199,6 +201,28 @@ public class PuzzlePlatController {
 		}
 		
 		model.setAllObstacles(newRain);
+		
+	}
+	
+	/**
+	 * checks if rain has hit a floor
+	 * @param shape rain
+	 * @return boolean representing if rain is touching a floor
+	 */
+	private boolean endRain(Shape shape) {
+		if(shape instanceof myCircle) {
+			for(Shape floor: model.getFloors()) {
+				if(floor instanceof Rectangle) {
+					if(((myCircle) shape).getCenterY() == ((Rectangle) floor).getY()
+							&& ((myCircle) shape).getCenterX() >= ((Rectangle) floor).getX() 
+							&& ((myCircle) shape).getCenterX() <= ((Rectangle) floor).getX() 
+							+ ((Rectangle) floor).getWidth()) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 		
 	}
 	
