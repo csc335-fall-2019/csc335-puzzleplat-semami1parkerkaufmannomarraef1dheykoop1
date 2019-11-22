@@ -1,12 +1,36 @@
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Shape;
 
 public class PuzzlePlatModel extends Observable{
 	ArrayList<Shape> floors = new ArrayList<>();
+	
 	ArrayList<Shape> obstacles = new ArrayList<>();
+
+	ArrayList<PlayerOne> characters = new ArrayList<>();
+	
 	//Character player1
+	private PlayerOne p;
+	
+	private int platformFloorY; //updated with every stage initiation
+	
+	//jumping stuff
+	private double maxDY;
+	private double gravity = 0.5;
+	private boolean falling; //debatable
+	
+	/**
+	 * getter for list of floors
+	 * @return list of floors
+	 */
+	public ArrayList<PlayerOne> getCharacters() {
+		return characters;
+	}
 	
 	/**
 	 * getter for list of floors
@@ -56,5 +80,32 @@ public class PuzzlePlatModel extends Observable{
 	}
 	
 	
+	////// PLAYER ONE STUFF BEGIN///////
+	
+
+	public PlayerOne getP() {
+		return p;
+	}
+
+	public void setP(PlayerOne p) {
+		this.p = p;
+	}
+
+	public int getPlatformFloorY() {
+		return platformFloorY;
+	}
+
+	public void setPlatformFloorY(int platformFloorY) {
+		this.platformFloorY = platformFloorY;
+	}
+	
+//	public void jumpPlayer() { //move to controller
+//		if(getP().isCanJump()) {
+//			getP().setVelocity(getP().getVelocity().add(0, -30));
+//			getP().setCanJump(false);
+//			}
+//	}
+	
+	////// PLAYER ONE STUFF END///////
 
 }

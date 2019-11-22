@@ -1,12 +1,24 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.Observable;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -30,7 +42,7 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		
 		gc.setFill(Color.LIGHTSKYBLUE);
 		gc.fillRect(0, 0, 1200, 300);
-	
+		
 		controller.makeStageOneFloors();//sets up level
 		drawShapes(controller.getFloors());
 		
@@ -39,6 +51,102 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		drawShapes(controller.getObstacles());
 		
 		drawTutorialText();
+		
+		controller.createPlayerOne();
+		
+		// print coordinates wherever you click, for testing purposes//
+		EventHandler<MouseEvent> mooso = new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("y = "+event.getY());
+				System.out.println("x = "+event.getX());
+				
+			}
+			
+		};
+		
+		primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, mooso);
+		//////////
+		
+		// character 1 handlers //
+		EventHandler<KeyEvent> keyPressedNav = new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent e) {
+				KeyCode key = e.getCode();
+				if(key == KeyCode.UP) {
+				//	System.out.println("JUMP");
+			//		controller
+					
+				}
+				
+				// TODO Maybe implement if we add a ladders?
+//				else if(key == KeyCode.DOWN) {
+//					System.out.println("DOWN");
+//				}
+				else if(key == KeyCode.RIGHT) {
+				//	System.out.println("RIGHT");
+					controller.getP1().incrementX();
+					controller.getP1().setVelX(3);
+					//call moving right method
+					controller.setCanMoveRight(true);
+				//	controller.moveRight();
+					//(increments, and animate picture
+					
+				}
+				else if(key == KeyCode.LEFT) {
+				//	System.out.println("LEFT");
+					controller.getP1().decrementX();
+					controller.getP1().setVelX(-3);
+					controller.moveLeft();
+				}
+				
+			}
+			
+		};
+		
+		
+		EventHandler<KeyEvent> keyReleasedNav = new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent e) {
+				KeyCode key = e.getCode();
+				if(key == KeyCode.UP) {
+			//		System.out.println("JUMP");
+			//		controller
+					
+				}
+				
+				// TODO Maybe implement if we add a ladders?
+//				else if(key == KeyCode.DOWN) {
+//					System.out.println("DOWN");
+//				}
+				else if(key == KeyCode.RIGHT) {
+				//	System.out.println("RIGHT");
+					controller.getP1().incrementX();
+					controller.getP1().setVelX(0);
+					//call moving right method
+					controller.setCanMoveRight(false);
+				//	controller.moveRight();
+					//(increments, and animate picture
+					
+				}
+				else if(key == KeyCode.LEFT) {
+				//	System.out.println("LEFT");
+					controller.getP1().decrementX();
+					controller.getP1().setVelX(0);
+					controller.moveLeft();
+				}
+				
+			}
+		};
+
+		
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyPressedNav);
+		primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, keyReleasedNav);
+		primaryStage.addEventHandler(KeyEvent.KEY_TYPED, keyPressedNav);
+		////////////
 		
 		Group root = new Group();
 		root.getChildren().add(canvas);
@@ -102,6 +210,15 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		drawTutorialText();
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(1)));
+		
+		PlayerOne renderedPlayer = ((ArrayList<PlayerOne>)((ArrayList<Object>)arg).get(2)).get(0);
+		gc.drawImage(renderedPlayer.getPlayerImg(), renderedPlayer.getX(), renderedPlayer.getY());
+		
+	}
+	
+
+	public static void main(String[] args) {
+		launch(args);
 	}
 
 }
