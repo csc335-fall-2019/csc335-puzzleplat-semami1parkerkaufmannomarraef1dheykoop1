@@ -8,6 +8,14 @@ public class PuzzlePlatModel extends Observable{
 	ArrayList<Shape> obstacles = new ArrayList<>();
 	//Character player1
 	
+	/** TODO: Waiting on add getter for Character objects
+	 * 
+	 * public Character getCharacter(){
+	 * 		return player1;
+	 * }
+	 * 
+	 */
+	
 	/**
 	 * getter for list of floors
 	 * @return list of floors

@@ -2,11 +2,14 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -43,11 +46,20 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		Group root = new Group();
 		root.getChildren().add(canvas);
 		Scene scene = new Scene(root);
+		scene.setOnKeyPressed((event) -> {
+			KeyCode k = event.getCode();
+			if (k.isArrowKey()) {
+				controller.moveCharacter(k.toString());
+			}
+		});
+		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
 		
 	}
+	
+	
 	/**
 	 * draws all shapes on the GUI that are saved in the state of the game
 	 * @param shapes list of shapes to be drawn

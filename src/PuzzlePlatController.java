@@ -225,5 +225,10 @@ public class PuzzlePlatController {
 		return false;
 		
 	}
+
+	public void moveCharacter(String string) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
