@@ -19,11 +19,6 @@ public class PuzzlePlatModel extends Observable{
 	
 	private int platformFloorY; //updated with every stage initiation
 	
-	//jumping stuff
-	private double maxDY;
-	private double gravity = 0.5;
-	private boolean falling; //debatable
-	
 	/**
 	 * getter for list of floors
 	 * @return list of floors
@@ -80,32 +75,47 @@ public class PuzzlePlatModel extends Observable{
 	}
 	
 	
-	////// PLAYER ONE STUFF BEGIN///////
+	////// PLAYER ONE CONTROL BEGIN///////
 	
-
+	/**
+	 * returns player object
+	 * @return p, player
+	 */
 	public PlayerOne getP() {
 		return p;
 	}
 
+	/**
+	 * sets player object
+	 * @param p, player
+	 */
 	public void setP(PlayerOne p) {
 		this.p = p;
 	}
 
+	/**
+	 * 
+	 * @return base floor coordinate
+	 */
 	public int getPlatformFloorY() {
 		return platformFloorY;
 	}
 
+	/**
+	 * sets platform base floor coordinate
+	 * @param platformFloorY
+	 */
 	public void setPlatformFloorY(int platformFloorY) {
 		this.platformFloorY = platformFloorY;
 	}
 	
-//	public void jumpPlayer() { //move to controller
-//		if(getP().isCanJump()) {
-//			getP().setVelocity(getP().getVelocity().add(0, -30));
-//			getP().setCanJump(false);
-//			}
-//	}
+	public int getImgNumber() {
+		return getP().getPlayerImgNumber();
+	}
 	
-	////// PLAYER ONE STUFF END///////
+	public void setImgNumber(int x) {
+		getP().setPlayerImgNumber(x);
+	}
+	////// PLAYER ONE CONTROL END///////
 
 }

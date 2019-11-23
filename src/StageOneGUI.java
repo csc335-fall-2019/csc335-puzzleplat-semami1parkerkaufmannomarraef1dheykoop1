@@ -52,33 +52,40 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		
 		drawTutorialText();
 		
-		controller.createPlayerOne();
+		controller.createPlayerOne(); //create character 1
 		
 		// print coordinates wherever you click, for testing purposes//
 		EventHandler<MouseEvent> mooso = new EventHandler<MouseEvent>() {
-
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("y = "+event.getY());
-				System.out.println("x = "+event.getX());
-				
+				System.out.println("x = "+event.getX());	
 			}
-			
 		};
-		
 		primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, mooso);
 		//////////
 		
 		// character 1 handlers //
 		EventHandler<KeyEvent> keyPressedNav = new EventHandler<KeyEvent>() {
-
+			int jmpCnt = 0;
 			@Override
 			public void handle(KeyEvent e) {
 				KeyCode key = e.getCode();
+				if(controller.getP1().getY()==controller.getPlatformFloor()) {
+					jmpCnt = 0;
+				}
 				if(key == KeyCode.UP) {
-				//	System.out.println("JUMP");
-			//		controller
-					
+					if(jmpCnt<1) {
+						controller.setCanJump(true);
+					}
+					else if(jmpCnt<2) {
+						controller.getP1().setJumpStrength(8);
+						controller.setCanJump(true);
+					}
+					else if(controller.getP1().getY()==controller.getPlatformFloor()){
+						jmpCnt = 0;
+					}
+					jmpCnt++;
 				}
 				
 				// TODO Maybe implement if we add a ladders?
@@ -86,67 +93,49 @@ public class StageOneGUI extends Application implements java.util.Observer{
 //					System.out.println("DOWN");
 //				}
 				else if(key == KeyCode.RIGHT) {
-				//	System.out.println("RIGHT");
 					controller.getP1().incrementX();
 					controller.getP1().setVelX(3);
-					//call moving right method
+					//call moving right method (called in tick)
 					controller.setCanMoveRight(true);
-				//	controller.moveRight();
 					//(increments, and animate picture
-					
 				}
 				else if(key == KeyCode.LEFT) {
-				//	System.out.println("LEFT");
 					controller.getP1().decrementX();
 					controller.getP1().setVelX(-3);
-					controller.moveLeft();
+					controller.setCanMoveLeft(true);
 				}
 				
 			}
 			
 		};
-		
-		
 		EventHandler<KeyEvent> keyReleasedNav = new EventHandler<KeyEvent>() {
-
 			@Override
 			public void handle(KeyEvent e) {
 				KeyCode key = e.getCode();
 				if(key == KeyCode.UP) {
-			//		System.out.println("JUMP");
-			//		controller
-					
 				}
-				
 				// TODO Maybe implement if we add a ladders?
 //				else if(key == KeyCode.DOWN) {
-//					System.out.println("DOWN");
 //				}
 				else if(key == KeyCode.RIGHT) {
-				//	System.out.println("RIGHT");
 					controller.getP1().incrementX();
 					controller.getP1().setVelX(0);
-					//call moving right method
+					//call moving right method, called in tick()
 					controller.setCanMoveRight(false);
-				//	controller.moveRight();
 					//(increments, and animate picture
 					
 				}
 				else if(key == KeyCode.LEFT) {
-				//	System.out.println("LEFT");
 					controller.getP1().decrementX();
 					controller.getP1().setVelX(0);
-					controller.moveLeft();
+					controller.setCanMoveLeft(false);
 				}
-				
 			}
 		};
-
-		
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyPressedNav);
 		primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, keyReleasedNav);
 		primaryStage.addEventHandler(KeyEvent.KEY_TYPED, keyPressedNav);
-		////////////
+		//////////// character control end ///////
 		
 		Group root = new Group();
 		root.getChildren().add(canvas);

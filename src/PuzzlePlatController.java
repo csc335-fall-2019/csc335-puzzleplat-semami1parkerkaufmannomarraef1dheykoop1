@@ -26,13 +26,13 @@ public class PuzzlePlatController {
 	
 	private PuzzlePlatModel model = new PuzzlePlatModel();
 	
-	private boolean canMoveRight = false;
+	
 	
 	/**
 	 * make all the floors for level one
 	 */
 	public void makeStageOneFloors() {
-		model.setPlatformFloorY(39); //base floor for testing character movement
+		model.setPlatformFloorY(201); //base floor for testing character movement
 		
 		Rectangle rect = new Rectangle(0,250,300,50);
 		rect.setFill(Color.DARKOLIVEGREEN);
@@ -186,8 +186,15 @@ public class PuzzlePlatController {
 		ArrayList<ArrayList<? extends Object>> state = new ArrayList<ArrayList<? extends Object>>();//state of the character, obstacles, and floor
 		
 		movePlayer();
-		if(canMoveRight) {
+		
+		if(model.getP().isCanMoveRight()) {
 			moveRight();
+		}
+		if(model.getP().isCanMoveLeft()) {
+			moveLeft();
+		}
+		if(model.getP().isCanJump()) {
+			playerJump();
 		}
 		
 		//moveEnemies();
@@ -196,7 +203,9 @@ public class PuzzlePlatController {
 		//checkForWin();
 		state.add(model.getFloors());
 		state.add(model.getObstacles());
+		
 		state.add(model.getCharacters());
+		
 		model.update();
 		model.notifyObservers(state);
 	}
@@ -254,104 +263,126 @@ public class PuzzlePlatController {
 	}
 	
 	
-//////PLAYER ONE STUFF BEGIN///////
-//	
-//	public void initPlayerOneAgain(GraphicsContext g) {
-//		final ImageView imageView = new ImageView("Elf2.png");
-//		imageView.setViewport(new Rectangle2D(10, 10, 10, 10));
-////	
-////		final Animation animation = new SpriteAnimation(
-////				imageView,
-////				Duration.millis(1000),
-////				10, 4,
-////				10, 10, 50, 50);
-////		animation.setCycleCount(Animation.INDEFINITE);
-////		animation.play();
-//		g.drawImage(imageView.getImage(), 40, 200);
-//		
-//	}
-	
+	/**
+	 * Creates Player One and adds them to character Array
+	 */
 	public void createPlayerOne() {
-		PlayerOne p1 = new PlayerOne(40,200);
+		PlayerOne p1 = new PlayerOne(30,200);
 		model.setP(p1);
 		model.characters.add(model.getP());
 	}
 	
+	/**
+	 * 
+	 * @return player one
+	 */
 	public PlayerOne getP1() {
 		return model.getP();
 	}
 	
+	/**
+	 * called every tick(), replaces rendered image
+	 * with sprite frame every 5 ticks
+	 * for right movements
+	 */
 	public void moveRight() {
-		Random rand = new Random();
-		int randy = rand.nextInt(3);
-		if(randy == 0) {
+		if(getP1().getPlayerImgNumber()<5) {
 			model.characters.get(0).SetPlayerImg(model.getP().getPpR1());
+			getP1().setPlayerImgNumber(getP1().getPlayerImgNumber() + 1);
 		}
-		else if(randy == 1) {
+		else if(getP1().getPlayerImgNumber()>=5 && getP1().getPlayerImgNumber()<10) {
+			model.characters.get(0).SetPlayerImg(model.getP().getPpR2());
+			getP1().setPlayerImgNumber(getP1().getPlayerImgNumber() + 1);
+		}
+		else if(getP1().getPlayerImgNumber()>=10 && getP1().getPlayerImgNumber()<15) {
 			model.characters.get(0).SetPlayerImg(model.getP().getPpR3());
+			getP1().setPlayerImgNumber(getP1().getPlayerImgNumber() + 1);
 		}
-		else if(randy == 2) {
+		else if(getP1().getPlayerImgNumber()>=15 && getP1().getPlayerImgNumber()<20) {
+			model.characters.get(0).SetPlayerImg(model.getP().getPpR4());
+			getP1().setPlayerImgNumber(getP1().getPlayerImgNumber() + 1);
+		}
+		else if(getP1().getPlayerImgNumber()>=20 && getP1().getPlayerImgNumber()<25) {
 			model.characters.get(0).SetPlayerImg(model.getP().getPpR5());
+			getP1().setPlayerImgNumber(0);
 		}
-//		else if(randy == 3) {
-//			model.characters.get(0).SetPlayerImg(model.getP().getPpR4());
-//		}
-//		else if(randy == 4) {
-//			model.characters.get(0).SetPlayerImg(model.getP().getPpR5());
-//		}
-//		//model.getP()
-		//model.characters.get(0).SetPlayerImg(model.getP().getPpR3());
-//		Timeline t = new Timeline();
-//		t.setCycleCount(Timeline.INDEFINITE);
-//		
-//		
-////		t.getKeyFrames().add(new KeyFrame(
-////				Duration.millis(1000),
-////				(ActionEvent e) -> {
-////			model.getP().getRightGroup().getChildren().setAll(model.getP().getPpR3());
-////		}));
-//		t.play();
 	}
 	
 
+	/**
+	 * called every tick(), replaces rendered image
+	 * with sprite frame every 5 ticks
+	 * for left movements
+	 */
 	public void moveLeft() {
-		Random rand = new Random();
-		int randy = rand.nextInt(5);
-		if(randy == 0) {
+		if(getP1().getPlayerImgNumber()<5) {
 			model.characters.get(0).SetPlayerImg(model.getP().getPpL1());
+			getP1().setPlayerImgNumber(getP1().getPlayerImgNumber() + 1);
 		}
-		else if(randy == 1) {
+		else if(getP1().getPlayerImgNumber()>=5 && getP1().getPlayerImgNumber()<10) {
 			model.characters.get(0).SetPlayerImg(model.getP().getPpL2());
+			getP1().setPlayerImgNumber(getP1().getPlayerImgNumber() + 1);
 		}
-		else if(randy == 2) {
+		else if(getP1().getPlayerImgNumber()>=10 && getP1().getPlayerImgNumber()<15) {
 			model.characters.get(0).SetPlayerImg(model.getP().getPpL3());
+			getP1().setPlayerImgNumber(getP1().getPlayerImgNumber() + 1);
 		}
-		else if(randy == 3) {
+		else if(getP1().getPlayerImgNumber()>=15 && getP1().getPlayerImgNumber()<20) {
 			model.characters.get(0).SetPlayerImg(model.getP().getPpL4());
+			getP1().setPlayerImgNumber(getP1().getPlayerImgNumber() + 1);
 		}
-		else if(randy == 4) {
+		else if(getP1().getPlayerImgNumber()>=20 && getP1().getPlayerImgNumber()<25) {
 			model.characters.get(0).SetPlayerImg(model.getP().getPpL5());
+			getP1().setPlayerImgNumber(0);
 		}
-//		//model.getP()
-		//model.characters.get(0).SetPlayerImg(model.getP().getPpR3());
-//		Timeline t = new Timeline();
-//		t.setCycleCount(Timeline.INDEFINITE);
-//		
-//		
-////		t.getKeyFrames().add(new KeyFrame(
-////				Duration.millis(1000),
-////				(ActionEvent e) -> {
-////			model.getP().getRightGroup().getChildren().setAll(model.getP().getPpR3());
-////		}));
-//		t.play();
 	}
 
-	public boolean isCanMoveRight() {
-		return canMoveRight;
-	}
-
+	/**
+	 * sets flag on keyboard input
+	 * @param canMove
+	 */
 	public void setCanMoveRight(boolean canMove) {
-		this.canMoveRight = canMove;
+		this.model.getP().setCanMoveRight(canMove);
+	}
+	
+	/**
+	 * sets flag on keyboard input
+	 * @param canMove
+	 */
+	public void setCanMoveLeft(boolean canMove) {
+		this.model.getP().setCanMoveLeft(canMove);
+	}
+	
+	/**
+	 * called every tick() if jumpFlag is true.
+	 * makes player jump
+	 */
+	public void playerJump() {
+		getP1().setY(getP1().getY()-getP1().getJumpStrength());
+		
+		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
+		
+		if(getP1().getY() >= this.model.getPlatformFloorY()) {
+			getP1().setY(this.model.getPlatformFloorY());
+			setCanJump(false);
+			getP1().setJumpStrength(13);
+		}
+	}
+
+	/**
+	 * sets character jump flag
+	 * @param b
+	 */
+	public void setCanJump(boolean b) {
+		this.model.getP().setCanJump(b);
+	}
+	/**
+	 * returns the platform's base floor
+	 * (for testing purposes)
+	 * @return base floor
+	 */
+	public int getPlatformFloor() {
+		return this.model.getPlatformFloorY();
 	}
 	
 }
