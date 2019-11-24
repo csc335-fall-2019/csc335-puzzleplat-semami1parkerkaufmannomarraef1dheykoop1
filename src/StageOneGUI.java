@@ -93,16 +93,27 @@ public class StageOneGUI extends Application implements java.util.Observer{
 //					System.out.println("DOWN");
 //				}
 				else if(key == KeyCode.RIGHT) {
-					controller.getP1().incrementX();
-					controller.getP1().setVelX(3);
-					//call moving right method (called in tick)
-					controller.setCanMoveRight(true);
-					//(increments, and animate picture
+					if (!controller.isCollision()) {
+						controller.getP1().incrementX();
+						controller.getP1().setVelX(3);
+						
+						//call moving right method (called in tick)
+						// TODO: add if no collisions
+						controller.setCanMoveRight(true);
+						//(increments, and animate picture
+					}else {
+						e.consume();
+					}
 				}
 				else if(key == KeyCode.LEFT) {
-					controller.getP1().decrementX();
-					controller.getP1().setVelX(-3);
-					controller.setCanMoveLeft(true);
+					if (!controller.isCollision()) {
+						controller.getP1().decrementX();
+						controller.getP1().setVelX(-3);
+						// TODO: add if no collisions
+						controller.setCanMoveLeft(true);
+					}else {
+						e.consume();
+					}
 				}
 				
 			}

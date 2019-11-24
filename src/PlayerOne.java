@@ -26,6 +26,11 @@ public class PlayerOne{
 	
 	private boolean canMoveRight = false;
 	private boolean canMoveLeft = false;
+	
+	private boolean movingUp = false;
+	private boolean movingDown = false;
+	private boolean movingRight = false;
+	private boolean movingLeft = false;
 
 	// unused vars
 //	private boolean animateRight;
@@ -83,6 +88,22 @@ public class PlayerOne{
 		
 		rightGroup.setTranslateX(40);
 		rightGroup.setTranslateY(200);
+	}
+	
+	public boolean movingUp() {
+		return movingUp;
+	}
+	
+	public boolean movingDown() {
+		return movingDown;
+	}
+	
+	public boolean movingRight() {
+		return movingRight;
+	}
+	
+	public boolean movingLeft() {
+		return movingLeft;
 	}
 	
 	/**

@@ -185,15 +185,16 @@ public class PuzzlePlatController {
 	public void tick() {
 		ArrayList<ArrayList<? extends Object>> state = new ArrayList<ArrayList<? extends Object>>();//state of the character, obstacles, and floor
 		
-		movePlayer();
+		if (!isCollision())
+			movePlayer();
 		
-		if(model.getP().isCanMoveRight()) {
+		if(model.getP().isCanMoveRight() && !isCollision()) { //&& !isCollision()) {
 			moveRight();
 		}
-		if(model.getP().isCanMoveLeft()) {
+		if(model.getP().isCanMoveLeft() && !isCollision()) {
 			moveLeft();
 		}
-		if(model.getP().isCanJump()) {
+		if(model.getP().isCanJump() && !isCollision()) {
 			playerJump();
 		}
 		
@@ -267,7 +268,7 @@ public class PuzzlePlatController {
 	 * Creates Player One and adds them to character Array
 	 */
 	public void createPlayerOne() {
-		PlayerOne p1 = new PlayerOne(30,200);
+		PlayerOne p1 = new PlayerOne(30, 200);
 		model.setP(p1);
 		model.characters.add(model.getP());
 	}
@@ -308,6 +309,59 @@ public class PuzzlePlatController {
 		}
 	}
 	
+	public boolean isCollision() {
+		PlayerOne player = model.getCharacters().get(0);
+		double player_width = player.getPlayerImg().getWidth();
+		double player_height = player.getPlayerImg().getHeight();
+		double player_x = player.getX();
+		double player_y = player.getY();
+		ArrayList<Shape> obstacles = model.getFloors();
+		for (Shape s: obstacles) {
+			 if (s instanceof Rectangle) {
+				 double height = ((Rectangle)s).getHeight();
+				 double width = ((Rectangle)s).getWidth();
+				 double x = ((Rectangle)s).getX();
+				 double y = ((Rectangle)s).getY();
+				 
+				 if (y < 250) {
+					 // Checks if the right side of the player hits an obstacle
+					 if ((player_x) < (x + width) && (player_x + player_width) > x
+							 && (player_y) < (y+height) && (player_y + player_height) > y) {
+						 //System.out.println("collision");
+						 return true;
+					 }
+					 if ((player_x + player_width) > x && (player_x + player_width) < (x+width) 
+							 && (player_y) < (y+height) && (player_y + player_height) > y) {
+						 System.out.println("Right collision");
+					 }
+					 /**
+					 // Checks if left side of the player hits an obstacle
+					 if ((player_x) <= (x+width) && (player_x) >= x
+							 && (player_y + player_height) <= (y+height) && (player_y + player_height) >= y) {
+						 return true;
+					 }
+					 
+					 //Checks if top of character has a collision
+					 // Might have to move this somewhere different to handle jumping
+					 /**
+					 if (player_y <= y && ((player_x >= x && player_x <= x+width) 
+							 || (player_x + player_width) >= x && (player_x + player_width) <= (x+width))) {
+						 return true;
+						 
+					 }
+					 */
+					 // Check these things:
+					 // right side of character touching obstacle
+					 // left side of character touching obstacle
+					 // top of character touching obstacle
+				 }
+				 
+			 }
+			// Check all sides of character with all sides of the obstacles
+			// if overlap exist return true 
+		}
+		return false;
+	}
 
 	/**
 	 * called every tick(), replaces rendered image
