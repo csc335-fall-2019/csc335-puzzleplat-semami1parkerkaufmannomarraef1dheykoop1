@@ -31,6 +31,8 @@ public class PlayerOne{
 	private boolean movingDown = false;
 	private boolean movingRight = false;
 	private boolean movingLeft = false;
+	
+	private boolean inLava = false;
 
 	// unused vars
 //	private boolean animateRight;
@@ -90,6 +92,14 @@ public class PlayerOne{
 		rightGroup.setTranslateY(200);
 	}
 	
+	public void setInLava(boolean lava) {
+		inLava = lava;
+	}
+	
+	public boolean inLava() {
+		return inLava;
+	}
+	
 	public boolean movingUp() {
 		return movingUp;
 	}
@@ -104,6 +114,23 @@ public class PlayerOne{
 	
 	public boolean movingLeft() {
 		return movingLeft;
+	}
+	
+	public void setMovingUp(boolean movingUp) {
+		this.movingUp = movingUp;
+	}
+	
+	public void setMovingDown(boolean movingDown) {
+		this.movingDown = movingDown;
+	
+	}
+	
+	public void setMovingRight(boolean movingRight) {
+		this.movingRight = movingRight;
+	}
+	
+	public void setMovingLeft(boolean movingLeft) {
+		this.movingLeft = movingLeft;
 	}
 	
 	/**

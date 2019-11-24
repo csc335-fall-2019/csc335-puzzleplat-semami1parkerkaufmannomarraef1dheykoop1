@@ -82,11 +82,13 @@ public class StageOneGUI extends Application implements java.util.Observer{
 						controller.getP1().setJumpStrength(8);
 						controller.setCanJump(true);
 					}
-					else if(controller.getP1().getY()==controller.getPlatformFloor()){
+					else if(controller.getP1().getY()==controller.getPlatformFloor() && !controller.getP1().inLava()){
 						jmpCnt = 0;
 					}
 					jmpCnt++;
+					
 				}
+			
 				
 				// TODO Maybe implement if we add a ladders?
 //				else if(key == KeyCode.DOWN) {
@@ -94,6 +96,8 @@ public class StageOneGUI extends Application implements java.util.Observer{
 //				}
 				else if(key == KeyCode.RIGHT) {
 					if (!controller.isCollision()) {
+						controller.getP1().setMovingRight(true);
+						controller.getP1().setMovingLeft(false);
 						controller.getP1().incrementX();
 						controller.getP1().setVelX(3);
 						
@@ -101,17 +105,41 @@ public class StageOneGUI extends Application implements java.util.Observer{
 						// TODO: add if no collisions
 						controller.setCanMoveRight(true);
 						//(increments, and animate picture
-					}else {
+					}
+					else if(!controller.getP1().movingRight()) {
+						controller.getP1().setMovingRight(true);
+						controller.getP1().setMovingLeft(false);
+						controller.getP1().incrementX();
+						controller.getP1().setVelX(3);
+						
+						//call moving right method (called in tick)
+						// TODO: add if no collisions
+						controller.setCanMoveRight(true);
+						//(increments, and animate picture
+					}
+					
+					else {
 						e.consume();
 					}
 				}
 				else if(key == KeyCode.LEFT) {
 					if (!controller.isCollision()) {
+						controller.getP1().setMovingLeft(true);
+						controller.getP1().setMovingRight(false);
 						controller.getP1().decrementX();
 						controller.getP1().setVelX(-3);
 						// TODO: add if no collisions
 						controller.setCanMoveLeft(true);
-					}else {
+					}
+					else if (!controller.getP1().movingLeft()) {
+						controller.getP1().setMovingLeft(true);
+						controller.getP1().setMovingRight(false);
+						controller.getP1().decrementX();
+						controller.getP1().setVelX(-3);
+						// TODO: add if no collisions
+						controller.setCanMoveLeft(true);
+					}
+					else {
 						e.consume();
 					}
 				}
@@ -129,7 +157,7 @@ public class StageOneGUI extends Application implements java.util.Observer{
 //				else if(key == KeyCode.DOWN) {
 //				}
 				else if(key == KeyCode.RIGHT) {
-					controller.getP1().incrementX();
+					//controller.getP1().incrementX();
 					controller.getP1().setVelX(0);
 					//call moving right method, called in tick()
 					controller.setCanMoveRight(false);
@@ -137,7 +165,7 @@ public class StageOneGUI extends Application implements java.util.Observer{
 					
 				}
 				else if(key == KeyCode.LEFT) {
-					controller.getP1().decrementX();
+					//controller.getP1().decrementX();
 					controller.getP1().setVelX(0);
 					controller.setCanMoveLeft(false);
 				}

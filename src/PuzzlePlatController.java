@@ -185,22 +185,46 @@ public class PuzzlePlatController {
 	public void tick() {
 		ArrayList<ArrayList<? extends Object>> state = new ArrayList<ArrayList<? extends Object>>();//state of the character, obstacles, and floor
 		
-		if (!isCollision())
+		if (isCollision()) {
+			if (getP1().movingRight()) {
+				if(model.getP().isCanMoveLeft()) { //&& !isCollision()) {
+					movePlayer();
+					moveRight();
+				}
+				if(model.getP().isCanJump()) {
+					movePlayer();
+					playerJump();
+				}
+			}
+			else if (getP1().movingLeft()) {
+				if(model.getP().isCanMoveRight()) { //&& !isCollision()) {
+					movePlayer();
+					moveRight();
+				}
+				if(model.getP().isCanJump()) {
+					movePlayer();
+					playerJump();
+				}
+			}
+		}
+		
+		else {
 			movePlayer();
-		
-		if(model.getP().isCanMoveRight() && !isCollision()) { //&& !isCollision()) {
-			moveRight();
+			if(model.getP().isCanMoveRight()) { //&& !isCollision()) {
+				moveRight();
+			}
+			if(model.getP().isCanMoveLeft()) {
+				moveLeft();
+			}
+			if(model.getP().isCanJump()) {
+				playerJump();
+			}
 		}
-		if(model.getP().isCanMoveLeft() && !isCollision()) {
-			moveLeft();
-		}
-		if(model.getP().isCanJump() && !isCollision()) {
-			playerJump();
-		}
-		
+		if (!getP1().inLava())
+			bringToFloor();
 		//moveEnemies();
 		moveRain();
-		//checkForDeath();
+		checkForDeath();
 		//checkForWin();
 		state.add(model.getFloors());
 		state.add(model.getObstacles());
@@ -322,47 +346,95 @@ public class PuzzlePlatController {
 				 double width = ((Rectangle)s).getWidth();
 				 double x = ((Rectangle)s).getX();
 				 double y = ((Rectangle)s).getY();
-				 
-				 if (y < 250) {
-					 // Checks if the right side of the player hits an obstacle
-					 if ((player_x) < (x + width) && (player_x + player_width) > x
-							 && (player_y) < (y+height) && (player_y + player_height) > y) {
-						 //System.out.println("collision");
-						 return true;
-					 }
-					 if ((player_x + player_width) > x && (player_x + player_width) < (x+width) 
-							 && (player_y) < (y+height) && (player_y + player_height) > y) {
-						 System.out.println("Right collision");
-					 }
-					 /**
-					 // Checks if left side of the player hits an obstacle
-					 if ((player_x) <= (x+width) && (player_x) >= x
-							 && (player_y + player_height) <= (y+height) && (player_y + player_height) >= y) {
-						 return true;
-					 }
-					 
-					 //Checks if top of character has a collision
-					 // Might have to move this somewhere different to handle jumping
-					 /**
-					 if (player_y <= y && ((player_x >= x && player_x <= x+width) 
-							 || (player_x + player_width) >= x && (player_x + player_width) <= (x+width))) {
-						 return true;
-						 
-					 }
-					 */
-					 // Check these things:
-					 // right side of character touching obstacle
-					 // left side of character touching obstacle
-					 // top of character touching obstacle
+				 				 
+				 Collision new_collision = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
+				 if (new_collision.isCollision()) {
+					 return true;
 				 }
 				 
 			 }
-			// Check all sides of character with all sides of the obstacles
-			// if overlap exist return true 
 		}
 		return false;
 	}
-
+	
+	public void bringToFloor() {
+		PlayerOne player = getP1();
+		ArrayList<Shape> floors = getFloors();
+		double player_width = player.getPlayerImg().getWidth();
+		double player_height = player.getPlayerImg().getHeight();
+		double player_x = player.getX();
+		double player_y = player.getY();
+		for (Shape s: floors) {
+			if (s instanceof Rectangle) {
+				 double height = ((Rectangle)s).getHeight();
+				 double width = ((Rectangle)s).getWidth();
+				 double x = ((Rectangle)s).getX();
+				 double y = ((Rectangle)s).getY();
+				 Collision new_col = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
+				 if (new_col.isCollision()) {
+					 return;
+				 }
+			}
+		}
+		// bring to lava
+		
+		ArrayList<Shape> obstacles = getObstacles();
+		for (Shape s: obstacles) {
+			if (s instanceof Rectangle) {
+				 double height = ((Rectangle)s).getHeight();
+				 double width = ((Rectangle)s).getWidth();
+				 double x = ((Rectangle)s).getX();
+				 double y = ((Rectangle)s).getY();
+				 if (player_x + 15 > x && ((player_x + player_width) - 15) < (x + width)) {
+					 // Bring back down gradually
+					 player.setY(player.getY()+5);
+				 }
+			}
+		}
+		
+	
+	}
+	
+	public void checkForDeath() {
+		PlayerOne player = getP1();
+		ArrayList<Shape> floors = getFloors();
+		double player_width = player.getPlayerImg().getWidth();
+		double player_height = player.getPlayerImg().getHeight();
+		double player_x = player.getX();
+		double player_y = player.getY();
+		for (Shape s: floors) {
+			if (s instanceof Rectangle) {
+				 double height = ((Rectangle)s).getHeight();
+				 double width = ((Rectangle)s).getWidth();
+				 double x = ((Rectangle)s).getX();
+				 double y = ((Rectangle)s).getY();
+				 Collision new_col = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
+				 if (new_col.isCollision()) {
+					 // Show and wait with 'You Lose'
+					 return;
+				 }
+			}
+		}
+		// bring to lava
+		
+		ArrayList<Shape> obstacles = getObstacles();
+		for (Shape s: obstacles) {
+			if (s instanceof Rectangle) {
+				 double height = ((Rectangle)s).getHeight();
+				 double width = ((Rectangle)s).getWidth();
+				 double x = ((Rectangle)s).getX();
+				 double y = ((Rectangle)s).getY();
+				 Collision new_col = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
+				 if (new_col.isCollision()) {
+					 // Show and wait
+					 player.setY(y - 20);
+					 System.out.println("Yaaaaarp");
+					 player.setInLava(true);
+				 }
+			}
+		}
+	}
+	
 	/**
 	 * called every tick(), replaces rendered image
 	 * with sprite frame every 5 ticks
@@ -415,6 +487,7 @@ public class PuzzlePlatController {
 		getP1().setY(getP1().getY()-getP1().getJumpStrength());
 		
 		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
+		
 		
 		if(getP1().getY() >= this.model.getPlatformFloorY()) {
 			getP1().setY(this.model.getPlatformFloorY());
