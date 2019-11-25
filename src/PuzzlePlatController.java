@@ -384,5 +384,5 @@ public class PuzzlePlatController {
 	public int getPlatformFloor() {
 		return this.model.getPlatformFloorY();
 	}
-	
+
 }
