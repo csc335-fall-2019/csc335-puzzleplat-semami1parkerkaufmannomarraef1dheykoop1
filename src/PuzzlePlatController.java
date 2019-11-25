@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observer;
+import java.util.Optional;
 import java.util.Random;
 
 import javafx.animation.Animation;
@@ -12,8 +13,11 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -25,6 +29,8 @@ import java.awt.event.KeyListener;
 public class PuzzlePlatController {
 	
 	private PuzzlePlatModel model = new PuzzlePlatModel();
+	private AnimationTimer at;
+	private boolean gameOver = false;
 	
 	
 	
@@ -54,15 +60,15 @@ public class PuzzlePlatController {
 		rect.setFill(Color.DARKOLIVEGREEN);
 		model.addFloor(rect);
 		
-		rect = new Rectangle(375,150,50,20);
+		//rect = new Rectangle(375,150,50,20);
+		//rect.setFill(Color.DARKOLIVEGREEN);
+		//model.addFloor(rect);
+		
+		rect = new Rectangle(410,230,20,20);
 		rect.setFill(Color.DARKOLIVEGREEN);
 		model.addFloor(rect);
 		
-		rect = new Rectangle(390,230,20,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
-		model.addFloor(rect);
-		
-		rect = new Rectangle(450,180,50,20);
+		rect = new Rectangle(450,140,50,20);
 		rect.setFill(Color.DARKOLIVEGREEN);
 		model.addFloor(rect);
 		
@@ -165,7 +171,7 @@ public class PuzzlePlatController {
 	*/
 	public void start() {
 		int ticksPerFrame = 1;
-		AnimationTimer at = new AnimationTimer() {
+		at = new AnimationTimer() {
 		@Override
 		public void handle(long now) {
 			// perform ticksPerFrame ticks
@@ -185,29 +191,36 @@ public class PuzzlePlatController {
 	public void tick() {
 		ArrayList<ArrayList<? extends Object>> state = new ArrayList<ArrayList<? extends Object>>();//state of the character, obstacles, and floor
 		
+		// If there's a collision, we should check what direction it was going last so
+		// we can go a different direction.
+		if (getP1().isCancelJump() && getP1().getLastMove().equals(KeyCode.UP)) {
+			cancelJump();
+		}
+		
 		if (isCollision()) {
-			if (getP1().movingRight()) {
+			if (getP1().getLastMove().equals(KeyCode.RIGHT)) {
 				if(model.getP().isCanMoveLeft()) { //&& !isCollision()) {
 					movePlayer();
 					moveRight();
 				}
-				if(model.getP().isCanJump()) {
+				if (model.getP().isCanJump()) {
 					movePlayer();
 					playerJump();
 				}
 			}
-			else if (getP1().movingLeft()) {
+			else if (getP1().getLastMove().equals(KeyCode.LEFT)) {
 				if(model.getP().isCanMoveRight()) { //&& !isCollision()) {
 					movePlayer();
 					moveRight();
 				}
-				if(model.getP().isCanJump()) {
+				if (model.getP().isCanJump()) {
 					movePlayer();
 					playerJump();
 				}
 			}
 		}
 		
+		// If there aren't collisions, should be free to move anywhere
 		else {
 			movePlayer();
 			if(model.getP().isCanMoveRight()) { //&& !isCollision()) {
@@ -220,8 +233,8 @@ public class PuzzlePlatController {
 				playerJump();
 			}
 		}
-		if (!getP1().inLava())
-			bringToFloor();
+		
+		bringToFloor();
 		//moveEnemies();
 		moveRain();
 		checkForDeath();
@@ -333,12 +346,20 @@ public class PuzzlePlatController {
 		}
 	}
 	
+	/**
+	 * Determines if there is a collision between the player and obstacles. The floor is ignored
+	 * here.
+	 * @return whether or not there is a collision between player and an obstacle
+	 */
 	public boolean isCollision() {
 		PlayerOne player = model.getCharacters().get(0);
 		double player_width = player.getPlayerImg().getWidth();
-		double player_height = player.getPlayerImg().getHeight();
+		double player_height = 49;
 		double player_x = player.getX();
 		double player_y = player.getY();
+		if((player_x < 0) || (player_x + player_width) > 1250) {
+			return true;
+		}
 		ArrayList<Shape> obstacles = model.getFloors();
 		for (Shape s: obstacles) {
 			 if (s instanceof Rectangle) {
@@ -346,10 +367,13 @@ public class PuzzlePlatController {
 				 double width = ((Rectangle)s).getWidth();
 				 double x = ((Rectangle)s).getX();
 				 double y = ((Rectangle)s).getY();
-				 				 
-				 Collision new_collision = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
-				 if (new_collision.isCollision()) {
-					 return true;
+				 if (y < 250) {		 
+					 Collision new_collision = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
+					 if (new_collision.isCollision()) {
+						 getP1().setCancelJump(true);
+						 System.out.println("Uh oh");
+						 return true;
+					 }
 				 }
 				 
 			 }
@@ -357,6 +381,12 @@ public class PuzzlePlatController {
 		return false;
 	}
 	
+	
+	/**
+	 * When the character is standing in the crack above the lava, we need to bring him down
+	 * towards the lava.
+	 * 
+	 */
 	public void bringToFloor() {
 		PlayerOne player = getP1();
 		ArrayList<Shape> floors = getFloors();
@@ -364,19 +394,6 @@ public class PuzzlePlatController {
 		double player_height = player.getPlayerImg().getHeight();
 		double player_x = player.getX();
 		double player_y = player.getY();
-		for (Shape s: floors) {
-			if (s instanceof Rectangle) {
-				 double height = ((Rectangle)s).getHeight();
-				 double width = ((Rectangle)s).getWidth();
-				 double x = ((Rectangle)s).getX();
-				 double y = ((Rectangle)s).getY();
-				 Collision new_col = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
-				 if (new_col.isCollision()) {
-					 return;
-				 }
-			}
-		}
-		// bring to lava
 		
 		ArrayList<Shape> obstacles = getObstacles();
 		for (Shape s: obstacles) {
@@ -385,16 +402,30 @@ public class PuzzlePlatController {
 				 double width = ((Rectangle)s).getWidth();
 				 double x = ((Rectangle)s).getX();
 				 double y = ((Rectangle)s).getY();
-				 if (player_x + 15 > x && ((player_x + player_width) - 15) < (x + width)) {
-					 // Bring back down gradually
-					 player.setY(player.getY()+5);
+				 if (player_x + 20 > x && ((player_x + player_width) - 20) < (x + width)) {
+					 // Bring back down gradually - should go down when the character is not
+					 // moving or trying to walk over the lava
+					 if (noMovement() || getP1().movingLeft() || getP1().movingRight());
+						 player.setY(player.getY()+1);
 				 }
 			}
 		}
 		
-	
 	}
 	
+	/**
+	 * Tells if the character is still.
+	 * @return boolean that tells us if the character is not moving
+	 */
+	public boolean noMovement() {
+		return !getP1().movingRight() && !getP1().movingLeft();
+	}
+	
+	
+	/**
+	 * Checks whether there is a collision between the character and a block of lava.
+	 * This will then set variables to end the game.
+	 */
 	public void checkForDeath() {
 		PlayerOne player = getP1();
 		ArrayList<Shape> floors = getFloors();
@@ -402,21 +433,6 @@ public class PuzzlePlatController {
 		double player_height = player.getPlayerImg().getHeight();
 		double player_x = player.getX();
 		double player_y = player.getY();
-		for (Shape s: floors) {
-			if (s instanceof Rectangle) {
-				 double height = ((Rectangle)s).getHeight();
-				 double width = ((Rectangle)s).getWidth();
-				 double x = ((Rectangle)s).getX();
-				 double y = ((Rectangle)s).getY();
-				 Collision new_col = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
-				 if (new_col.isCollision()) {
-					 // Show and wait with 'You Lose'
-					 return;
-				 }
-			}
-		}
-		// bring to lava
-		
 		ArrayList<Shape> obstacles = getObstacles();
 		for (Shape s: obstacles) {
 			if (s instanceof Rectangle) {
@@ -426,13 +442,23 @@ public class PuzzlePlatController {
 				 double y = ((Rectangle)s).getY();
 				 Collision new_col = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
 				 if (new_col.isCollision()) {
-					 // Show and wait
-					 player.setY(y - 20);
-					 System.out.println("Yaaaaarp");
+					 // Sets the player at a reasonable height, but causes a little jump when
+					 // the game ends and the show window pops up
+					 player.setY(y - 45);
 					 player.setInLava(true);
+					 gameOver = true;
 				 }
 			}
 		}
+	}
+	
+	
+	/**
+	 * Tells whether the game is over or not.
+	 * @return boolean that is true if the game is over.
+	 */
+	public boolean isGameOver() {
+		return gameOver || getP1().getX()+getP1().getPlayerImg().getWidth() > 1220;
 	}
 	
 	/**
@@ -479,6 +505,7 @@ public class PuzzlePlatController {
 		this.model.getP().setCanMoveLeft(canMove);
 	}
 	
+	
 	/**
 	 * called every tick() if jumpFlag is true.
 	 * makes player jump
@@ -488,14 +515,90 @@ public class PuzzlePlatController {
 		
 		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
 		
+		//Collision new_collision = floorCollision();
 		
 		if(getP1().getY() >= this.model.getPlatformFloorY()) {
+			// || collision with floor
 			getP1().setY(this.model.getPlatformFloorY());
 			setCanJump(false);
 			getP1().setJumpStrength(13);
 		}
+		/*
+		else if(new_collision != null) {
+			if (getP1().getY() >= new_collision.getY2()) {
+				System.out.println("floor collision at " + new_collision.getY2());
+				getP1().setY(new_collision.getY2());
+				setCanJump(false);
+				getP1().setJumpStrength(13);
+			}
+		}
+		*/
+	}
+	
+	public Collision floorCollision() {
+		PlayerOne player = getP1();
+		ArrayList<Shape> floors = getFloors();
+		double player_width = player.getPlayerImg().getWidth();
+		double player_height = 49;
+		double player_x = player.getX();
+		double player_y = player.getY();
+		Collision new_col;
+		for (Shape s: floors) {
+			if (s instanceof Rectangle) {
+				 double height = ((Rectangle)s).getHeight();
+				 double width = ((Rectangle)s).getWidth();
+				 double x = ((Rectangle)s).getX();
+				 double y = ((Rectangle)s).getY();
+				 new_col = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
+				 if (new_col.isCollision()) {
+					 return new_col;
+				 }
+			}
+		}
+		return null;
 	}
 
+	public void cancelJump() {
+		if (!getP1().isCanJumpAgain()) {
+			getP1().setJumpStrength(0);
+		}
+		Collision new_col = floorCollision();
+		if (new_col != null ) {
+			if (new_col.getY1() < new_col.getY2())
+				System.out.println(new_col.getY1() + " " + new_col.getY2());
+				getP1().setY(new_col.getY2() - new_col.getHeight1());
+				
+				// Not important but a NOTE: making setCanJump here lets you jump on top
+				// like a trampoline
+				setCanJump(true);
+				
+				setCancelJump(false);
+				getP1().setCanJumpAgain(false);
+				getP1().setJumpStrength(13);
+				return;
+			
+		}
+		getP1().setCanJumpAgain(true);
+		
+		getP1().setY(getP1().getY() - getP1().getJumpStrength());
+		
+		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
+		
+		if(getP1().getY() >= this.model.getPlatformFloorY()) {
+			getP1().setY(this.model.getPlatformFloorY());
+			setCanJump(false);
+			setCancelJump(false);
+			getP1().setCanJumpAgain(false);
+			getP1().setJumpStrength(13);
+		}
+		
+	}
+	
+	private void setCancelJump(boolean b) {
+		this.model.getP().setCancelJump(b);
+	}
+	
+	
 	/**
 	 * sets character jump flag
 	 * @param b
@@ -510,6 +613,15 @@ public class PuzzlePlatController {
 	 */
 	public int getPlatformFloor() {
 		return this.model.getPlatformFloorY();
+	}
+
+	/**
+	 * Stops the animation from running. I did this because I couldn't produce the 
+	 * show view without stopping the animation.
+	 */
+	public void stop() {
+		at.stop();
+		
 	}
 	
 }

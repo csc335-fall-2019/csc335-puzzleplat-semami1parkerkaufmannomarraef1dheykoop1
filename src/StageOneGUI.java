@@ -6,15 +6,19 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.Observable;
+import java.util.Optional;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -30,6 +34,7 @@ public class StageOneGUI extends Application implements java.util.Observer{
 	
 	PuzzlePlatController controller = new PuzzlePlatController();
 	GraphicsContext gc;
+	private boolean consumed = false;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -70,23 +75,54 @@ public class StageOneGUI extends Application implements java.util.Observer{
 			int jmpCnt = 0;
 			@Override
 			public void handle(KeyEvent e) {
+				consumed = false;
 				KeyCode key = e.getCode();
+				
 				if(controller.getP1().getY()==controller.getPlatformFloor()) {
 					jmpCnt = 0;
 				}
+			
 				if(key == KeyCode.UP) {
-					if(jmpCnt<1) {
-						controller.setCanJump(true);
+					if (!controller.isCollision()) {
+						if(jmpCnt<1) {
+							controller.setCanJump(true);
+						}
+						else if(jmpCnt<2) {
+							controller.getP1().setJumpStrength(8);
+							controller.setCanJump(true);
+						}
+						else if(controller.getP1().getY()==controller.getPlatformFloor()) {// && !controller.getP1().inLava()){
+							jmpCnt = 0;
+						}
+						else {
+							consumed = true;
+							e.consume();
+						}
+						if (!consumed)
+							jmpCnt++;
 					}
-					else if(jmpCnt<2) {
-						controller.getP1().setJumpStrength(8);
-						controller.setCanJump(true);
+					else if (controller.isCollision() && !controller.getP1().getLastMove().equals(key)) {
+						if(jmpCnt<1) {
+							controller.setCanJump(true);
+						}
+						else if(jmpCnt<2) {
+							controller.getP1().setJumpStrength(8);
+							controller.setCanJump(true);
+						}
+						else if(controller.getP1().getY()==controller.getPlatformFloor()) {// && !controller.getP1().inLava()){
+							jmpCnt = 0;
+						}
+						else {
+							consumed = true;
+							e.consume();
+						}
+						if (!consumed)
+							jmpCnt++;
 					}
-					else if(controller.getP1().getY()==controller.getPlatformFloor() && !controller.getP1().inLava()){
-						jmpCnt = 0;
+					else {
+						consumed = true;
+						e.consume();
 					}
-					jmpCnt++;
-					
 				}
 			
 				
@@ -100,13 +136,12 @@ public class StageOneGUI extends Application implements java.util.Observer{
 						controller.getP1().setMovingLeft(false);
 						controller.getP1().incrementX();
 						controller.getP1().setVelX(3);
-						
-						//call moving right method (called in tick)
-						// TODO: add if no collisions
 						controller.setCanMoveRight(true);
 						//(increments, and animate picture
 					}
-					else if(!controller.getP1().movingRight()) {
+					else if(controller.isCollision() && !controller.getP1().getLastMove().equals(key)) {
+						// This allows you to click a different key, then click this key and you will
+						// be able to move throught the obstacle
 						controller.getP1().setMovingRight(true);
 						controller.getP1().setMovingLeft(false);
 						controller.getP1().incrementX();
@@ -119,30 +154,36 @@ public class StageOneGUI extends Application implements java.util.Observer{
 					}
 					
 					else {
+						consumed = true;
 						e.consume();
 					}
 				}
 				else if(key == KeyCode.LEFT) {
 					if (!controller.isCollision()) {
 						controller.getP1().setMovingLeft(true);
-						controller.getP1().setMovingRight(false);
 						controller.getP1().decrementX();
 						controller.getP1().setVelX(-3);
 						// TODO: add if no collisions
 						controller.setCanMoveLeft(true);
 					}
-					else if (!controller.getP1().movingLeft()) {
+					else if (controller.isCollision() && !controller.getP1().getLastMove().equals(key)) {
 						controller.getP1().setMovingLeft(true);
-						controller.getP1().setMovingRight(false);
 						controller.getP1().decrementX();
 						controller.getP1().setVelX(-3);
 						// TODO: add if no collisions
 						controller.setCanMoveLeft(true);
 					}
 					else {
+						consumed = true;
 						e.consume();
 					}
 				}
+				else {
+					consumed = true;
+					e.consume();
+				}
+				if (!consumed)
+					controller.getP1().setLastMove(key);
 				
 			}
 			
@@ -152,6 +193,7 @@ public class StageOneGUI extends Application implements java.util.Observer{
 			public void handle(KeyEvent e) {
 				KeyCode key = e.getCode();
 				if(key == KeyCode.UP) {
+					
 				}
 				// TODO Maybe implement if we add a ladders?
 //				else if(key == KeyCode.DOWN) {
@@ -161,6 +203,7 @@ public class StageOneGUI extends Application implements java.util.Observer{
 					controller.getP1().setVelX(0);
 					//call moving right method, called in tick()
 					controller.setCanMoveRight(false);
+					controller.getP1().setMovingRight(false);
 					//(increments, and animate picture
 					
 				}
@@ -168,7 +211,15 @@ public class StageOneGUI extends Application implements java.util.Observer{
 					//controller.getP1().decrementX();
 					controller.getP1().setVelX(0);
 					controller.setCanMoveLeft(false);
+					controller.getP1().setMovingLeft(false);
+				}else {
+					//consumed = true;
+					e.consume();
 				}
+				/*
+				if (!consumed)
+					controller.getP1().setLastMove(key);
+				*/
 			}
 		};
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyPressedNav);
@@ -242,6 +293,20 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		PlayerOne renderedPlayer = ((ArrayList<PlayerOne>)((ArrayList<Object>)arg).get(2)).get(0);
 		gc.drawImage(renderedPlayer.getPlayerImg(), renderedPlayer.getX(), renderedPlayer.getY());
 		
+		
+		if (controller.isGameOver()) {
+			controller.stop();
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		    alert.setTitle(null);
+		    alert.setHeaderText(null);
+		    if (controller.getP1().inLava())
+		    	alert.setContentText("Game Over. You fell into some lava!");
+		    else
+		    	alert.setContentText("Level Completed! Great Work.");
+		    alert.setOnHidden(evt -> Platform.exit());
+		    alert.show(); 
+		}
+
 	}
 	
 

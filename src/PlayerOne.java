@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 
 public class PlayerOne{
 	private double xPos;
@@ -23,6 +24,11 @@ public class PlayerOne{
 	private double weight = 1;
 		
 	private boolean canJump = false;
+	private boolean cancelJump = false;
+	
+	private boolean canJumpAgain = false;
+	
+	private KeyCode lastMove;
 	
 	private boolean canMoveRight = false;
 	private boolean canMoveLeft = false;
@@ -68,6 +74,8 @@ public class PlayerOne{
 		this.xPos = x;
 		this.yPos = y;
 		
+		this.setLastMove(null);
+		
 		this.setHealth(100);
 		this.setLives(3);
 		
@@ -92,43 +100,89 @@ public class PlayerOne{
 		rightGroup.setTranslateY(200);
 	}
 	
+	/**
+	 * Sets to true when a player is in lava - currently unused
+	 * @param lava whether or not this character is in lava
+	 */
 	public void setInLava(boolean lava) {
 		inLava = lava;
 	}
 	
+	/**
+	 * Tells whether the character is in lava - currently unused
+	 * @return
+	 */
 	public boolean inLava() {
 		return inLava;
 	}
 	
+	/**
+	 * Tells whether a character is moving up or not - currently unused
+	 * @return boolean that is true if this character is moving up
+	 */
 	public boolean movingUp() {
 		return movingUp;
 	}
 	
+	/**
+	 * Tells whether this character is moving down or not - unused
+	 * @return boolean that tells if the character is moving down
+	 */
 	public boolean movingDown() {
 		return movingDown;
 	}
 	
+	/**
+	 * Tells whether the character is moving right
+	 * 
+	 * @return boolean that tells whether the character is moving right
+	 */
 	public boolean movingRight() {
 		return movingRight;
 	}
 	
+	/**
+	 * Tells us whether the character is moving left
+	 * 
+	 * @return boolean that tells if the character is moving left
+	 */
 	public boolean movingLeft() {
 		return movingLeft;
 	}
 	
+	/**
+	 * Sets the character's movingUp boolean
+	 * 
+	 * @param movingUp whether the character is moving up or not
+	 */
 	public void setMovingUp(boolean movingUp) {
 		this.movingUp = movingUp;
 	}
 	
+	/**
+	 * Sets the character's movingDown boolean
+	 * 
+	 * @param movingDown whether the character is moving down or not
+	 */
 	public void setMovingDown(boolean movingDown) {
 		this.movingDown = movingDown;
 	
 	}
 	
+	/**
+	 * Sets the character's movingRight boolean
+	 * 
+	 * @param movingRight tells whether the character is movingRight or not
+	 */
 	public void setMovingRight(boolean movingRight) {
 		this.movingRight = movingRight;
 	}
 	
+	/**
+	 * Sets the characters movingLeft boolean
+	 * 
+	 * @param movingLeft whether the character is moving left or not
+	 */
 	public void setMovingLeft(boolean movingLeft) {
 		this.movingLeft = movingLeft;
 	}
@@ -201,7 +255,23 @@ public class PlayerOne{
 	public void decrementX() {
 		this.xPos=this.xPos-7;
 	}
+	
+	/**
+	 * returns jump flag
+	 * @return 
+	 */
+	public boolean isCancelJump() {
+		return cancelJump;
+	}
 
+	/**
+	 * sets jump flag
+	 * @param cancelJump
+	 */
+	public void setCancelJump(boolean cancelJump) {
+		this.cancelJump = cancelJump;
+	}
+	
 	/**
 	 * returns jump flag
 	 * @return canJump
@@ -545,6 +615,26 @@ public class PlayerOne{
 	 */
 	public void setPlayerImgNumber(int playerImgNumber) {
 		this.playerImgNumber = playerImgNumber;
+	}
+	
+	
+	public KeyCode getLastMove() {
+		return lastMove;
+	}
+	
+	
+	public void setLastMove(KeyCode lastMove) {
+		this.lastMove = lastMove;
+	}
+	
+	public boolean isCanJumpAgain() {
+		return canJumpAgain;
+	}
+	
+	public void setCanJumpAgain(boolean canJumpAgain) {
+		this.canJumpAgain = canJumpAgain;
+		
+		
 	}
 	
 }
