@@ -233,8 +233,10 @@ public class PuzzlePlatController {
 				playerJump();
 			}
 		}
-		
-		bringToFloor();
+		if (getP1().getLastMove() != null) {
+			if (!getP1().getLastMove().equals(KeyCode.UP) || noMovement())
+				bringToFloor();
+		}
 		//moveEnemies();
 		moveRain();
 		checkForDeath();

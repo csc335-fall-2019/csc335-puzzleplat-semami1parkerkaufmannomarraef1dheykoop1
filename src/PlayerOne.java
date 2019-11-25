@@ -28,7 +28,7 @@ public class PlayerOne{
 	
 	private boolean canJumpAgain = false;
 	
-	private KeyCode lastMove;
+	private KeyCode lastMove = null;
 	
 	private boolean canMoveRight = false;
 	private boolean canMoveLeft = false;
