@@ -37,7 +37,6 @@ public class Menu extends Application {
 		private String level;
 		private Stage dummyStage;
 		private static boolean enter;
-		private PuzzlePlat launchGame;
 		
 		public static final CountDownLatch latch = new CountDownLatch(1);
 	    public static Menu startUpTest = null;

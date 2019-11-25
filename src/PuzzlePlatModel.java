@@ -1,12 +1,31 @@
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Shape;
 
 public class PuzzlePlatModel extends Observable{
 	ArrayList<Shape> floors = new ArrayList<>();
+	
 	ArrayList<Shape> obstacles = new ArrayList<>();
+
+	ArrayList<PlayerOne> characters = new ArrayList<>();
+	
 	//Character player1
+	private PlayerOne p;
+	
+	private int platformFloorY; //updated with every stage initiation
+	
+	/**
+	 * getter for list of floors
+	 * @return list of floors
+	 */
+	public ArrayList<PlayerOne> getCharacters() {
+		return characters;
+	}
 	
 	/**
 	 * getter for list of floors
@@ -56,5 +75,47 @@ public class PuzzlePlatModel extends Observable{
 	}
 	
 	
+	////// PLAYER ONE CONTROL BEGIN///////
+	
+	/**
+	 * returns player object
+	 * @return p, player
+	 */
+	public PlayerOne getP() {
+		return p;
+	}
+
+	/**
+	 * sets player object
+	 * @param p, player
+	 */
+	public void setP(PlayerOne p) {
+		this.p = p;
+	}
+
+	/**
+	 * 
+	 * @return base floor coordinate
+	 */
+	public int getPlatformFloorY() {
+		return platformFloorY;
+	}
+
+	/**
+	 * sets platform base floor coordinate
+	 * @param platformFloorY
+	 */
+	public void setPlatformFloorY(int platformFloorY) {
+		this.platformFloorY = platformFloorY;
+	}
+	
+	public int getImgNumber() {
+		return getP().getPlayerImgNumber();
+	}
+	
+	public void setImgNumber(int x) {
+		getP().setPlayerImgNumber(x);
+	}
+	////// PLAYER ONE CONTROL END///////
 
 }
