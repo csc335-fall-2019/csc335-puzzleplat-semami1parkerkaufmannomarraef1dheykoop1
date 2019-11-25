@@ -373,12 +373,13 @@ public class PuzzlePlatController {
 					 Collision new_collision = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
 					 if (new_collision.isCollision()) {
 						 getP1().setCancelJump(true);
-						 System.out.println("Uh oh");
 						 return true;
 					 }
 				 }
 				 
 			 }
+			 // if (s instanceof myCircle){
+			 // }
 		}
 		return false;
 	}
@@ -408,7 +409,7 @@ public class PuzzlePlatController {
 					 // Bring back down gradually - should go down when the character is not
 					 // moving or trying to walk over the lava
 					 if (noMovement() || getP1().movingLeft() || getP1().movingRight());
-						 player.setY(player.getY()+1);
+						 player.setY(player.getY()+2);
 				 }
 			}
 		}
@@ -560,19 +561,26 @@ public class PuzzlePlatController {
 		return null;
 	}
 
+	
+	/**
+	 * Handles the collision that happens when the character's head hits the bottom of one of the obstacles
+	 * 
+	 */
 	public void cancelJump() {
 		if (!getP1().isCanJumpAgain()) {
 			getP1().setJumpStrength(0);
 		}
+		
+		/*
 		Collision new_col = floorCollision();
 		if (new_col != null ) {
 			if (new_col.getY1() < new_col.getY2())
-				System.out.println(new_col.getY1() + " " + new_col.getY2());
+				//System.out.println(new_col.getY1() + " " + new_col.getY2());
 				getP1().setY(new_col.getY2() - new_col.getHeight1());
 				
 				// Not important but a NOTE: making setCanJump here lets you jump on top
 				// like a trampoline
-				setCanJump(true);
+				setCanJump(false);
 				
 				setCancelJump(false);
 				getP1().setCanJumpAgain(false);
@@ -580,6 +588,7 @@ public class PuzzlePlatController {
 				return;
 			
 		}
+		*/
 		getP1().setCanJumpAgain(true);
 		
 		getP1().setY(getP1().getY() - getP1().getJumpStrength());
@@ -596,6 +605,11 @@ public class PuzzlePlatController {
 		
 	}
 	
+	/**
+	 * Sets the cancelJump flag to b
+	 * 
+	 * @param b true if we need to cancel a jump
+	 */
 	private void setCancelJump(boolean b) {
 		this.model.getP().setCancelJump(b);
 	}
