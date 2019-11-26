@@ -563,7 +563,7 @@ public class PuzzlePlatController {
 	public void cancelJump() {
 		if (!getP1().isCanJumpAgain()) {
 			getP1().setJumpStrength(0);
-		}
+		}/*
 		Collision new_col = floorCollision();
 		if (new_col != null ) {
 			if (new_col.getY1() < new_col.getY2())
@@ -579,7 +579,7 @@ public class PuzzlePlatController {
 				getP1().setJumpStrength(13);
 				return;
 			
-		}
+		}*/
 		getP1().setCanJumpAgain(true);
 		
 		getP1().setY(getP1().getY() - getP1().getJumpStrength());
