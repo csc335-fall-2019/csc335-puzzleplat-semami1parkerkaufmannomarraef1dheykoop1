@@ -41,28 +41,6 @@ public class Menu extends Application {
 		public static final CountDownLatch latch = new CountDownLatch(1);
 	    public static Menu startUpTest = null;
 
-	    public static Menu waitForStartUpTest() {
-	        try {
-	            latch.await();
-	        } catch (InterruptedException e) {
-	            e.printStackTrace();
-	        }
-	        return startUpTest;
-	    }
-
-	    public static void setStartUpTest(Menu startUpTest0) {
-	        startUpTest = startUpTest0;
-	        latch.countDown();
-	    }
-
-	    public Menu() {
-	        setStartUpTest(this);
-	    }
-
-	    public void printSomething() {
-	        System.out.println("You called a method on the application");
-	    }
-		
 		public void start(Stage primaryStage) throws Exception {
 		
 			Stage dialog = new Stage();
