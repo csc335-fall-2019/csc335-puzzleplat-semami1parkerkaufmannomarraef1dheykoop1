@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Optional;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -20,6 +21,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -29,36 +31,80 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-public class StageOneGUI extends Application implements java.util.Observer{
+public class PuzzlePlatView extends Application implements java.util.Observer{
 	
 	PuzzlePlatController controller = new PuzzlePlatController();
 	GraphicsContext gc;
+	String level;
+	Group root;
+	private boolean bridgeStageTwoDrawn = false; //has the bridge been made?
 	private boolean consumed = false;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		controller.start();//starts game clock
 		controller.addObserver(this);
+		Canvas canvas = null;
 		
-		primaryStage.setTitle("Tutorial Stage");
-		Canvas canvas = new Canvas(1200,300);
-		gc = canvas.getGraphicsContext2D();
 		
-		gc.setFill(Color.LIGHTSKYBLUE);
-		gc.fillRect(0, 0, 1200, 300);
+		if(level.toLowerCase().equals("tutorial")) { //if its tutorial
+			primaryStage.setTitle("Tutorial Stage");
+			canvas = new Canvas(1200,300);
+			gc = canvas.getGraphicsContext2D();
+			
+			gc.setFill(Color.LIGHTSKYBLUE);
+			gc.fillRect(0, 0, 1200, 300);
+			
+			controller.makeStageOneFloors();//sets up level
+			drawShapes(controller.getFloors());
+			
+			controller.makeRain(0, 1);//makes rain
+			controller.makeStageOneObstacles();
+			drawShapes(controller.getObstacles());
+			
+			drawTutorialText();
+			
+			controller.createPlayerOne(); //create character 1
+		}else if(level.toLowerCase().equals("level 1")) {
+			primaryStage.setTitle("Level 1");
+			canvas = new Canvas(1200,300);
+			gc = canvas.getGraphicsContext2D();
+			
+			gc.setFill(Color.PINK);
+			gc.fillRect(0, 0, 1200, 300);
+			
+			controller.makeRain(0, 1);//makes rain
+			controller.makeStageTwoObstacles();
+			drawShapes(controller.getObstacles());
+			
+			controller.makeStageTwoFloors();//sets up level
+			drawShapes(controller.getFloors());
+			
+			controller.makeStageTwoButtons();
+			drawShapes(controller.getButtons());
+			
+			controller.createPlayerOne(); //create character 1
+		}else {//level 2
+			primaryStage.setTitle("Level 2");
+			canvas = new Canvas(1200,300);
+			gc = canvas.getGraphicsContext2D();
+			
+			gc.setFill(Color.AQUA);
+			gc.fillRect(0, 0, 1200, 300);
+			controller.makeRain(0, 2);//makes rain
+			
+			controller.makeStageThreeObstacles();
+			drawShapes(controller.getObstacles());
+			
+			controller.makeStageThreeFloors();//sets up level
+			drawShapes(controller.getFloors());
+			
+			controller.createPlayerOne(); //create character 1
+		}
 		
-		controller.makeStageOneFloors();//sets up level
-		drawShapes(controller.getFloors());
-		
-		controller.makeRain(0, 1);//makes rain
-		controller.makeStageOneObstacles();
-		drawShapes(controller.getObstacles());
-		
-		drawTutorialText();
-		
-		controller.createPlayerOne(); //create character 1
-		
+		gc.drawImage(new Image("imgs/exit.jpeg"), 1150, 100,50,150); //draw exit door
 		// print coordinates wherever you click, for testing purposes//
 		EventHandler<MouseEvent> mooso = new EventHandler<MouseEvent>() {
 			@Override
@@ -227,7 +273,7 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		primaryStage.addEventHandler(KeyEvent.KEY_TYPED, keyPressedNav);
 		//////////// character control end ///////
 		
-		Group root = new Group();
+		root = new Group();
 		root.getChildren().add(canvas);
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
@@ -255,6 +301,10 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		}
 	}
 	
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	
 	/**
 	 * draw all text for the tutorial.
 	 */
@@ -268,6 +318,15 @@ public class StageOneGUI extends Application implements java.util.Observer{
 		gc.fillText("Get creative on how you \n finish the level", 800, 100);
 		gc.fillText("Reach the \n end of the level \n without dying to win!", 1100, 200);
 	}
+	
+	private void drawBridgeAnimation(Rectangle rect) {
+		TranslateTransition tt = new TranslateTransition();
+		tt.setDuration(Duration.millis(2000));
+		tt.setNode(rect);
+		tt.setByX(200);
+		tt.play();
+		root.getChildren().add(rect);
+	}
 
 	/**
 	 * 
@@ -280,16 +339,37 @@ public class StageOneGUI extends Application implements java.util.Observer{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
-		gc.clearRect(0, 0, 1200, 300);
-		gc.setFill(Color.LIGHTSKYBLUE);
-		gc.fillRect(0, 0, 1200, 300);
 		if(controller.getObstacles().size() < 50) {
 			controller.makeRain(0, 1);
 		}
-		drawTutorialText();
+		if(level.toLowerCase().equals("tutorial")) {//if its tutorial
+			gc.clearRect(0, 0, 1200, 300);
+			gc.setFill(Color.LIGHTSKYBLUE);
+			gc.fillRect(0, 0, 1200, 300);
+			drawTutorialText();
+		}else if(level.toLowerCase().equals("level 1")){//if its level 1
+			gc.clearRect(0, 0, 1200, 300);
+			gc.setFill(Color.PINK);
+			gc.fillRect(0, 0, 1200, 300);
+			if(controller.checkButtonClick() && bridgeStageTwoDrawn == false) { //draw bridge if button is clicked
+				Rectangle rect = new Rectangle(700, 250, 200, 25);
+				rect.setFill(Color.SADDLEBROWN);
+				controller.addFloor(rect);
+				//drawBridgeAnimation(rect);
+				bridgeStageTwoDrawn = true;
+			}
+		}else{//level 2
+			gc.clearRect(0, 0, 1200, 300);
+			gc.setFill(Color.AQUA);
+			gc.fillRect(0, 0, 1200, 300);
+			controller.makeRain(0, 1);
+		}
+		gc.drawImage(new Image("imgs/exit.jpeg"), 1150, 100,50,150);
+		//int size = ((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).size();
+		//System.out.println(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).get(size - 1));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(1)));
-		
+		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(3)));
 		PlayerOne renderedPlayer = ((ArrayList<PlayerOne>)((ArrayList<Object>)arg).get(2)).get(0);
 		gc.drawImage(renderedPlayer.getPlayerImg(), renderedPlayer.getX(), renderedPlayer.getY());
 		
@@ -309,9 +389,5 @@ public class StageOneGUI extends Application implements java.util.Observer{
 
 	}
 	
-
-	public static void main(String[] args) {
-		launch(args);
-	}
 
 }

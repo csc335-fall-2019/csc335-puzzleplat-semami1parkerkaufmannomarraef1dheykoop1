@@ -14,6 +14,8 @@ public class PuzzlePlatModel extends Observable{
 
 	ArrayList<PlayerOne> characters = new ArrayList<>();
 	
+	ArrayList<Shape> buttons = new ArrayList<>();
+	
 	//Character player1
 	private PlayerOne p;
 	
@@ -99,6 +101,21 @@ public class PuzzlePlatModel extends Observable{
 	 */
 	public int getPlatformFloorY() {
 		return platformFloorY;
+	}
+	/**
+	 * 
+	 * @return list of buttons
+	 */
+	public ArrayList<Shape> getButtons() {
+		return buttons;
+	}
+	
+	/**
+	 * add a button to list of buttons
+	 * @param button
+	 */
+	public void addButton(Shape button) {
+		buttons.add(button);
 	}
 
 	/**

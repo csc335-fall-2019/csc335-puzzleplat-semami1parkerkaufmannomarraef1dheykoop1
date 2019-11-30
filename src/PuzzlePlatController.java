@@ -117,6 +117,256 @@ public class PuzzlePlatController {
 	}
 	
 	/**
+	 * make all the floors for level two
+	 */
+	public void makeStageTwoFloors() {
+		model.setPlatformFloorY(201); //base floor for testing character movement
+		
+		Rectangle rect = new Rectangle(0,250,125,50);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(200,250,50,50);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(325,250,50,50);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(425,250,25,50);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(500,250,200,50);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(900,250,25,50);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(1000,250,200,50);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(100,50,30,25);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(170,50,80,25);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(275,50,25,25);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(325,50,50,25);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(500,100,200,25);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(800,100,100,25);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(1000,100,50,25);
+		rect.setFill(Color.SADDLEBROWN);
+		model.addFloor(rect);
+	}
+	
+	/**
+	 * make obstacles for stage2
+	 */
+	public void makeStageTwoObstacles() {
+		Rectangle rect = new Rectangle(125, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(250, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(375, 275, 50, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(450, 275, 50, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(700, 275, 200, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(925, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+	}
+	/**
+	 * maek buttons for stage2
+	 */
+	public void makeStageTwoButtons() {
+		Rectangle rect = new Rectangle(600,240,20,10);
+		rect.setFill(Color.WHITE);
+		model.addButton(rect);
+	}
+	
+	/**
+	 * make all the floors for level three
+	 */
+	public void makeStageThreeFloors() {
+		model.setPlatformFloorY(201); //base floor for testing character movement
+		
+		Rectangle rect = new Rectangle(0,250,125,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(200,250,25,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(300,240,25,60);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(400,250,25,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(500,240,25,60);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(600,250,25,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(700,240,25,60);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(800,240,25,60);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(900,250,25,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(1000,240,25,60);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(1100,250,100,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(200,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(300,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(400,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(500,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(600,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(700,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(800,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(900,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(1000,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+	}
+	
+	public void makeStageThreeObstacles() {
+		Rectangle rect = new Rectangle(125, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(225, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(325, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(425, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(525, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(625, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(725, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(825, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(925, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(1025, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+	}
+	
+	/**
+	 * checks if a button has been clicked
+	 * @return a boolean representing if the button has been clicked
+	 */
+	public boolean checkButtonClick() {
+		for(PlayerOne x: model.getCharacters()) {
+			for(Shape button: model.getButtons()) {
+				//System.out.println(x.getY() + " " + ((Rectangle) button).getY());
+				if(button instanceof Rectangle) {
+					if(x.getX() >= (((Rectangle) button).getX()) - 30 
+							&& x.getX()<= (((Rectangle) button).getX())){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * make all the rain
 	 * @param min minimum number of rain drops
 	 * @param max maximum number of rain drops
@@ -164,6 +414,14 @@ public class PuzzlePlatController {
 	 */
 	public ArrayList<Shape> getObstacles() {
 		return model.getObstacles();
+	}
+	
+	/**
+	 * getter for list of buttons
+	 * @return list of buttons
+	 */
+	public ArrayList<Shape> getButtons() {
+		return model.getButtons();
 	}
 	
 	/**
@@ -240,15 +498,18 @@ public class PuzzlePlatController {
 		//moveEnemies();
 		moveRain();
 		checkForDeath();
+		
 		//checkForWin();
 		state.add(model.getFloors());
 		state.add(model.getObstacles());
 		
 		state.add(model.getCharacters());
+		state.add(model.getButtons());
 		
 		model.update();
 		model.notifyObservers(state);
 	}
+	
 	
 	private void movePlayer() {
 		model.getP().setX(model.getP().getX() + model.getP().getVelX());
@@ -263,8 +524,8 @@ public class PuzzlePlatController {
 		ArrayList<Shape> newRain = new ArrayList<>();
 		
 		for(Shape shape: model.getObstacles()) {
-			if(shape instanceof myCircle && ((Circle) shape).getCenterY() 
-					+ ((Circle) shape).getRadius()< 275
+			if(shape instanceof myCircle 
+					&& ((Circle) shape).getCenterY() + ((Circle) shape).getRadius()< 275
 					&& !endRain(shape)) {//limits amount of rain in game
 				newCirc = new myCircle(((myCircle) shape).getCenterX(), 
 						((myCircle) shape).getCenterY() + ((myCircle) shape).getMoveSpeed(), 
@@ -639,6 +900,14 @@ public class PuzzlePlatController {
 	public void stop() {
 		at.stop();
 		
+	}
+	
+	/**
+	 * add a new floor piece
+	 * @param rect
+	 */
+	public void addFloor(Shape rect) {
+		model.addFloor(rect);
 	}
 	
 
