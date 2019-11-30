@@ -93,6 +93,12 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			gc.fillRect(0, 0, 1200, 300);
 			controller.makeRain(0, 2);//makes rain
 			
+			controller.makeStageThreeObstacles();
+			drawShapes(controller.getObstacles());
+			
+			controller.makeStageThreeFloors();//sets up level
+			drawShapes(controller.getFloors());
+			
 			controller.createPlayerOne(); //create character 1
 		}
 		// print coordinates wherever you click, for testing purposes//

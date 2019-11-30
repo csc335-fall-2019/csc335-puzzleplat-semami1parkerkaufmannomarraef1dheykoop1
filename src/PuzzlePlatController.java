@@ -117,7 +117,7 @@ public class PuzzlePlatController {
 	}
 	
 	/**
-	 * make all the floors for level one
+	 * make all the floors for level two
 	 */
 	public void makeStageTwoFloors() {
 		model.setPlatformFloorY(201); //base floor for testing character movement
@@ -214,6 +214,137 @@ public class PuzzlePlatController {
 		Rectangle rect = new Rectangle(600,240,20,10);
 		rect.setFill(Color.WHITE);
 		model.addButton(rect);
+	}
+	
+	/**
+	 * make all the floors for level three
+	 */
+	public void makeStageThreeFloors() {
+		model.setPlatformFloorY(201); //base floor for testing character movement
+		
+		Rectangle rect = new Rectangle(0,250,125,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(200,250,25,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(300,240,25,60);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(400,250,25,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(500,240,25,60);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(600,250,25,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(700,240,25,60);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(800,240,25,60);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(900,250,25,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(1000,240,25,60);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(1100,250,100,50);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(200,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(300,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(400,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(500,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(600,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(700,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(800,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(900,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+		rect = new Rectangle(1000,50,25,25);
+		rect.setFill(Color.FIREBRICK);
+		model.addFloor(rect);
+		
+	}
+	
+	public void makeStageThreeObstacles() {
+		Rectangle rect = new Rectangle(125, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(225, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(325, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(425, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(525, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(625, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(725, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(825, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(925, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
+		rect = new Rectangle(1025, 275, 75, 25);
+		rect.setFill(Color.ORANGERED);
+		model.addObstacle(rect);
+		
 	}
 	
 	/**
