@@ -21,6 +21,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -46,6 +47,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		controller.start();//starts game clock
 		controller.addObserver(this);
 		Canvas canvas = null;
+		
 		
 		if(level.toLowerCase().equals("tutorial")) { //if its tutorial
 			primaryStage.setTitle("Tutorial Stage");
@@ -101,6 +103,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			
 			controller.createPlayerOne(); //create character 1
 		}
+		
+		gc.drawImage(new Image("imgs/exit.jpeg"), 1150, 100,50,150); //draw exit door
 		// print coordinates wherever you click, for testing purposes//
 		EventHandler<MouseEvent> mooso = new EventHandler<MouseEvent>() {
 			@Override
@@ -360,6 +364,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			gc.fillRect(0, 0, 1200, 300);
 			controller.makeRain(0, 1);
 		}
+		gc.drawImage(new Image("imgs/exit.jpeg"), 1150, 100,50,150);
 		//int size = ((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).size();
 		//System.out.println(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).get(size - 1));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)));
