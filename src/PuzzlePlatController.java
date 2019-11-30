@@ -393,8 +393,8 @@ public class PuzzlePlatController {
 		ArrayList<Shape> newRain = new ArrayList<>();
 		
 		for(Shape shape: model.getObstacles()) {
-			if(shape instanceof myCircle && ((Circle) shape).getCenterY() 
-					+ ((Circle) shape).getRadius()< 275
+			if(shape instanceof myCircle 
+					&& ((Circle) shape).getCenterY() + ((Circle) shape).getRadius()< 275
 					&& !endRain(shape)) {//limits amount of rain in game
 				newCirc = new myCircle(((myCircle) shape).getCenterX(), 
 						((myCircle) shape).getCenterY() + ((myCircle) shape).getMoveSpeed(), 

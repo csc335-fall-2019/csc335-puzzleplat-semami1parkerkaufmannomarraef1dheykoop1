@@ -38,6 +38,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 	GraphicsContext gc;
 	String level;
 	Group root;
+	private boolean bridgeStageTwoDrawn = false; //has the bridge been made?
 	private boolean consumed = false;
 	
 	@Override
@@ -83,10 +84,16 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			drawShapes(controller.getButtons());
 			
 			controller.createPlayerOne(); //create character 1
-		}else {
+		}else {//level 2
 			primaryStage.setTitle("Level 2");
-			canvas = new Canvas(500,900);
+			canvas = new Canvas(1200,300);
 			gc = canvas.getGraphicsContext2D();
+			
+			gc.setFill(Color.AQUA);
+			gc.fillRect(0, 0, 1200, 300);
+			controller.makeRain(0, 2);//makes rain
+			
+			controller.createPlayerOne(); //create character 1
 		}
 		// print coordinates wherever you click, for testing purposes//
 		EventHandler<MouseEvent> mooso = new EventHandler<MouseEvent>() {
@@ -307,7 +314,6 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		tt.setDuration(Duration.millis(2000));
 		tt.setNode(rect);
 		tt.setByX(200);
-		tt.setCycleCount(5);
 		tt.play();
 		root.getChildren().add(rect);
 	}
@@ -326,23 +332,30 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		if(controller.getObstacles().size() < 50) {
 			controller.makeRain(0, 1);
 		}
-		if(level.toLowerCase().equals("tutorial")) {
+		if(level.toLowerCase().equals("tutorial")) {//if its tutorial
 			gc.clearRect(0, 0, 1200, 300);
 			gc.setFill(Color.LIGHTSKYBLUE);
 			gc.fillRect(0, 0, 1200, 300);
 			drawTutorialText();
-		}else if(level.toLowerCase().equals("level 1")){
+		}else if(level.toLowerCase().equals("level 1")){//if its level 1
 			gc.clearRect(0, 0, 1200, 300);
 			gc.setFill(Color.PINK);
 			gc.fillRect(0, 0, 1200, 300);
-			if(controller.checkButtonClick()) {
-				System.out.print("It works");
-				Rectangle rect = new Rectangle(500, 250, 200, 25);
+			if(controller.checkButtonClick() && bridgeStageTwoDrawn == false) { //draw bridge if button is clicked
+				Rectangle rect = new Rectangle(700, 250, 200, 25);
 				rect.setFill(Color.SADDLEBROWN);
 				controller.addFloor(rect);
-				drawBridgeAnimation(rect);
+				//drawBridgeAnimation(rect);
+				bridgeStageTwoDrawn = true;
 			}
+		}else{//level 2
+			gc.clearRect(0, 0, 1200, 300);
+			gc.setFill(Color.AQUA);
+			gc.fillRect(0, 0, 1200, 300);
+			controller.makeRain(0, 1);
 		}
+		//int size = ((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).size();
+		//System.out.println(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).get(size - 1));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(1)));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(3)));
