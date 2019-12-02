@@ -191,6 +191,7 @@ public class PuzzlePlatController {
 	public void tick() {
 		ArrayList<ArrayList<? extends Object>> state = new ArrayList<ArrayList<? extends Object>>();//state of the character, obstacles, and floor
 		
+		//floorCollision();
 		// If there's a collision, we should check what direction it was going last so
 		// we can go a different direction.
 		if (getP1().isCancelJump() && getP1().getLastMove().equals(KeyCode.UP)) {
@@ -233,14 +234,24 @@ public class PuzzlePlatController {
 				playerJump();
 			}
 		}
+		/*
 		if (getP1().getLastMove() != null) {
 			if (!getP1().getLastMove().equals(KeyCode.UP) || noMovement())
 				bringToFloor();
 		}
+		*/
 		//moveEnemies();
 		moveRain();
 		checkForDeath();
 		//checkForWin();
+		
+		// Calling the onFloor() method has an issue since the sprite's height alternates between the moves
+		// and the image is larger than the actual character.
+		if (!onFloor() && !getP1().getLastMove().equals(KeyCode.UP)) {
+			// The negative jump strength makes the second half of the jump start (falling)
+			getP1().setJumpStrength(-11);
+			bringToFloor();
+		}
 		state.add(model.getFloors());
 		state.add(model.getObstacles());
 		
@@ -301,6 +312,7 @@ public class PuzzlePlatController {
 		return false;
 		
 	}
+	
 	
 	
 	/**
@@ -392,28 +404,48 @@ public class PuzzlePlatController {
 	 */
 	public void bringToFloor() {
 		PlayerOne player = getP1();
-		ArrayList<Shape> floors = getFloors();
-		double player_width = player.getPlayerImg().getWidth();
-		double player_height = player.getPlayerImg().getHeight();
-		double player_x = player.getX();
-		double player_y = player.getY();
+		//player.setY(player.getY()+2);
+		System.out.println(getP1().getJumpStrength());
 		
-		ArrayList<Shape> obstacles = getObstacles();
-		for (Shape s: obstacles) {
-			if (s instanceof Rectangle) {
-				 double height = ((Rectangle)s).getHeight();
-				 double width = ((Rectangle)s).getWidth();
-				 double x = ((Rectangle)s).getX();
-				 double y = ((Rectangle)s).getY();
-				 if (player_x + 20 > x && ((player_x + player_width) - 20) < (x + width)) {
-					 // Bring back down gradually - should go down when the character is not
-					 // moving or trying to walk over the lava
-					 if (noMovement() || getP1().movingLeft() || getP1().movingRight());
-						 player.setY(player.getY()+2);
-				 }
+		// Here I'm trying to mimic what the end of the jump (when the player is falling) looks like 
+		// Difficult because 
+		
+		getP1().setY(getP1().getY()-getP1().getJumpStrength());
+		
+		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
+		
+		if (floorCollision() != null) {
+			if(getP1().getY() >= this.model.getPlatformFloorY()) {
+				System.out.println(getP1().getJumpStrength());
+				// || collision with floor
+				getP1().setY(this.model.getPlatformFloorY());
+				setCanJump(false);
+				getP1().setJumpStrength(13);
 			}
 		}
 		
+	}
+	
+	/**
+	 * Determines if there is a conflict with the player and the floor.
+	 * 
+	 * @return true if there is a floor conflict, false otherwise
+	 */
+	public boolean onFloor() {
+		PlayerOne player = getP1();
+		for (Shape floor: model.getFloors()) {
+			if (floor instanceof Rectangle) {
+				Collision new_col = new Collision(player.getX(), player.getY(), 
+						player.getPlayerImg().getHeight(),player.getPlayerImg().getWidth(),
+						((Rectangle) floor).getX(),((Rectangle)floor).getY(),
+						((Rectangle)floor).getHeight(),((Rectangle)floor).getWidth());
+				if (new_col.isCollision()) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -554,6 +586,7 @@ public class PuzzlePlatController {
 				 double y = ((Rectangle)s).getY();
 				 new_col = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
 				 if (new_col.isCollision()) {
+					 //System.out.println("floor collision");
 					 return new_col;
 				 }
 			}
@@ -571,10 +604,12 @@ public class PuzzlePlatController {
 			getP1().setJumpStrength(0);
 		}
 		
-		/*
+		
 		Collision new_col = floorCollision();
 		if (new_col != null ) {
-			if (new_col.getY1() < new_col.getY2())
+			if (!(new_col.getY1()  >= (new_col.getY2() + new_col.getHeight2()))){
+				
+			}
 				//System.out.println(new_col.getY1() + " " + new_col.getY2());
 				getP1().setY(new_col.getY2() - new_col.getHeight1());
 				
@@ -588,7 +623,7 @@ public class PuzzlePlatController {
 				return;
 			
 		}
-		*/
+		
 		getP1().setCanJumpAgain(true);
 		
 		getP1().setY(getP1().getY() - getP1().getJumpStrength());
