@@ -455,6 +455,7 @@ public class PuzzlePlatController {
 		if (getP1().isCancelJump() && getP1().getLastMove().equals(KeyCode.UP)) {
 			cancelJump();
 		}
+		land();
 		
 		if (isCollision()) {
 			if (getP1().getLastMove().equals(KeyCode.RIGHT)) {
@@ -857,21 +858,12 @@ public class PuzzlePlatController {
 
 	
 	/**
-	 * Handles the collision that happens when the character's head hits the bottom of one of the obstacles
-	 * 
+	 * Checks to see if the player should land on a floor. 
 	 */
-	public void cancelJump() {
-		if (!getP1().isCanJumpAgain()) {
-			getP1().setJumpStrength(0);
-		}
-		
-		
+	public void land() {
 		Collision new_col = floorCollision();
 		if (new_col != null ) {
-			if (!(new_col.getY1()  >= (new_col.getY2() + new_col.getHeight2()))){
-				
-			}
-				//System.out.println(new_col.getY1() + " " + new_col.getY2());
+			if (new_col.getY1() < new_col.getY2()){
 				getP1().setY(new_col.getY2() - new_col.getHeight1());
 				
 				// Not important but a NOTE: making setCanJump here lets you jump on top
@@ -882,7 +874,19 @@ public class PuzzlePlatController {
 				getP1().setCanJumpAgain(false);
 				getP1().setJumpStrength(13);
 				return;
+			}
+				
 			
+		}
+	}
+	
+	/**
+	 * Handles the collision that happens when the character's head hits the bottom of one of the obstacles
+	 * 
+	 */
+	public void cancelJump() {
+		if (!getP1().isCanJumpAgain()) {
+			getP1().setJumpStrength(0);
 		}
 		
 		getP1().setCanJumpAgain(true);
