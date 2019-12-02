@@ -78,14 +78,10 @@ public class StageOneGUI extends Application implements java.util.Observer{
 				consumed = false;
 				KeyCode key = e.getCode();
 				
-				if (controller.onFloor()) {
-					jmpCnt = 0;
-				}
-				/*
 				if(controller.getP1().getY()==controller.getPlatformFloor()) {
 					jmpCnt = 0;
 				}
-			*/
+			
 				if(key == KeyCode.UP) {
 					if (!controller.isCollision()) {
 						if(jmpCnt<1) {
@@ -95,14 +91,9 @@ public class StageOneGUI extends Application implements java.util.Observer{
 							controller.getP1().setJumpStrength(8);
 							controller.setCanJump(true);
 						}
-						else if (controller.onFloor()) {
-							jmpCnt = 0;
-						}
-						/*
 						else if(controller.getP1().getY()==controller.getPlatformFloor()) {// && !controller.getP1().inLava()){
 							jmpCnt = 0;
 						}
-						*/
 						else {
 							consumed = true;
 							e.consume();
@@ -118,14 +109,9 @@ public class StageOneGUI extends Application implements java.util.Observer{
 							controller.getP1().setJumpStrength(8);
 							controller.setCanJump(true);
 						}
-						else if (controller.onFloor()) {
-							jmpCnt = 0;
-						}
-						/*
 						else if(controller.getP1().getY()==controller.getPlatformFloor()) {// && !controller.getP1().inLava()){
 							jmpCnt = 0;
 						}
-						*/
 						else {
 							consumed = true;
 							e.consume();

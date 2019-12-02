@@ -67,10 +67,6 @@ public class Collision {
 		return first_height;
 	}
 	
-	public double getHeight2() {
-		return second_height;
-	}
-	
 	
 
 }
