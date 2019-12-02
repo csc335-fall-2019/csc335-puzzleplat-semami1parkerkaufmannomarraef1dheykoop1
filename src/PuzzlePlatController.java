@@ -666,7 +666,7 @@ public class PuzzlePlatController {
 	public void bringToFloor() {
 		PlayerOne player = getP1();
 		//player.setY(player.getY()+2);
-		System.out.println(getP1().getJumpStrength());
+		//System.out.println(getP1().getJumpStrength());
 		
 		// Here I'm trying to mimic what the end of the jump (when the player is falling) looks like 
 		// Difficult because 
