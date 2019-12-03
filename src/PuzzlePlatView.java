@@ -26,6 +26,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -41,6 +42,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 	Group root;
 	private boolean bridgeStageTwoDrawn = false; //has the bridge been made?
 	private boolean consumed = false;
+	Image image1 = new Image(getClass().getResourceAsStream("background.png"));
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -53,8 +55,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			primaryStage.setTitle("Tutorial Stage");
 			canvas = new Canvas(1200,300);
 			gc = canvas.getGraphicsContext2D();
-			
-			gc.setFill(Color.LIGHTSKYBLUE);
+
+			gc.setFill(new ImagePattern(image1));
 			gc.fillRect(0, 0, 1200, 300);
 			
 			controller.makeStageOneFloors();//sets up level
@@ -104,7 +106,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			controller.createPlayerOne(); //create character 1
 		}
 		
-		gc.drawImage(new Image("imgs/exit.jpeg"), 1150, 100,50,150); //draw exit door
+		gc.drawImage(new Image("door.png"), 1150, 100,50,150); //draw exit door
 		// print coordinates wherever you click, for testing purposes//
 		EventHandler<MouseEvent> mooso = new EventHandler<MouseEvent>() {
 			@Override
@@ -358,7 +360,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		}
 		if(level.toLowerCase().equals("tutorial")) {//if its tutorial
 			gc.clearRect(0, 0, 1200, 300);
-			gc.setFill(Color.LIGHTSKYBLUE);
+			gc.setFill(new ImagePattern(image1));
 			gc.fillRect(0, 0, 1200, 300);
 			drawTutorialText();
 		}else if(level.toLowerCase().equals("level 1")){//if its level 1
@@ -378,7 +380,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			gc.fillRect(0, 0, 1200, 300);
 			controller.makeRain(0, 1);
 		}
-		gc.drawImage(new Image("imgs/exit.jpeg"), 1150, 100,50,150);
+		gc.drawImage(new Image("door.png"), 1150, 100,50,150);
 		//int size = ((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).size();
 		//System.out.println(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).get(size - 1));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)));
