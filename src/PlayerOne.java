@@ -1,3 +1,4 @@
+
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,11 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
-/**
- * 
- * @author omargebril
- *
- */
 public class PlayerOne{
 	private double xPos;
 	private double yPos;
