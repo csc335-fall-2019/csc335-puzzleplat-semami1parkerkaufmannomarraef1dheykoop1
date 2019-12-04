@@ -39,7 +39,7 @@ public class PuzzlePlatController {
 	 * make all the floors for level one
 	 */
 	public void makeStageOneFloors() {
-		model.setPlatformFloorY(201); //base floor for testing character movement
+		model.setPlatformFloorY(230); //base floor for testing character movement
 		
 		Rectangle rect = new Rectangle(0,250,300,50);
 		rect.setFill(Color.DARKOLIVEGREEN);
@@ -121,7 +121,7 @@ public class PuzzlePlatController {
 	 * make all the floors for level two
 	 */
 	public void makeStageTwoFloors() {
-		model.setPlatformFloorY(201); //base floor for testing character movement
+		model.setPlatformFloorY(230); //base floor for testing character movement
 		
 		Rectangle rect = new Rectangle(0,250,125,50);
 		rect.setFill(Color.SADDLEBROWN);
@@ -582,7 +582,7 @@ public class PuzzlePlatController {
 	 * Creates Player One and adds them to character Array
 	 */
 	public void createPlayerOne() {
-		PlayerOne p1 = new PlayerOne(30, 200);
+		PlayerOne p1 = new PlayerOne(30, 250); //HERE
 		model.setP(p1);
 		model.characters.add(model.getP());
 	}

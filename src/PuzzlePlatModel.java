@@ -22,6 +22,7 @@ public class PuzzlePlatModel extends Observable{
 	
 	private int platformFloorY; //updated with every stage initiation
 	
+	
 	/**
 	 * getter for list of floors
 	 * @return list of floors

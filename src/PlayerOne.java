@@ -13,6 +13,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
+/**
+ * 
+ * @author omargebril
+ *
+ */
 public class PlayerOne{
 	private double xPos;
 	private double yPos;
@@ -97,8 +102,8 @@ public class PlayerOne{
 		
 		this.rightGroup = new Group(this.ppR1);
 		
-		rightGroup.setTranslateX(40);
-		rightGroup.setTranslateY(200);
+	//	rightGroup.setTranslateX(40);
+	//	rightGroup.setTranslateY(200);
 	}
 	
 	/**
