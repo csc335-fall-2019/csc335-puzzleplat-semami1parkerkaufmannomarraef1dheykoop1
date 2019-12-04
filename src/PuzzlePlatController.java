@@ -20,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -39,25 +40,37 @@ public class PuzzlePlatController {
 	 */
 	public void makeStageOneFloors() {
 		model.setPlatformFloorY(201); //base floor for testing character movement
-		
+
+	    
+	    Image image1 = new Image(getClass().getResourceAsStream("flatGround.png"));
+
+	    Image image2 = new Image(getClass().getResourceAsStream("longerGround.png"));
+	    
+
+	    Image image3 = new Image(getClass().getResourceAsStream("shorterGround.png"));
+	    Image image4 = new Image(getClass().getResourceAsStream("shortestGround.png"));
+	    Image image5 = new Image(getClass().getResourceAsStream("stone.png"));
+		 
+	    //Image image2 = new Image(getClass().getResourceAsStream(""));
+	
 		Rectangle rect = new Rectangle(0,250,300,50);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(350,250,200,50);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image4));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(600,250,400,50);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image2));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(1100,250,100,50);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(125,180,75,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 		//rect = new Rectangle(375,150,50,20);
@@ -65,54 +78,55 @@ public class PuzzlePlatController {
 		//model.addFloor(rect);
 		
 		rect = new Rectangle(410,230,20,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(450,140,50,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(600,180,100,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(700,230,20,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(600,100,100,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(750,140,100,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(900,180,100,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(900,100,100,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(880,230,20,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 	}
 	
 	public void makeStageOneObstacles() {
+		Image image1 = new Image(getClass().getResourceAsStream("lava-png-clipart.png"));
 		Rectangle rect = new Rectangle(300, 275, 50, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(550, 275, 50, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(1000, 275, 100, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 	}
 	
@@ -377,7 +391,7 @@ public class PuzzlePlatController {
 		
 		for(int i = 0; i < numCircles; i++) {
 			circ = new myCircle(randomNum(100, 1100), 0, 5, randomNum(1,2));
-			circ.setFill(Color.DARKBLUE);
+			circ.setFill(Color.DARKGREEN);
 			model.addObstacle(circ);
 		}
 	}
