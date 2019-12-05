@@ -380,9 +380,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		gc.fillText("Use arrow keys \n to move", 50, 180);
 		gc.fillText("Hide under shelter \n to avoid poisonous rain", 175, 130);
 		gc.fillText("Don't fall \n into the lava", 325, 200);
-		gc.fillText("Jump over obstacles", 400, 130);
-		gc.fillText("Get creative on how you \n finish the level", 800, 100);
-		gc.fillText("Reach the \n end of the level \n without dying to win!", 1100, 200);
+		gc.fillText("Have fun!", 800, 100);
+		gc.fillText("Reach the \n end of the level \n without dying to \nwin!", 1100, 200);
 	}
 	
 	private void drawBridgeAnimation(Rectangle rect) {
