@@ -57,7 +57,7 @@ public class PuzzlePlatController {
 		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(350,250,200,50);
+		rect = new Rectangle(400,250,100,50);
 		rect.setFill(new ImagePattern(image4));
 		model.addFloor(rect);
 		
@@ -69,7 +69,7 @@ public class PuzzlePlatController {
 		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(125,180,75,20);
+		rect = new Rectangle(125,180,125,20);
 		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
@@ -77,39 +77,19 @@ public class PuzzlePlatController {
 		//rect.setFill(Color.DARKOLIVEGREEN);
 		//model.addFloor(rect);
 		
-		rect = new Rectangle(410,230,20,20);
+		rect = new Rectangle(400,70,100,20);
 		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(450,140,50,20);
+		rect = new Rectangle(600,70,100,20);
 		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(600,180,100,20);
+		rect = new Rectangle(750,70,100,20);
 		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(700,230,20,20);
-		rect.setFill(new ImagePattern(image5));
-		model.addFloor(rect);
-		
-		rect = new Rectangle(600,100,100,20);
-		rect.setFill(new ImagePattern(image5));
-		model.addFloor(rect);
-		
-		rect = new Rectangle(750,140,100,20);
-		rect.setFill(new ImagePattern(image5));
-		model.addFloor(rect);
-		
-		rect = new Rectangle(900,180,100,20);
-		rect.setFill(new ImagePattern(image5));
-		model.addFloor(rect);
-		
-		rect = new Rectangle(900,100,100,20);
-		rect.setFill(new ImagePattern(image5));
-		model.addFloor(rect);
-		
-		rect = new Rectangle(880,230,20,20);
+		rect = new Rectangle(900,70,100,20);
 		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
@@ -117,11 +97,11 @@ public class PuzzlePlatController {
 	
 	public void makeStageOneObstacles() {
 		Image image1 = new Image(getClass().getResourceAsStream("lava-png-clipart.png"));
-		Rectangle rect = new Rectangle(300, 275, 50, 25);
+		Rectangle rect = new Rectangle(300, 275, 100, 25);
 		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
-		rect = new Rectangle(550, 275, 50, 25);
+		rect = new Rectangle(500, 275, 100, 25);
 		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
@@ -145,10 +125,6 @@ public class PuzzlePlatController {
 		model.addFloor(rect);
 		
 		rect = new Rectangle(325,250,50,50);
-		rect.setFill(Color.SADDLEBROWN);
-		model.addFloor(rect);
-		
-		rect = new Rectangle(425,250,25,50);
 		rect.setFill(Color.SADDLEBROWN);
 		model.addFloor(rect);
 		
@@ -205,11 +181,7 @@ public class PuzzlePlatController {
 		rect.setFill(Color.ORANGERED);
 		model.addObstacle(rect);
 		
-		rect = new Rectangle(375, 275, 50, 25);
-		rect.setFill(Color.ORANGERED);
-		model.addObstacle(rect);
-		
-		rect = new Rectangle(450, 275, 50, 25);
+		rect = new Rectangle(375, 275, 125, 25);
 		rect.setFill(Color.ORANGERED);
 		model.addObstacle(rect);
 		
