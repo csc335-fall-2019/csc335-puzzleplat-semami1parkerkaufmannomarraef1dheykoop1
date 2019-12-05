@@ -37,9 +37,6 @@ public class Menu extends Application {
 		private String level;
 		private Stage dummyStage;
 		private static boolean enter;
-		
-		public static final CountDownLatch latch = new CountDownLatch(1);
-	    public static Menu startUpTest = null;
 
 		public void start(Stage primaryStage) throws Exception {
 		
@@ -149,20 +146,14 @@ public class Menu extends Application {
 					level = ((RadioButton)toggle2.getSelectedToggle()).getText();
 		        	player = ((RadioButton)toggle.getSelectedToggle()).getText();
 
-		        	if (level.equals("Tutorial")) {
-		        		StageOneGUI newGame = new StageOneGUI();
-			        	try {
-							newGame.start(new Stage());
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-		        		
-		        	}else if (level.equals("Level 1")) {
-		        		//launch other window
-		        	}else {
-		        		//launch other window
-		        	}
+		        	PuzzlePlatView newGame = new PuzzlePlatView();
+		        	newGame.setLevel(level);
+		        	try {
+						newGame.start(new Stage());
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 		        	
 		        	dialog.close();
 
