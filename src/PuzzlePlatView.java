@@ -446,6 +446,9 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		    alert.setHeaderText(null);
 		    if (controller.getP1().inLava())
 		    	alert.setContentText("Game Over. You fell into some lava!");
+		    else if(controller.getP1().getHealth() == 0) {
+		    	alert.setContentText("Game Over. The poison rain got you!");
+		    }
 		    else
 		    	alert.setContentText("Level Completed! Great Work.");
 		    alert.setOnHidden(evt -> Platform.exit());

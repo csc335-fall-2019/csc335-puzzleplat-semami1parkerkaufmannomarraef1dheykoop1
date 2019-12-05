@@ -540,7 +540,7 @@ public class PuzzlePlatController {
 	}
 	
 	/**
-	 * checks if rain has hit a floor
+	 * checks if rain has hit a floor or if it hits a player
 	 * @param shape rain
 	 * @return boolean representing if rain is touching a floor
 	 */
@@ -556,10 +556,25 @@ public class PuzzlePlatController {
 					}
 				}
 			}
+			Collision rainCol = new Collision(model.getCharacters().get(0).getX(), //check if player is hit
+					model.getCharacters().get(0).getY(),49, 
+					model.getCharacters().get(0).getPlayerImg().getWidth(),
+					((myCircle) shape).getCenterX() - .5,
+					((myCircle) shape).getCenterY() - .5, 1, 1);
+			if(rainCol.isCollision()) {
+				model.getCharacters().get(0).setHealth(model.getCharacters().get(0).getHealth() - 10);
+				System.out.println(model.getCharacters().get(0).getHealth());
+				if(model.getCharacters().get(0).getHealth() == 0) {
+					gameOver = true;
+				}
+				return true;
+			}
+		
 		}
 		return false;
 		
 	}
+	
 	
 	
 	
