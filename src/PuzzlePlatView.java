@@ -1,4 +1,4 @@
-
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
@@ -8,8 +8,6 @@ import java.util.EventListener;
 import java.util.Observable;
 import java.util.Optional;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -22,19 +20,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -50,7 +41,6 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 	Group root;
 	private boolean bridgeStageTwoDrawn = false; //has the bridge been made?
 	private boolean consumed = false;
-	Image image1 = new Image(getClass().getResourceAsStream("background.png"));
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -58,13 +48,12 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		controller.addObserver(this);
 		Canvas canvas = null;
 		
-		
 		if(level.toLowerCase().equals("tutorial")) { //if its tutorial
 			primaryStage.setTitle("Tutorial Stage");
 			canvas = new Canvas(1200,300);
 			gc = canvas.getGraphicsContext2D();
-
-			gc.setFill(new ImagePattern(image1));
+			
+			gc.setFill(Color.LIGHTSKYBLUE);
 			gc.fillRect(0, 0, 1200, 300);
 			
 			controller.makeStageOneFloors();//sets up level
@@ -114,7 +103,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			controller.createPlayerOne(); //create character 1
 		}
 		
-		gc.drawImage(new Image("door.png"), 1150, 100,50,150); //draw exit door
+		gc.drawImage(new Image("imgs/exit.jpeg"), 1150, 100,50,150); //draw exit door
 		// print coordinates wherever you click, for testing purposes//
 		EventHandler<MouseEvent> mooso = new EventHandler<MouseEvent>() {
 			@Override
@@ -134,14 +123,10 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 				consumed = false;
 				KeyCode key = e.getCode();
 				
-				if (controller.onFloor()) {
-					jmpCnt = 0;
-				}
-				/*
 				if(controller.getP1().getY()==controller.getPlatformFloor()) {
 					jmpCnt = 0;
 				}
-			*/
+			
 				if(key == KeyCode.UP) {
 					if (!controller.isCollision()) {
 						if(jmpCnt<1) {
@@ -151,14 +136,9 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 							controller.getP1().setJumpStrength(8);
 							controller.setCanJump(true);
 						}
-						else if (controller.onFloor()) {
-							jmpCnt = 0;
-						}
-						/*
 						else if(controller.getP1().getY()==controller.getPlatformFloor()) {// && !controller.getP1().inLava()){
 							jmpCnt = 0;
 						}
-						*/
 						else {
 							consumed = true;
 							e.consume();
@@ -174,14 +154,9 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 							controller.getP1().setJumpStrength(8);
 							controller.setCanJump(true);
 						}
-						else if (controller.onFloor()) {
-							jmpCnt = 0;
-						}
-						/*
 						else if(controller.getP1().getY()==controller.getPlatformFloor()) {// && !controller.getP1().inLava()){
 							jmpCnt = 0;
 						}
-						*/
 						else {
 							consumed = true;
 							e.consume();
@@ -297,50 +272,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		primaryStage.addEventHandler(KeyEvent.KEY_TYPED, keyPressedNav);
 		//////////// character control end ///////
 		
-		MenuBar menuBar = new MenuBar();
-		menuBar.setMinWidth(344);
-		//menuBar.setMaxWidth(value);
-		
-		MenuItem menuItem = new MenuItem("Switch Levels");
-		//Restart Game Option
-		
-		 EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
-			 
-				@Override
-	            public void handle(ActionEvent e) 
-	            { 
-					navWindow navigation = new navWindow();
-//					level = ((RadioButton)toggle2.getSelectedToggle()).getText();
-//
-//		        	PuzzlePlatView newGame = new PuzzlePlatView();
-//		        	newGame.setLevel(level);
-//		        	try {
-//						newGame.start(new Stage());
-//					} catch (Exception e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//		        	
-//		        	dialog.close();
-	            } 
-	        }; 
-		
-		menuItem.setOnAction(event);
-		
-		Menu fileMenu = new Menu("Options");
-		fileMenu.getItems().add(menuItem);
-		menuBar.getMenus().add(fileMenu);
-		BorderPane borderPane = new BorderPane();
-		Pane wrapperPane = new Pane();
-		borderPane.setCenter(wrapperPane);
-		
-		wrapperPane.getChildren().add(canvas);
-		  
-		borderPane.setTop(menuBar);
-		
-		
 		root = new Group();
-		root.getChildren().addAll(borderPane);
+		root.getChildren().add(canvas);
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -410,7 +343,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		}
 		if(level.toLowerCase().equals("tutorial")) {//if its tutorial
 			gc.clearRect(0, 0, 1200, 300);
-			gc.setFill(new ImagePattern(image1));
+			gc.setFill(Color.LIGHTSKYBLUE);
 			gc.fillRect(0, 0, 1200, 300);
 			drawTutorialText();
 		}else if(level.toLowerCase().equals("level 1")){//if its level 1
@@ -430,7 +363,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			gc.fillRect(0, 0, 1200, 300);
 			controller.makeRain(0, 1);
 		}
-		gc.drawImage(new Image("door.png"), 1150, 100,50,150);
+		gc.drawImage(new Image("imgs/exit.jpeg"), 1150, 100,50,150);
 		//int size = ((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).size();
 		//System.out.println(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).get(size - 1));
 		drawShapes(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)));
