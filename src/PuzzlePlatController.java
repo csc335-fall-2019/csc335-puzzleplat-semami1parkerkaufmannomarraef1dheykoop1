@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -39,81 +40,74 @@ public class PuzzlePlatController {
 	 * make all the floors for level one
 	 */
 	public void makeStageOneFloors() {
-		model.setPlatformFloorY(230); //base floor for testing character movement
-		
+		model.setPlatformFloorY(201); //base floor for testing character movement
+
+	    
+	    Image image1 = new Image(getClass().getResourceAsStream("flatGround.png"));
+
+	    Image image2 = new Image(getClass().getResourceAsStream("longerGround.png"));
+	    
+
+	    Image image3 = new Image(getClass().getResourceAsStream("shorterGround.png"));
+	    Image image4 = new Image(getClass().getResourceAsStream("shortestGround.png"));
+	    Image image5 = new Image(getClass().getResourceAsStream("stone.png"));
+		 
+	    //Image image2 = new Image(getClass().getResourceAsStream(""));
+	
 		Rectangle rect = new Rectangle(0,250,300,50);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(350,250,200,50);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect = new Rectangle(400,250,100,50);
+		rect.setFill(new ImagePattern(image4));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(600,250,400,50);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image2));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(1100,250,100,50);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(125,180,75,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect = new Rectangle(125,180,125,20);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 		//rect = new Rectangle(375,150,50,20);
 		//rect.setFill(Color.DARKOLIVEGREEN);
 		//model.addFloor(rect);
 		
-		rect = new Rectangle(410,230,20,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect = new Rectangle(400,70,100,20);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(450,140,50,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect = new Rectangle(600,70,100,20);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(600,180,100,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect = new Rectangle(750,70,100,20);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(700,230,20,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
-		model.addFloor(rect);
-		
-		rect = new Rectangle(600,100,100,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
-		model.addFloor(rect);
-		
-		rect = new Rectangle(750,140,100,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
-		model.addFloor(rect);
-		
-		rect = new Rectangle(900,180,100,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
-		model.addFloor(rect);
-		
-		rect = new Rectangle(900,100,100,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
-		model.addFloor(rect);
-		
-		rect = new Rectangle(880,230,20,20);
-		rect.setFill(Color.DARKOLIVEGREEN);
+		rect = new Rectangle(900,70,100,20);
+		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
 	}
 	
 	public void makeStageOneObstacles() {
-		Rectangle rect = new Rectangle(300, 275, 50, 25);
-		rect.setFill(Color.ORANGERED);
+		Image image1 = new Image(getClass().getResourceAsStream("lava-png-clipart.png"));
+		Rectangle rect = new Rectangle(300, 275, 100, 25);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
-		rect = new Rectangle(550, 275, 50, 25);
-		rect.setFill(Color.ORANGERED);
+		rect = new Rectangle(500, 275, 100, 25);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(1000, 275, 100, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 	}
 	
@@ -132,10 +126,6 @@ public class PuzzlePlatController {
 		model.addFloor(rect);
 		
 		rect = new Rectangle(325,250,50,50);
-		rect.setFill(Color.SADDLEBROWN);
-		model.addFloor(rect);
-		
-		rect = new Rectangle(425,250,25,50);
 		rect.setFill(Color.SADDLEBROWN);
 		model.addFloor(rect);
 		
@@ -192,11 +182,7 @@ public class PuzzlePlatController {
 		rect.setFill(Color.ORANGERED);
 		model.addObstacle(rect);
 		
-		rect = new Rectangle(375, 275, 50, 25);
-		rect.setFill(Color.ORANGERED);
-		model.addObstacle(rect);
-		
-		rect = new Rectangle(450, 275, 50, 25);
+		rect = new Rectangle(375, 275, 125, 25);
 		rect.setFill(Color.ORANGERED);
 		model.addObstacle(rect);
 		
@@ -378,7 +364,7 @@ public class PuzzlePlatController {
 		
 		for(int i = 0; i < numCircles; i++) {
 			circ = new myCircle(randomNum(100, 1100), 0, 5, randomNum(1,2));
-			circ.setFill(Color.DARKBLUE);
+			circ.setFill(Color.DARKGREEN);
 			model.addObstacle(circ);
 		}
 	}
@@ -555,7 +541,7 @@ public class PuzzlePlatController {
 	}
 	
 	/**
-	 * checks if rain has hit a floor
+	 * checks if rain has hit a floor or if it hits a player
 	 * @param shape rain
 	 * @return boolean representing if rain is touching a floor
 	 */
@@ -571,6 +557,20 @@ public class PuzzlePlatController {
 					}
 				}
 			}
+			Collision rainCol = new Collision(model.getCharacters().get(0).getX(), //check if player is hit
+					model.getCharacters().get(0).getY(),49, 
+					model.getCharacters().get(0).getPlayerImg().getWidth(),
+					((myCircle) shape).getCenterX() - .5,
+					((myCircle) shape).getCenterY() - .5, 1, 1);
+			if(rainCol.isCollision()) {
+				model.getCharacters().get(0).setHealth(model.getCharacters().get(0).getHealth() - 10);
+				System.out.println(model.getCharacters().get(0).getHealth());
+				if(model.getCharacters().get(0).getHealth() == 0) {
+					gameOver = true;
+				}
+				return true;
+			}
+		
 		}
 		return false;
 		
@@ -578,11 +578,12 @@ public class PuzzlePlatController {
 	
 	
 	
+	
 	/**
 	 * Creates Player One and adds them to character Array
 	 */
 	public void createPlayerOne() {
-		PlayerOne p1 = new PlayerOne(30, 250); //HERE
+		PlayerOne p1 = new PlayerOne(30, 200); //HERE
 		model.setP(p1);
 		model.characters.add(model.getP());
 	}

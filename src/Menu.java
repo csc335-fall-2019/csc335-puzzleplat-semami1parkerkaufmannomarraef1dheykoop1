@@ -38,9 +38,6 @@ public class Menu extends Application {
 		private String level;
 		private Stage dummyStage;
 		private static boolean enter;
-		
-		public static final CountDownLatch latch = new CountDownLatch(1);
-	    public static Menu startUpTest = null;
 
 		public void start(Stage primaryStage) throws Exception {
 		
