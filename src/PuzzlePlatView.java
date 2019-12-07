@@ -335,9 +335,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		gc.fillText("Use arrow keys \n to move", 50, 180);
 		gc.fillText("Hide under shelter \n to avoid poisonous rain", 175, 130);
 		gc.fillText("Don't fall \n into the lava", 325, 200);
-		gc.fillText("Jump over obstacles", 400, 130);
-		gc.fillText("Get creative on how you \n finish the level", 800, 100);
-		gc.fillText("Reach the \n end of the level \n without dying to win!", 1100, 200);
+		gc.fillText("Have fun!", 800, 100);
+		gc.fillText("Reach the \n end of the level \n without dying to \nwin!", 1100, 200);
 	}
 	
 	private void drawBridgeAnimation(Rectangle rect) {
@@ -394,6 +393,14 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		PlayerOne renderedPlayer = ((ArrayList<PlayerOne>)((ArrayList<Object>)arg).get(2)).get(0);
 		gc.drawImage(renderedPlayer.getPlayerImg(), renderedPlayer.getX(), renderedPlayer.getY());
 		
+		//gc.setFill(Color.BLACK);
+		//gc.fillText("HP:", 20, 20);
+		gc.setFill(Color.GREY);//makes rectangle
+		gc.fillRect(35, 10, 48, 18);
+		gc.setFill(Color.RED);
+		gc.fillRect(39, 14, controller.getP1().getHealth() / 2.5, 10);
+		
+		
 		
 		if (controller.isGameOver()) {
 			controller.stop();
@@ -402,6 +409,9 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		    alert.setHeaderText(null);
 		    if (controller.getP1().inLava())
 		    	alert.setContentText("Game Over. You fell into some lava!");
+		    else if(controller.getP1().getHealth() == 0) {
+		    	alert.setContentText("Game Over. The poison rain got you!");
+		    }
 		    else
 		    	alert.setContentText("Level Completed! Great Work.");
 		    alert.setOnHidden(evt -> Platform.exit());
