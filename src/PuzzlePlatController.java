@@ -864,7 +864,7 @@ public class PuzzlePlatController {
 	public void land() {
 		Collision new_col = floorCollision();
 		if (new_col != null ) {
-			if (new_col.getY1() < new_col.getY2()){
+			if (new_col.getY1()+new_col.getHeight1() < new_col.getY2() + new_col.getHeight2()){
 				getP1().setY(new_col.getY2() - new_col.getHeight1());
 				
 				// Not important but a NOTE: making setCanJump here lets you jump on top
