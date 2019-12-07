@@ -438,6 +438,14 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		PlayerOne renderedPlayer = ((ArrayList<PlayerOne>)((ArrayList<Object>)arg).get(2)).get(0);
 		gc.drawImage(renderedPlayer.getPlayerImg(), renderedPlayer.getX(), renderedPlayer.getY());
 		
+		//gc.setFill(Color.BLACK);
+		//gc.fillText("HP:", 20, 20);
+		gc.setFill(Color.GREY);//makes rectangle
+		gc.fillRect(35, 10, 48, 18);
+		gc.setFill(Color.RED);
+		gc.fillRect(39, 14, controller.getP1().getHealth() / 2.5, 10);
+		
+		
 		
 		if (controller.isGameOver()) {
 			controller.stop();
