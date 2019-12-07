@@ -470,7 +470,12 @@ public class PuzzlePlatController {
 			cancelJump();
 		}
 		land();
-		
+		/*
+		if (getP1().getY() >= this.model.getPlatformFloorY()-4 && !getP1().isCanJump() && !getP1().inLava()) {
+			getP1().setY(this.model.getPlatformFloorY());
+
+		}
+		*/
 		if (isCollision()) {
 			if (getP1().getLastMove().equals(KeyCode.RIGHT)) {
 				if(model.getP().isCanMoveLeft()) { //&& !isCollision()) {
@@ -521,8 +526,9 @@ public class PuzzlePlatController {
 		
 		// Calling the onFloor() method has an issue since the sprite's height alternates between the moves
 		// and the image is larger than the actual character.
-		if (!onFloor() && !getP1().getLastMove().equals(KeyCode.UP)) {
+		if (!onFloor() && !getP1().isCanJump()) {//!getP1().getLastMove().equals(KeyCode.UP)) {
 			// The negative jump strength makes the second half of the jump start (falling)
+			
 			getP1().setJumpStrength(-11);
 			bringToFloor();
 		}
@@ -690,18 +696,36 @@ public class PuzzlePlatController {
 		
 		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
 		
-		if (floorCollision() != null) {
-			if(getP1().getY() >= this.model.getPlatformFloorY()) {
-				System.out.println(getP1().getJumpStrength());
-				// || collision with floor
-				getP1().setY(this.model.getPlatformFloorY());
-				setCanJump(false);
-				getP1().setJumpStrength(13);
-			}
+		if(getP1().getY() >= this.model.getPlatformFloorY() && !aboveLava()) {
+			getP1().setInLava(true);
+			//System.out.println("Yarp");
+			// || collision with floor
+			getP1().setY(this.model.getPlatformFloorY());
+			setCanJump(false);
+			getP1().setJumpStrength(13);
 		}
+		
 		
 	}
 	
+	/**
+	 * Determines if the character is above lava
+	 * 
+	 * @return a boolean that represents whether a player is above lava
+	 */
+	public boolean aboveLava() {
+		double x = getP1().getX();
+		double width = getP1().getPlayerImg().getWidth();
+		for (Shape s: this.model.getObstacles()) {
+			if (s instanceof Rectangle) {
+				if (x > ((Rectangle)s).getX() && ((x+width) < (((Rectangle)s).getX()+  ((Rectangle)s).getWidth()))) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
 	/**
 	 * Determines if there is a conflict with the player and the floor.
 	 * 
@@ -850,6 +874,9 @@ public class PuzzlePlatController {
 		PlayerOne player = getP1();
 		ArrayList<Shape> floors = getFloors();
 		double player_width = player.getPlayerImg().getWidth();
+		// For some reason if you change this then the program crashes. I think its because 
+		// there are several bits that are reliant on this part and it doesn't like it when 
+		// the character is on the platform floor.
 		double player_height = 49;
 		double player_x = player.getX();
 		double player_y = player.getY();
@@ -862,7 +889,6 @@ public class PuzzlePlatController {
 				 double y = ((Rectangle)s).getY();
 				 new_col = new Collision(player_x,player_y,player_height, player_width, x,y,height,width);
 				 if (new_col.isCollision()) {
-					 //System.out.println("floor collision");
 					 return new_col;
 				 }
 			}
@@ -878,6 +904,7 @@ public class PuzzlePlatController {
 		Collision new_col = floorCollision();
 		if (new_col != null ) {
 			if (new_col.getY1()+new_col.getHeight1() < new_col.getY2() + new_col.getHeight2()){
+			
 				getP1().setY(new_col.getY2() - new_col.getHeight1());
 				
 				// Not important but a NOTE: making setCanJump here lets you jump on top
