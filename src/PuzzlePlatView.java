@@ -135,6 +135,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 				}
 			*/
 				if(key == KeyCode.UP) {
+					
+					controller.getP1().setMovingUp(true);
 					if (!controller.isCollision()) {
 						if(jmpCnt<1) {
 							controller.setCanJump(true);
@@ -193,6 +195,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 //					System.out.println("DOWN");
 //				}
 				else if(key == KeyCode.RIGHT) {
+					controller.getP1().setMovingRight(true);
 					if (!controller.isCollision()) {
 						controller.getP1().setMovingRight(true);
 						controller.getP1().setMovingLeft(false);
@@ -221,6 +224,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 					}
 				}
 				else if(key == KeyCode.LEFT) {
+					controller.getP1().setMovingLeft(true);
 					if (!controller.isCollision()) {
 						controller.getP1().setMovingLeft(true);
 						controller.getP1().decrementX();
@@ -255,6 +259,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			public void handle(KeyEvent e) {
 				KeyCode key = e.getCode();
 				if(key == KeyCode.UP) {
+					controller.getP1().setMovingUp(false);
 					
 				}
 				// TODO Maybe implement if we add a ladders?
