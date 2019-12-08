@@ -19,6 +19,11 @@ import javafx.scene.input.KeyCode;
  *
  */
 public class PlayerOne{
+	
+	private boolean level0Completed = false;
+	private boolean level1Completed = false;
+	private boolean level2Completed = false;
+	
 	private double xPos;
 	private double yPos;
 	
@@ -510,7 +515,7 @@ public class PlayerOne{
 	 * called on damaged health event
 	 */
 	public void lostHealth() {
-		this.health = this.health - 10;
+		this.health = this.health - 2;
 	}
 
 	/**
