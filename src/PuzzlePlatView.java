@@ -318,7 +318,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 				try {
 					TextInputDialog dialog = new TextInputDialog();
 					dialog.setHeaderText("Enter Game Name");
-					dialog.setContentText("Name Game: ");
+					dialog.setContentText("Game Name (No Spaces): ");
 					Optional<String> result = dialog.showAndWait();
 					if (result.isPresent()) {
 						if (controller.isNameVacant(result.get().toString())) {
@@ -392,7 +392,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 		borderPane.setTop(menuBar);
 
 		root = new Group();
-		root.getChildren().add(canvas);
+		root.getChildren().addAll(borderPane);
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
