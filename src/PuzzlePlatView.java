@@ -1,8 +1,12 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.Observable;
@@ -19,12 +23,20 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -40,6 +52,11 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 	GraphicsContext gc;
 	String level;
 	Group root;
+	private double xPosLoaded = 30.0;
+	private double yPosLoaded = 200.0;
+	private int healthLoaded = 100;
+	private int livesLoaded = 3;
+	
 	private boolean bridgeStageTwoDrawn = false; //has the bridge been made?
 	private boolean consumed = false;
 	Image image1 = new Image(getClass().getResourceAsStream("background.png"));
@@ -69,7 +86,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			
 			drawTutorialText();
 			
-			controller.createPlayerOne(); //create character 1
+			controller.createPlayerOne(xPosLoaded, yPosLoaded, healthLoaded, livesLoaded); //create character 1
+			
 		}else if(level.toLowerCase().equals("level 1")) {
 			primaryStage.setTitle("Level 1");
 			canvas = new Canvas(1200,300);
@@ -88,7 +106,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			controller.makeStageTwoButtons();
 			drawShapes(controller.getButtons());
 			
-			controller.createPlayerOne(); //create character 1
+			controller.createPlayerOne(xPosLoaded, yPosLoaded, healthLoaded, livesLoaded); //create character 1
+			
 		}else {//level 2
 			primaryStage.setTitle("Level 2");
 			canvas = new Canvas(1200,300);
@@ -104,7 +123,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			controller.makeStageThreeFloors();//sets up level
 			drawShapes(controller.getFloors());
 			
-			controller.createPlayerOne(); //create character 1
+			controller.createPlayerOne(xPosLoaded, yPosLoaded, healthLoaded, livesLoaded); //create character 1
+			
 		}
 		
 		gc.drawImage(new Image("door.png"), 1150, 100,50,150); //draw exit door
@@ -295,6 +315,102 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		primaryStage.addEventHandler(KeyEvent.KEY_TYPED, keyPressedNav);
 		//////////// character control end ///////
 		
+		MenuBar menuBar = new MenuBar();
+		menuBar.setMinWidth(344);
+		//menuBar.setMaxWidth(value);
+		
+		MenuItem menuItem = new MenuItem("Switch Levels");
+		
+		// TODO Restart Game Option
+		
+		// TODO Return To Menu item from which we can load a game
+				// 		if this item is chosen, current game is lost
+				
+		
+		// Save game option
+		MenuItem saveItem = new MenuItem("Save Game");
+		EventHandler<ActionEvent> saveEvent = new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					TextInputDialog dialog = new TextInputDialog();
+					dialog.setHeaderText("Enter Game Name");
+					dialog.setContentText("Name Game: ");
+					Optional<String> result = dialog.showAndWait();
+					if(result.isPresent()) {
+						if(controller.isNameVacant(result.get().toString())){
+							FileWriter writer = new FileWriter("src/SavedGames.txt", true);
+							writer.write(result.get().toString() + " " + level.toLowerCase() + " " + controller.getP1().getX() + " " + controller.getP1().getY() + " " + controller.getP1().getHealth() + " " + controller.getP1().getLives() + "\n");
+							writer.close();
+							System.out.println("Game Saved");
+						}
+						else {
+							Alert nameError = new Alert(AlertType.ERROR);
+							nameError.setTitle("Error Dialog");
+							nameError.setHeaderText("Error, name already taken!");
+							nameError.setContentText("Please choose a different name.");
+							nameError.showAndWait();
+						}
+					}
+					
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					
+					e1.printStackTrace();
+					System.out.println("File not found");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					System.out.println("File not found");
+				}
+			} 
+			
+		};
+		
+		saveItem.setOnAction(saveEvent);
+		
+		
+		// switch levels handler
+		 EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
+			 
+				@Override
+	            public void handle(ActionEvent e) 
+	            { 
+					navWindow navigation = new navWindow();
+//					level = ((RadioButton)toggle2.getSelectedToggle()).getText();
+//
+//		        	PuzzlePlatView newGame = new PuzzlePlatView();
+//		        	newGame.setLevel(level);
+//		        	try {
+//						newGame.start(new Stage());
+//					} catch (Exception e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//		        	
+//		        	dialog.close();
+	            } 
+	        }; 
+		
+		menuItem.setOnAction(event);
+		
+		
+		Menu fileMenu = new Menu("Options");
+		fileMenu.getItems().add(menuItem);
+		
+		fileMenu.getItems().add(saveItem);
+		
+		menuBar.getMenus().add(fileMenu);
+		BorderPane borderPane = new BorderPane();
+		Pane wrapperPane = new Pane();
+		borderPane.setCenter(wrapperPane);
+		
+		wrapperPane.getChildren().add(canvas);
+		  
+		borderPane.setTop(menuBar);
+		
 		root = new Group();
 		root.getChildren().add(canvas);
 		Scene scene = new Scene(root);
@@ -422,6 +538,30 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		    alert.show(); 
 		}
 
+	}
+	public double getxPosLoaded() {
+		return xPosLoaded;
+	}
+	public void setxPosLoaded(double xPosLoaded) {
+		this.xPosLoaded = xPosLoaded;
+	}
+	public double getyPosLoaded() {
+		return yPosLoaded;
+	}
+	public void setyPosLoaded(double yPosLoaded) {
+		this.yPosLoaded = yPosLoaded;
+	}
+	public int getHealthLoaded() {
+		return healthLoaded;
+	}
+	public void setHealthLoaded(int healthLoaded) {
+		this.healthLoaded = healthLoaded;
+	}
+	public int getLivesLoaded() {
+		return livesLoaded;
+	}
+	public void setLivesLoaded(int livesLoaded) {
+		this.livesLoaded = livesLoaded;
 	}
 	
 

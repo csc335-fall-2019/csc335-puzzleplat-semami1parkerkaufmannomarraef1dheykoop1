@@ -1,3 +1,4 @@
+
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,7 +13,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
+/**
+ * 
+ * @author omargebril
+ *
+ */
 public class PlayerOne{
+	
+	private boolean level0Completed = false;
+	private boolean level1Completed = false;
+	private boolean level2Completed = false;
+	
 	private double xPos;
 	private double yPos;
 	
@@ -96,8 +107,8 @@ public class PlayerOne{
 		
 		this.rightGroup = new Group(this.ppR1);
 		
-		rightGroup.setTranslateX(40);
-		rightGroup.setTranslateY(200);
+	//	rightGroup.setTranslateX(40);
+	//	rightGroup.setTranslateY(200);
 	}
 	
 	/**
@@ -504,7 +515,7 @@ public class PlayerOne{
 	 * called on damaged health event
 	 */
 	public void lostHealth() {
-		this.health = this.health - 10;
+		this.health = this.health - 2;
 	}
 
 	/**

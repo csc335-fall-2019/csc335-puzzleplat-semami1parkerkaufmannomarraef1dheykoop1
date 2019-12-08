@@ -1,5 +1,8 @@
-import java.awt.Graphics;
 
+import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observer;
@@ -596,7 +599,7 @@ public class PuzzlePlatController {
 					((myCircle) shape).getCenterX() - .5,
 					((myCircle) shape).getCenterY() - .5, 1, 1);
 			if(rainCol.isCollision()) {
-				model.getCharacters().get(0).setHealth(model.getCharacters().get(0).getHealth() - 10);
+				model.getCharacters().get(0).lostHealth();
 				System.out.println(model.getCharacters().get(0).getHealth());
 				if(model.getCharacters().get(0).getHealth() == 0) {
 					gameOver = true;
@@ -610,13 +613,47 @@ public class PuzzlePlatController {
 	}
 	
 	
+	public boolean isNameVacant(String name){
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader("src/SavedGames.txt"));
+			ArrayList<String[]> gamesInfo = new ArrayList<>();
+			
+			String lineTokens[] = null;
+			String line = null;
+			try {
+				while((line = reader.readLine()) != null) {
+					lineTokens = line.split(" ");
+					gamesInfo.add(lineTokens);
+				}
+				reader.close();
+				for(int i = 0; i < gamesInfo.size(); i++) {
+					if(gamesInfo.get(i)[0].equals(name)) {
+						return false;
+					}
+				}
+				return true;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		return true;
+	}
 	
 	
 	/**
 	 * Creates Player One and adds them to character Array
 	 */
-	public void createPlayerOne() {
-		PlayerOne p1 = new PlayerOne(30, 200);
+	public void createPlayerOne(double x, double y, int health, int lives) {
+		PlayerOne p1 = new PlayerOne(x, y);
+		p1.setLives(lives);
+		p1.setHealth(health);
 		model.setP(p1);
 		model.characters.add(model.getP());
 	}

@@ -1,3 +1,4 @@
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class PuzzlePlatModel extends Observable{
 	private PlayerOne p;
 	
 	private int platformFloorY; //updated with every stage initiation
+	
 	
 	/**
 	 * getter for list of floors
