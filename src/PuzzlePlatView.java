@@ -1,4 +1,4 @@
-
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
@@ -8,8 +8,6 @@ import java.util.EventListener;
 import java.util.Observable;
 import java.util.Optional;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -22,17 +20,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -51,6 +43,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 	private boolean bridgeStageTwoDrawn = false; //has the bridge been made?
 	private boolean consumed = false;
 	Image image1 = new Image(getClass().getResourceAsStream("background.png"));
+	//Image image2 = new Image(getClass().getResourceAsStream("backgl2.png"));
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -81,8 +74,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			primaryStage.setTitle("Level 1");
 			canvas = new Canvas(1200,300);
 			gc = canvas.getGraphicsContext2D();
-			
-			gc.setFill(Color.PINK);
+
+			gc.setFill(new ImagePattern(image1));
 			gc.fillRect(0, 0, 1200, 300);
 			
 			controller.makeRain(0, 1);//makes rain
@@ -143,6 +136,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 				}
 			*/
 				if(key == KeyCode.UP) {
+					
+					controller.getP1().setMovingUp(true);
 					if (!controller.isCollision()) {
 						if(jmpCnt<1) {
 							controller.setCanJump(true);
@@ -201,6 +196,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 //					System.out.println("DOWN");
 //				}
 				else if(key == KeyCode.RIGHT) {
+					controller.getP1().setMovingRight(true);
 					if (!controller.isCollision()) {
 						controller.getP1().setMovingRight(true);
 						controller.getP1().setMovingLeft(false);
@@ -229,6 +225,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 					}
 				}
 				else if(key == KeyCode.LEFT) {
+					controller.getP1().setMovingLeft(true);
 					if (!controller.isCollision()) {
 						controller.getP1().setMovingLeft(true);
 						controller.getP1().decrementX();
@@ -263,6 +260,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			public void handle(KeyEvent e) {
 				KeyCode key = e.getCode();
 				if(key == KeyCode.UP) {
+					controller.getP1().setMovingUp(false);
 					
 				}
 				// TODO Maybe implement if we add a ladders?
@@ -297,50 +295,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		primaryStage.addEventHandler(KeyEvent.KEY_TYPED, keyPressedNav);
 		//////////// character control end ///////
 		
-		MenuBar menuBar = new MenuBar();
-		menuBar.setMinWidth(344);
-		//menuBar.setMaxWidth(value);
-		
-		MenuItem menuItem = new MenuItem("Switch Levels");
-		//Restart Game Option
-		
-		 EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
-			 
-				@Override
-	            public void handle(ActionEvent e) 
-	            { 
-					navWindow navigation = new navWindow();
-//					level = ((RadioButton)toggle2.getSelectedToggle()).getText();
-//
-//		        	PuzzlePlatView newGame = new PuzzlePlatView();
-//		        	newGame.setLevel(level);
-//		        	try {
-//						newGame.start(new Stage());
-//					} catch (Exception e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//		        	
-//		        	dialog.close();
-	            } 
-	        }; 
-		
-		menuItem.setOnAction(event);
-		
-		Menu fileMenu = new Menu("Options");
-		fileMenu.getItems().add(menuItem);
-		menuBar.getMenus().add(fileMenu);
-		BorderPane borderPane = new BorderPane();
-		Pane wrapperPane = new Pane();
-		borderPane.setCenter(wrapperPane);
-		
-		wrapperPane.getChildren().add(canvas);
-		  
-		borderPane.setTop(menuBar);
-		
-		
 		root = new Group();
-		root.getChildren().addAll(borderPane);
+		root.getChildren().add(canvas);
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -380,9 +336,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		gc.fillText("Use arrow keys \n to move", 50, 180);
 		gc.fillText("Hide under shelter \n to avoid poisonous rain", 175, 130);
 		gc.fillText("Don't fall \n into the lava", 325, 200);
-		gc.fillText("Jump over obstacles", 400, 130);
-		gc.fillText("Get creative on how you \n finish the level", 800, 100);
-		gc.fillText("Reach the \n end of the level \n without dying to win!", 1100, 200);
+		gc.fillText("Have fun!", 800, 100);
+		gc.fillText("Reach the \n end of the level \n without dying to \nwin!", 1100, 200);
 	}
 	
 	private void drawBridgeAnimation(Rectangle rect) {
@@ -405,6 +360,9 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
+
+		Image image5 = new Image(getClass().getResourceAsStream("platform.png"));
+		
 		if(controller.getObstacles().size() < 50) {
 			controller.makeRain(0, 1);
 		}
@@ -415,7 +373,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			drawTutorialText();
 		}else if(level.toLowerCase().equals("level 1")){//if its level 1
 			gc.clearRect(0, 0, 1200, 300);
-			gc.setFill(Color.PINK);
+			gc.setFill(new ImagePattern(image1));
 			gc.fillRect(0, 0, 1200, 300);
 			if(controller.checkButtonClick() && bridgeStageTwoDrawn == false) { //draw bridge if button is clicked
 				Rectangle rect = new Rectangle(700, 250, 200, 25);
@@ -426,7 +384,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			}
 		}else{//level 2
 			gc.clearRect(0, 0, 1200, 300);
-			gc.setFill(Color.AQUA);
+			gc.setFill(new ImagePattern(image5));
 			gc.fillRect(0, 0, 1200, 300);
 			controller.makeRain(0, 1);
 		}
@@ -439,6 +397,14 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		PlayerOne renderedPlayer = ((ArrayList<PlayerOne>)((ArrayList<Object>)arg).get(2)).get(0);
 		gc.drawImage(renderedPlayer.getPlayerImg(), renderedPlayer.getX(), renderedPlayer.getY());
 		
+		//gc.setFill(Color.BLACK);
+		//gc.fillText("HP:", 20, 20);
+		gc.setFill(Color.GREY);//makes rectangle
+		gc.fillRect(35, 10, 48, 18);
+		gc.setFill(Color.RED);
+		gc.fillRect(39, 14, controller.getP1().getHealth() / 2.5, 10);
+		
+		
 		
 		if (controller.isGameOver()) {
 			controller.stop();
@@ -447,6 +413,9 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		    alert.setHeaderText(null);
 		    if (controller.getP1().inLava())
 		    	alert.setContentText("Game Over. You fell into some lava!");
+		    else if(controller.getP1().getHealth() == 0) {
+		    	alert.setContentText("Game Over. The poison rain got you!");
+		    }
 		    else
 		    	alert.setContentText("Level Completed! Great Work.");
 		    alert.setOnHidden(evt -> Platform.exit());
