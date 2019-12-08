@@ -54,14 +54,13 @@ public class PuzzlePlatController {
 	    Image image4 = new Image(getClass().getResourceAsStream("shortestGround.png"));
 	    Image image5 = new Image(getClass().getResourceAsStream("stone.png"));
 		 
-	    //Image image2 = new Image(getClass().getResourceAsStream(""));
 	
 		Rectangle rect = new Rectangle(0,250,300,50);
 		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(400,250,100,50);
-		rect.setFill(new ImagePattern(image4));
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(600,250,400,50);
@@ -72,7 +71,7 @@ public class PuzzlePlatController {
 		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(125,180,125,20);
+		rect = new Rectangle(125,180,125,20); 
 		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
@@ -222,7 +221,7 @@ public class PuzzlePlatController {
 		model.addObstacle(rect);
 	}
 	/**
-	 * maek buttons for stage2
+	 * make buttons for stage2
 	 */
 	public void makeStageTwoButtons() {
 
@@ -239,127 +238,138 @@ public class PuzzlePlatController {
 	public void makeStageThreeFloors() {
 		model.setPlatformFloorY(201); //base floor for testing character movement
 		
+		Image image1 = new Image(getClass().getResourceAsStream("stoneThing.png"));
+		
+
+		Image image2 = new Image(getClass().getResourceAsStream("groundChunks.png"));
+		
+
+		Image image3 = new Image(getClass().getResourceAsStream("elevatedBox.png"));
+		
 		Rectangle rect = new Rectangle(0,250,125,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image2));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(200,250,25,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(300,240,25,60);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(400,250,25,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(500,240,25,60);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(600,250,25,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(700,240,25,60);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(800,240,25,60);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(900,250,25,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(1000,240,25,60);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(1100,250,100,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image2));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(200,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(300,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(400,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(500,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(600,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(700,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(800,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(900,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(1000,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 	}
 	
 	public void makeStageThreeObstacles() {
 		Rectangle rect = new Rectangle(125, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		
+		Image image1 = new Image(getClass().getResourceAsStream("lava-png-clipart.png"));
+		
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(225, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(325, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(425, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(525, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(625, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(725, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(825, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(925, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(1025, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 	}

@@ -60,8 +60,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 	private boolean bridgeStageTwoDrawn = false; // has the bridge been made?
 	private boolean consumed = false;
 	Image image1 = new Image(getClass().getResourceAsStream("background.png"));
-	// Image image2 = new Image(getClass().getResourceAsStream("backgl2.png"));
-
+	Image image2 = new Image(getClass().getResourceAsStream("mountains.png"));
+	Image image3 = new Image(getClass().getResourceAsStream("pixelSpace.png"));
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		controller.start();// starts game clock
@@ -92,7 +92,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 			canvas = new Canvas(1200, 300);
 			gc = canvas.getGraphicsContext2D();
 
-			gc.setFill(new ImagePattern(image1));
+			gc.setFill(new ImagePattern(image3));
 			gc.fillRect(0, 0, 1200, 300);
 
 			controller.makeRain(0, 1);// makes rain
@@ -112,7 +112,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 			canvas = new Canvas(1200, 300);
 			gc = canvas.getGraphicsContext2D();
 
-			gc.setFill(Color.AQUA);
+			gc.setFill(new ImagePattern(image2));
 			gc.fillRect(0, 0, 1200, 300);
 			controller.makeRain(0, 2);// makes rain
 
@@ -471,18 +471,23 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 			drawTutorialText();
 		} else if (level.toLowerCase().equals("level 1")) {// if its level 1
 			gc.clearRect(0, 0, 1200, 300);
-			gc.setFill(new ImagePattern(image1));
+			gc.setFill(new ImagePattern(image3));
 			gc.fillRect(0, 0, 1200, 300);
 			if (controller.checkButtonClick() && bridgeStageTwoDrawn == false) { // draw bridge if button is clicked
 				Rectangle rect = new Rectangle(700, 250, 200, 25);
-				rect.setFill(Color.SADDLEBROWN);
+
+			    Image image = new Image(getClass().getResourceAsStream("stone.png"));
+				
+				rect.setFill(new ImagePattern(image));
+				
+				
 				controller.addFloor(rect);
 				// drawBridgeAnimation(rect);
 				bridgeStageTwoDrawn = true;
 			}
 		} else {// level 2
 			gc.clearRect(0, 0, 1200, 300);
-			gc.setFill(new ImagePattern(image5));
+			gc.setFill(new ImagePattern(image2));
 			gc.fillRect(0, 0, 1200, 300);
 			controller.makeRain(0, 1);
 		}
