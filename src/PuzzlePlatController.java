@@ -114,58 +114,81 @@ public class PuzzlePlatController {
 	 * make all the floors for level two
 	 */
 	public void makeStageTwoFloors() {
+		
+		Image image1 = new Image(getClass().getResourceAsStream("redbrick.png"));
+
+		Image image2 = new Image(getClass().getResourceAsStream("groupBricks.png"));
+		
+
+		Image image3 = new Image(getClass().getResourceAsStream("bricks.png"));
+		
+
+		Image image4 = new Image(getClass().getResourceAsStream("log.png"));
+		
+
+		Image image5 = new Image(getClass().getResourceAsStream("platform.png"));
+		
+
+		Image image6 = new Image(getClass().getResourceAsStream("groundPink.png"));
+		
+
+		Image image7 = new Image(getClass().getResourceAsStream("groundPink5.png"));
+		
+		Image image8 = new Image(getClass().getResourceAsStream("groundPinkMore.png"));
+		
+		
 		model.setPlatformFloorY(201); //base floor for testing character movement
 		
 		Rectangle rect = new Rectangle(0,250,125,50);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image6));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(200,250,50,50);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image7));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(325,250,50,50);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image7));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(500,250,200,50);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image8));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(900,250,25,50);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image4));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(1000,250,200,50);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image8));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(100,50,30,25);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(170,50,80,25);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image2));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(275,50,25,25);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(325,50,50,25);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(500,100,200,25);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(800,100,100,25);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(1000,100,50,25);
-		rect.setFill(Color.SADDLEBROWN);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 	}
 	
@@ -173,32 +196,37 @@ public class PuzzlePlatController {
 	 * make obstacles for stage2
 	 */
 	public void makeStageTwoObstacles() {
+		Image image1 = new Image(getClass().getResourceAsStream("lava-png-clipart.png"));
+		
 		Rectangle rect = new Rectangle(125, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(250, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(375, 275, 125, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(700, 275, 200, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(925, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 	}
 	/**
 	 * maek buttons for stage2
 	 */
 	public void makeStageTwoButtons() {
+
+		Image image5 = new Image(getClass().getResourceAsStream("button.png"));
+		
 		Rectangle rect = new Rectangle(600,240,20,10);
-		rect.setFill(Color.WHITE);
+		rect.setFill(new ImagePattern(image5));
 		model.addButton(rect);
 	}
 	

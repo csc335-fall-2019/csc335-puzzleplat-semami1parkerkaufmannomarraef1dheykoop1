@@ -43,6 +43,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 	private boolean bridgeStageTwoDrawn = false; //has the bridge been made?
 	private boolean consumed = false;
 	Image image1 = new Image(getClass().getResourceAsStream("background.png"));
+	//Image image2 = new Image(getClass().getResourceAsStream("backgl2.png"));
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -73,8 +74,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			primaryStage.setTitle("Level 1");
 			canvas = new Canvas(1200,300);
 			gc = canvas.getGraphicsContext2D();
-			
-			gc.setFill(Color.PINK);
+
+			gc.setFill(new ImagePattern(image1));
 			gc.fillRect(0, 0, 1200, 300);
 			
 			controller.makeRain(0, 1);//makes rain
@@ -359,6 +360,9 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
+
+		Image image5 = new Image(getClass().getResourceAsStream("platform.png"));
+		
 		if(controller.getObstacles().size() < 50) {
 			controller.makeRain(0, 1);
 		}
@@ -369,7 +373,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			drawTutorialText();
 		}else if(level.toLowerCase().equals("level 1")){//if its level 1
 			gc.clearRect(0, 0, 1200, 300);
-			gc.setFill(Color.PINK);
+			gc.setFill(new ImagePattern(image1));
 			gc.fillRect(0, 0, 1200, 300);
 			if(controller.checkButtonClick() && bridgeStageTwoDrawn == false) { //draw bridge if button is clicked
 				Rectangle rect = new Rectangle(700, 250, 200, 25);
@@ -380,7 +384,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			}
 		}else{//level 2
 			gc.clearRect(0, 0, 1200, 300);
-			gc.setFill(Color.AQUA);
+			gc.setFill(new ImagePattern(image5));
 			gc.fillRect(0, 0, 1200, 300);
 			controller.makeRain(0, 1);
 		}
