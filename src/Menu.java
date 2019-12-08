@@ -48,9 +48,7 @@ public class Menu extends Application {
 		private String level;
 		private Stage dummyStage;
 		private static boolean enter;
-		
-		public static final CountDownLatch latch = new CountDownLatch(1);
-	    public static Menu startUpTest = null;
+	
 
 		public void start(Stage primaryStage) throws Exception {
 		
@@ -257,8 +255,11 @@ public class Menu extends Application {
 
 		        	PuzzlePlatView newGame = new PuzzlePlatView();
 		        	newGame.setLevel(level);
+		        	
+		        	Stage start = new Stage();
 		        	try {
-						newGame.start(new Stage());
+		        		newGame.setStage(start);
+						newGame.start(start);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

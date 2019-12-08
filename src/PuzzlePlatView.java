@@ -56,6 +56,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 	private double yPosLoaded = 200.0;
 	private int healthLoaded = 100;
 	private int livesLoaded = 3;
+	private Stage currentStage;
 
 	private boolean bridgeStageTwoDrawn = false; // has the bridge been made?
 	private boolean consumed = false;
@@ -360,18 +361,18 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 			@Override
 			public void handle(ActionEvent e) {
 				navWindow navigation = new navWindow();
-//					level = ((RadioButton)toggle2.getSelectedToggle()).getText();
-//
-//		        	PuzzlePlatView newGame = new PuzzlePlatView();
-//		        	newGame.setLevel(level);
-//		        	try {
-//						newGame.start(new Stage());
-//					} catch (Exception e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//		        	
-//		        	dialog.close();
+				
+				PuzzlePlatView newGame = new PuzzlePlatView();
+	        	newGame.setLevel(navigation.getSelected());
+	        	Stage currStag = new Stage();
+	        	try {
+					newGame.start(currStag);
+					setStage(currStag);
+					currentStage.close();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		};
 
@@ -547,6 +548,10 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 
 	public void setHealthLoaded(int healthLoaded) {
 		this.healthLoaded = healthLoaded;
+	}
+	
+	public void setStage(Stage level) {
+		this.currentStage = level;
 	}
 
 	public int getLivesLoaded() {
