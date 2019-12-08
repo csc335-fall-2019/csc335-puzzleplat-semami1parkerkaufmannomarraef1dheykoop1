@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 public class navWindow extends Application{
 	
 	private Stage dummyStage;
+	private String selection;
 	
 	
 	public navWindow(){
@@ -85,8 +86,8 @@ public class navWindow extends Application{
 		    
 		    okay.setOnAction(new EventHandler<ActionEvent>() {
 		        @Override public void handle(ActionEvent e) {
-		        	
-		        	 dialog.close();
+		        	selection = ((RadioButton)toggle2.getSelectedToggle()).getText();
+		        	dialog.close();
 		        }
 		    }); 
 		    
@@ -117,6 +118,10 @@ public class navWindow extends Application{
 			dialog.initModality(Modality.APPLICATION_MODAL); 
 			dialog.showAndWait();
 		       
+	}
+	
+	public String getSelected() {
+		return this.selection;
 	}
 	
 
