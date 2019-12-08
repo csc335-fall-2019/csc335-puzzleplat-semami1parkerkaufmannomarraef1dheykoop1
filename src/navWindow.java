@@ -15,6 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author parker
+ *
+ */
 public class navWindow extends Application{
 	
 	private Stage dummyStage;
