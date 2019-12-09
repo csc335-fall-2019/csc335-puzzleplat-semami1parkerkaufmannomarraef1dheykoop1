@@ -51,7 +51,12 @@ public class Menu extends Application {
 	
 
 		public void start(Stage primaryStage) throws Exception {
-		
+			/**
+			 * Creates the GUI interface for the menu window which
+			 * allows the user to select a level, start the game, or a load a game.
+			 * 
+			 * @param primaryStage is a Stage Object that the dialog uses
+			 */
 			Stage dialog = new Stage();
 			enter = false;
 			dialog.setTitle("Start Menu");
@@ -71,7 +76,7 @@ public class Menu extends Application {
 		    RadioButton p1Button = new RadioButton("One Player"); 
 		    p1Button.setSelected(true);
 		    p1Button.setTextFill(Color.LIGHTPINK);
-		    RadioButton p2Button = new RadioButton("Two Players"); 
+		   
 		    
 		    
 		    Image image6 = new Image(getClass().getResourceAsStream("User-512.png"));
@@ -79,20 +84,17 @@ public class Menu extends Application {
 		    
 		    
 		    Image image7 = new Image(getClass().getResourceAsStream("people.png"));
-		    p2Button.setGraphic(new ImageView(image7));
+		    
 		        
 		    label.setPadding(new Insets(8,8,8,8));
 		    p1Button.setPadding(new Insets(8,8,8,8));
-		    p2Button.setPadding(new Insets(8,8,8,8));
 		   
 		    p1Button.setToggleGroup(toggle); 
-		    p2Button.setToggleGroup(toggle); 
 		    
 		    HBox group1 = new HBox();
 		    group1.setPadding(new Insets(8,8,8,8));
 		    group1.getChildren().add(label);
 		    group1.getChildren().add(p1Button); 
-		    group1.getChildren().add(p2Button); 
 		        
 		    
 		    ToggleGroup toggle2 = new ToggleGroup(); 
@@ -298,15 +300,30 @@ public class Menu extends Application {
 		}
 		
 		public String getLevelNum() {
+			/**
+			 * get the level the user selected from the menu
+			 * 
+			 * @return String that is the name of the level
+			 */
 			return this.level;
 		}
 		
 		
 		public String getPlayerNum() {
+			/**
+			 * get the number of players in a game : currently can only be one
+			 * 
+			 * @return String for the number of players
+			 */
 			return this.player;
 		}
 		
 		public static boolean getSubmitted() {
+			/**
+			 * get the value for if the user has submitted a response
+			 * 
+			 * @return boolean 
+			 */
 			return enter;
 		}
 		

@@ -16,9 +16,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * 
- * @author parker
- *
+ * navWindow launches a navigation window for a user to select
+ * between the different levels. This info is sent to the view and 
+ * the screen gets updated to the selected level.
  */
 public class navWindow extends Application{
 	
@@ -27,6 +27,7 @@ public class navWindow extends Application{
 	
 	
 	public navWindow(){
+		//constructor that launches the GUI when instantiated. 
 		try {
 			start(dummyStage);
 		} catch (Exception e) {
@@ -35,7 +36,12 @@ public class navWindow extends Application{
 	}
 	
 	public void start(Stage primaryStage) throws Exception {
-		
+		/**
+		 * Creates the GUI interface for the navigation window which
+		 * allows the user to select between levels.
+		 * 
+		 * @param primaryStage is a Stage Object that the dialog uses
+		 */
 		Stage dialog = new Stage();
 		
 		dialog.setTitle("Switch Levels");
@@ -121,6 +127,11 @@ public class navWindow extends Application{
 	}
 	
 	public String getSelected() {
+		/**
+		 * gets the level the user has selected
+		 * 
+		 * @return String with the level name
+		 */
 		return this.selection;
 	}
 	

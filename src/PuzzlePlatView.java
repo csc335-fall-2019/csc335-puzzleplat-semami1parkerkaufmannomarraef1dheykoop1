@@ -67,6 +67,10 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		/**
+		 * Creates the GUI interface for the game to be played on
+		 * @param primaryStage is a Stage Object 
+		 */
 		controller.start();// starts game clock
 		controller.addObserver(this);
 		Canvas canvas = null;
@@ -580,38 +584,74 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 	}
 
 	public double getxPosLoaded() {
+		/**
+		 * get the x position
+		 * @return double 
+		 */
 		return xPosLoaded;
 	}
 
 	public void setxPosLoaded(double xPosLoaded) {
+		/**
+		 * set the x position
+		 * @param xPosLoaded is a double that the field gets set to 
+		 */
 		this.xPosLoaded = xPosLoaded;
 	}
 
 	public double getyPosLoaded() {
+		/**
+		 * get the y position
+		 * @return double 
+		 */
 		return yPosLoaded;
 	}
 
 	public void setyPosLoaded(double yPosLoaded) {
+		/**
+		 * set the y position
+		 * @param yPosLoaded is a double that the field gets set to 
+		 */
 		this.yPosLoaded = yPosLoaded;
 	}
 
 	public int getHealthLoaded() {
+		/**
+		 * get the health in game
+		 * @return int 
+		 */
 		return healthLoaded;
 	}
 
 	public void setHealthLoaded(int healthLoaded) {
+		/**
+		 * set the health in game
+		 * @param healthLoaded is an int that the field gets set to 
+		 */
 		this.healthLoaded = healthLoaded;
 	}
 	
 	public void setStage(Stage level) {
+		/**
+		 * sets the current stage to the parameter
+		 * @param Stage object 
+		 */
 		this.currentStage = level;
 	}
 
 	public int getLivesLoaded() {
+		/**
+		 * get the number of lives loaded 
+		 * @return int 
+		 */
 		return livesLoaded;
 	}
 
 	public void setLivesLoaded(int livesLoaded) {
+		/**
+		 * set the lives loaded in game
+		 * @param livesLoaded is an int that the field gets set to 
+		 */
 		this.livesLoaded = livesLoaded;
 	}
 
