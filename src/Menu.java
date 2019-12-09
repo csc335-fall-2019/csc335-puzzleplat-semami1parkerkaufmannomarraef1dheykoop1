@@ -252,7 +252,6 @@ public class Menu extends Application {
 				public void handle(ActionEvent e) {
 					level = ((RadioButton)toggle2.getSelectedToggle()).getText();
 		        	player = ((RadioButton)toggle.getSelectedToggle()).getText();
-
 		        	PuzzlePlatView newGame = new PuzzlePlatView();
 		        	newGame.setLevel(level);
 		        	
