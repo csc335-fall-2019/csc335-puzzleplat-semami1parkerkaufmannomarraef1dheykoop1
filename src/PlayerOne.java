@@ -628,20 +628,34 @@ public class PlayerOne{
 		this.playerImgNumber = playerImgNumber;
 	}
 	
-	
+	/**
+	 * Gets the last move the player did
+	 * @return a KeyCode which is whatever button the user clicked on the keyboard
+	 */
 	public KeyCode getLastMove() {
 		return lastMove;
 	}
 	
-	
+	/**
+	 * Sets the lastMove variable equal to whatever the caller says was clicked
+	 * @param lastMove is the last key pressed
+	 */
 	public void setLastMove(KeyCode lastMove) {
 		this.lastMove = lastMove;
 	}
 	
+	/**
+	 * Gets whether the player can jump again
+	 * @return boolean that tells if a player can double jump
+	 */
 	public boolean isCanJumpAgain() {
 		return canJumpAgain;
 	}
 	
+	/**
+	 * Sets the canJumpAgain equal to the boolean the caller gives
+	 * @param canJumpAgain whether the player can jump again
+	 */
 	public void setCanJumpAgain(boolean canJumpAgain) {
 		this.canJumpAgain = canJumpAgain;
 		

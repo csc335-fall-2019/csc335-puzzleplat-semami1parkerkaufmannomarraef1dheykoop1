@@ -476,19 +476,12 @@ public class PuzzlePlatController {
 	public void tick() {
 		ArrayList<ArrayList<? extends Object>> state = new ArrayList<ArrayList<? extends Object>>();//state of the character, obstacles, and floor
 		
-		//floorCollision();
 		// If there's a collision, we should check what direction it was going last so
 		// we can go a different direction.
 		if (getP1().isCancelJump() && getP1().getLastMove().equals(KeyCode.UP)) {
 			cancelJump();
 		}
 		land();
-		/*
-		if (getP1().getY() >= this.model.getPlatformFloorY()-4 && !getP1().isCanJump() && !getP1().inLava()) {
-			getP1().setY(this.model.getPlatformFloorY());
-
-		}
-		*/
 		if((getP1().getX() <= 0) || (getP1().getX() + getP1().getPlayerImg().getWidth()) >= 1250) {
 			cancelJump();
 		}
@@ -528,23 +521,14 @@ public class PuzzlePlatController {
 				playerJump();
 			}
 		}
-		/*
-		if (getP1().getLastMove() != null) {
-			if (!getP1().getLastMove().equals(KeyCode.UP) || noMovement())
-				bringToFloor();
-		}
-		*/
-		//moveEnemies();
+
 		moveRain();
 		checkForDeath();
-		
-		//checkForWin();
 		
 		// Calling the onFloor() method has an issue since the sprite's height alternates between the moves
 		// and the image is larger than the actual character.
 		if (!onFloor() && !getP1().isCanJump()) {//!getP1().getLastMove().equals(KeyCode.UP)) {
 			// The negative jump strength makes the second half of the jump start (falling)
-			
 			getP1().setJumpStrength(-11);
 			bringToFloor();
 		}
@@ -647,11 +631,9 @@ public class PuzzlePlatController {
 				}
 				return true;
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -734,11 +716,8 @@ public class PuzzlePlatController {
 						 getP1().setCancelJump(true);
 						 return true;
 					 }
-				 }
-				 
+				 }	 
 			 }
-			 // if (s instanceof myCircle){
-			 // }
 		}
 		return false;
 	}
@@ -751,23 +730,15 @@ public class PuzzlePlatController {
 	 */
 	public void bringToFloor() {
 		PlayerOne player = getP1();
-		//player.setY(player.getY()+2);
-		//System.out.println(getP1().getJumpStrength());
+	
+		getP1().setY(player.getY()-player.getJumpStrength());
 		
-		// Here I'm trying to mimic what the end of the jump (when the player is falling) looks like 
-		// Difficult because 
+		getP1().setJumpStrength(player.getJumpStrength() - player.getWeight());
 		
-		getP1().setY(getP1().getY()-getP1().getJumpStrength());
-		
-		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
-		
-		if(getP1().getY() >= this.model.getPlatformFloorY() && !aboveLava()) {
-			//getP1().setInLava(true);
-			//System.out.println("Yarp");
-			// || collision with floor
-			getP1().setY(this.model.getPlatformFloorY());
+		if(player.getY() >= this.model.getPlatformFloorY() && !aboveLava()) {
+			player.setY(this.model.getPlatformFloorY());
 			setCanJump(false);
-			getP1().setJumpStrength(13);
+			player.setJumpStrength(13);
 		}
 		
 		
@@ -914,27 +885,19 @@ public class PuzzlePlatController {
 		getP1().setY(getP1().getY()-getP1().getJumpStrength());
 		
 		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
-		
-		//Collision new_collision = floorCollision();
-		
+				
 		if(getP1().getY() >= this.model.getPlatformFloorY()) {
 			// || collision with floor
 			getP1().setY(this.model.getPlatformFloorY());
 			setCanJump(false);
 			getP1().setJumpStrength(13);
 		}
-		/*
-		else if(new_collision != null) {
-			if (getP1().getY() >= new_collision.getY2()) {
-				System.out.println("floor collision at " + new_collision.getY2());
-				getP1().setY(new_collision.getY2());
-				setCanJump(false);
-				getP1().setJumpStrength(13);
-			}
-		}
-		*/
 	}
 	
+	/**
+	 * Determines if there is a collision between the player and the floor
+	 * @return A Collision object
+	 */
 	public Collision floorCollision() {
 		PlayerOne player = getP1();
 		ArrayList<Shape> floors = getFloors();
