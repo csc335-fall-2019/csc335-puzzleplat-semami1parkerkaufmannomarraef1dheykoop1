@@ -132,8 +132,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 		EventHandler<MouseEvent> mooso = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println("y = " + event.getY());
-				System.out.println("x = " + event.getX());
+				//System.out.println("y = " + event.getY());
+				//System.out.println("x = " + event.getX());
 			}
 		};
 		primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, mooso);

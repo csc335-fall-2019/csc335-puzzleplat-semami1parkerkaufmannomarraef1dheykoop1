@@ -489,6 +489,9 @@ public class PuzzlePlatController {
 
 		}
 		*/
+		if((getP1().getX() <= 0) || (getP1().getX() + getP1().getPlayerImg().getWidth()) >= 1250) {
+			cancelJump();
+		}
 		if (isCollision()) {
 			if (getP1().getLastMove().equals(KeyCode.RIGHT)) {
 				if(model.getP().isCanMoveLeft()) { //&& !isCollision()) {
