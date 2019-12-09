@@ -16,11 +16,14 @@ public class PuzzlePlatModel extends Observable{
 	ArrayList<PlayerOne> characters = new ArrayList<>();
 	
 	ArrayList<Shape> buttons = new ArrayList<>();
+
+	
 	
 	//Character player1
 	private PlayerOne p;
 	
 	private int platformFloorY; //updated with every stage initiation
+	
 	
 	
 	/**

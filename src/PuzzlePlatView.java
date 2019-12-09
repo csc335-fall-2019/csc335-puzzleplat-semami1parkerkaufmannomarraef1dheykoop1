@@ -60,9 +60,11 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 
 	private boolean bridgeStageTwoDrawn = false; // has the bridge been made?
 	private boolean consumed = false;
+	private boolean pauseGame = false;
 	Image image1 = new Image(getClass().getResourceAsStream("background.png"));
 	Image image2 = new Image(getClass().getResourceAsStream("mountains.png"));
 	Image image3 = new Image(getClass().getResourceAsStream("pixelSpace.png"));
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		controller.start();// starts game clock
@@ -403,6 +405,25 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 
 		restartItem.setOnAction(restartEvent);
 
+		
+		MenuItem pauseItem = new MenuItem("Pause Game");
+		
+		EventHandler<ActionEvent> pauseEvent = new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				pauseGame = true;
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setTitle("Pause Menu");
+				alert.setHeaderText("Your game is pause");
+				alert.setOnHidden(evt -> pauseGame = false);
+				alert.show();
+				
+			}
+		};
+
+		pauseItem.setOnAction(pauseEvent);
+
 
 		Menu fileMenu = new Menu("Options");
 		fileMenu.getItems().add(menuItem);
@@ -410,6 +431,9 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 		fileMenu.getItems().add(saveItem);
 
 		fileMenu.getItems().add(restartItem);
+		
+		fileMenu.getItems().add(pauseItem);
+		
 		
 		menuBar.getMenus().add(fileMenu);
 		BorderPane borderPane = new BorderPane();
@@ -487,7 +511,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
-
+		if (!pauseGame){
+			
 		Image image5 = new Image(getClass().getResourceAsStream("platform.png"));
 
 		if (controller.getObstacles().size() < 50) {
@@ -551,7 +576,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 			alert.setOnHidden(evt -> Platform.exit());
 			alert.show();
 		}
-
+		}
 	}
 
 	public double getxPosLoaded() {
