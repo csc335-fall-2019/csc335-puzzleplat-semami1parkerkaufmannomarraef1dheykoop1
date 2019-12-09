@@ -610,7 +610,7 @@ public class PuzzlePlatController {
 					((myCircle) shape).getCenterY() - .5, 1, 1);
 			if(rainCol.isCollision()) {
 				model.getCharacters().get(0).lostHealth();
-				System.out.println(model.getCharacters().get(0).getHealth());
+				//System.out.println(model.getCharacters().get(0).getHealth());
 				if(model.getCharacters().get(0).getHealth() == 0) {
 					gameOver = true;
 				}
@@ -759,7 +759,7 @@ public class PuzzlePlatController {
 		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
 		
 		if(getP1().getY() >= this.model.getPlatformFloorY() && !aboveLava()) {
-			getP1().setInLava(true);
+			//getP1().setInLava(true);
 			//System.out.println("Yarp");
 			// || collision with floor
 			getP1().setY(this.model.getPlatformFloorY());
