@@ -302,7 +302,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 		menuBar.setMinWidth(344);
 		// menuBar.setMaxWidth(value);
 
-		MenuItem menuItem = new MenuItem("Switch Levels");
+		
 
 		// TODO Restart Game Option
 
@@ -356,6 +356,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 
 		// switch levels handler
 		
+		MenuItem menuItem = new MenuItem("Switch Levels");
+		
 		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
 			@Override
@@ -367,8 +369,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 	        	Stage currStag = new Stage();
 	        	try {
 					newGame.start(currStag);
-					setStage(currStag);
 					currentStage.close();
+					setStage(currStag);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -377,12 +379,38 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 		};
 
 		menuItem.setOnAction(event);
+		
+		MenuItem restartItem = new MenuItem("Restart Level");
+		
+		EventHandler<ActionEvent> restartEvent = new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				PuzzlePlatView newGame = new PuzzlePlatView();
+				newGame.setLevel(level);
+	        	Stage currStag = new Stage();
+	        	try {
+					newGame.start(currStag);
+					currentStage.close();
+					setStage(currStag);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		};
+
+		restartItem.setOnAction(restartEvent);
+
 
 		Menu fileMenu = new Menu("Options");
 		fileMenu.getItems().add(menuItem);
 
 		fileMenu.getItems().add(saveItem);
 
+		fileMenu.getItems().add(restartItem);
+		
 		menuBar.getMenus().add(fileMenu);
 		BorderPane borderPane = new BorderPane();
 		Pane wrapperPane = new Pane();
