@@ -1,4 +1,4 @@
-
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
@@ -8,8 +8,6 @@ import java.util.EventListener;
 import java.util.Observable;
 import java.util.Optional;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -22,17 +20,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -143,6 +135,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 				}
 			*/
 				if(key == KeyCode.UP) {
+					
+					controller.getP1().setMovingUp(true);
 					if (!controller.isCollision()) {
 						if(jmpCnt<1) {
 							controller.setCanJump(true);
@@ -201,6 +195,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 //					System.out.println("DOWN");
 //				}
 				else if(key == KeyCode.RIGHT) {
+					controller.getP1().setMovingRight(true);
 					if (!controller.isCollision()) {
 						controller.getP1().setMovingRight(true);
 						controller.getP1().setMovingLeft(false);
@@ -229,6 +224,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 					}
 				}
 				else if(key == KeyCode.LEFT) {
+					controller.getP1().setMovingLeft(true);
 					if (!controller.isCollision()) {
 						controller.getP1().setMovingLeft(true);
 						controller.getP1().decrementX();
@@ -263,6 +259,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 			public void handle(KeyEvent e) {
 				KeyCode key = e.getCode();
 				if(key == KeyCode.UP) {
+					controller.getP1().setMovingUp(false);
 					
 				}
 				// TODO Maybe implement if we add a ladders?
@@ -297,50 +294,8 @@ public class PuzzlePlatView extends Application implements java.util.Observer{
 		primaryStage.addEventHandler(KeyEvent.KEY_TYPED, keyPressedNav);
 		//////////// character control end ///////
 		
-		MenuBar menuBar = new MenuBar();
-		menuBar.setMinWidth(344);
-		//menuBar.setMaxWidth(value);
-		
-		MenuItem menuItem = new MenuItem("Switch Levels");
-		//Restart Game Option
-		
-		 EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
-			 
-				@Override
-	            public void handle(ActionEvent e) 
-	            { 
-					navWindow navigation = new navWindow();
-//					level = ((RadioButton)toggle2.getSelectedToggle()).getText();
-//
-//		        	PuzzlePlatView newGame = new PuzzlePlatView();
-//		        	newGame.setLevel(level);
-//		        	try {
-//						newGame.start(new Stage());
-//					} catch (Exception e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//		        	
-//		        	dialog.close();
-	            } 
-	        }; 
-		
-		menuItem.setOnAction(event);
-		
-		Menu fileMenu = new Menu("Options");
-		fileMenu.getItems().add(menuItem);
-		menuBar.getMenus().add(fileMenu);
-		BorderPane borderPane = new BorderPane();
-		Pane wrapperPane = new Pane();
-		borderPane.setCenter(wrapperPane);
-		
-		wrapperPane.getChildren().add(canvas);
-		  
-		borderPane.setTop(menuBar);
-		
-		
 		root = new Group();
-		root.getChildren().addAll(borderPane);
+		root.getChildren().add(canvas);
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
