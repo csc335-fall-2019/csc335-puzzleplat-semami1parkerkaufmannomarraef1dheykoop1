@@ -210,9 +210,9 @@ public class PlayerOne{
 	 * renders image, for sprite draft, not used
 	 * @param g
 	 */
-	public void render(GraphicsContext g) {
+	/*public void render(GraphicsContext g) {
 		g.drawImage(this.playerPic.getImage(), xPos, yPos);
-	}
+	}*/
 	/**
 	 * returns xPos
 	 * @return xPos
