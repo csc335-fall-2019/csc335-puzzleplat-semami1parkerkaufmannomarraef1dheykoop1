@@ -72,6 +72,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 		 * Creates the GUI interface for the game to be played on
 		 * @param primaryStage is a Stage Object 
 		 */
+		currentStage = primaryStage;
 		controller.start();// starts game clock
 		controller.addObserver(this);
 		Canvas canvas = null;
@@ -363,29 +364,86 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 
 		// switch levels handler
 		
-		MenuItem menuItem = new MenuItem("Switch Levels");
+		MenuItem menuItem = new MenuItem("Level 1");
 		
 		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
-				navWindow navigation = new navWindow();
-				
-				PuzzlePlatView newGame = new PuzzlePlatView();
-	        	newGame.setLevel(navigation.getSelected());
-	        	Stage currStag = new Stage();
-	        	try {
-					newGame.start(currStag);
-					currentStage.close();
-					setStage(currStag);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				//navWindow navigation = new navWindow();
+				if(!level.equals("level 1")) {
+					PuzzlePlatView newGame = new PuzzlePlatView();
+					newGame.setLevel("level 1");
+		        	//newGame.setLevel(navigation.getSelected());
+		        	Stage currStag = new Stage();
+		        	try {
+						newGame.start(currStag);
+						currentStage.close();
+						//setStage(currStag);
+						System.gc();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			}
 			}
 		};
 
 		menuItem.setOnAction(event);
+		
+		MenuItem switch2 = new MenuItem("Level 2");
+		
+		EventHandler<ActionEvent> eventSwitch2 = new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				//navWindow navigation = new navWindow();
+				if(!level.equals("level 2")) {
+					PuzzlePlatView newGame = new PuzzlePlatView();
+					newGame.setLevel("level 2");
+		        	//newGame.setLevel(navigation.getSelected());
+		        	Stage currStag = new Stage();
+		        	try {
+						newGame.start(currStag);
+						currentStage.close();
+						//setStage(currStag);
+						System.gc();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			}
+			}
+		};
+
+		switch2.setOnAction(eventSwitch2);
+		
+		MenuItem switchTut = new MenuItem("Tutorial");
+		
+		EventHandler<ActionEvent> eventSwitchTut = new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				//navWindow navigation = new navWindow();
+				if(!level.equals("Tutorial")) {
+					PuzzlePlatView newGame = new PuzzlePlatView();
+					newGame.setLevel("tutorial");
+		        	//newGame.setLevel(navigation.getSelected());
+		        	Stage currStag = new Stage();
+		        	try {
+						newGame.start(currStag);
+						currentStage.close();
+						//setStage(currStag);
+						System.gc();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			}
+			}
+		};
+
+		switchTut.setOnAction(eventSwitchTut);
 		
 		MenuItem restartItem = new MenuItem("Restart Level");
 		
@@ -398,9 +456,11 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 				newGame.setLevel(level);
 	        	Stage currStag = new Stage();
 	        	try {
+	        		
 					newGame.start(currStag);
 					currentStage.close();
-					setStage(currStag);
+					//setStage(currStag);
+					System.gc();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -431,7 +491,12 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 
 
 		Menu fileMenu = new Menu("Options");
+		
+		fileMenu.getItems().add(switchTut);
+		
 		fileMenu.getItems().add(menuItem);
+		
+		fileMenu.getItems().add(switch2);
 
 		fileMenu.getItems().add(saveItem);
 
