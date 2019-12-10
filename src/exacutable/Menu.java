@@ -1,3 +1,4 @@
+package exacutable;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -79,11 +80,11 @@ public class Menu extends Application {
 		   
 		    
 		    
-		    Image image6 = new Image(getClass().getResourceAsStream("User-512.png"));
+		    Image image6 = new Image(getClass().getResourceAsStream("/imgs/User-512.png"));
 		    p1Button.setGraphic(new ImageView(image6));
 		    
 		    
-		    Image image7 = new Image(getClass().getResourceAsStream("people.png"));
+		    Image image7 = new Image(getClass().getResourceAsStream("/imgs/people.png"));
 		    
 		        
 		    label.setPadding(new Insets(8,8,8,8));
@@ -104,20 +105,20 @@ public class Menu extends Application {
 		    RadioButton tutorialButton = new RadioButton("Tutorial"); 
 		    tutorialButton.setTextFill(Color.LIGHTGREEN);
 		    
-		    Image image3 = new Image(getClass().getResourceAsStream("Mod_Add-On_1-35-512.png"));
+		    Image image3 = new Image(getClass().getResourceAsStream("/imgs/Mod_Add-On_1-35-512.png"));
 		    tutorialButton.setGraphic(new ImageView(image3));
 		    
 		    tutorialButton.setSelected(true);
 		    RadioButton l1Button = new RadioButton("Level 1");
 		    l1Button.setTextFill(Color.ORANGE);
 		    
-		    Image image4 = new Image(getClass().getResourceAsStream("twoStars.png"));
+		    Image image4 = new Image(getClass().getResourceAsStream("/imgs/twoStars.png"));
 		    l1Button.setGraphic(new ImageView(image4));
 		    
 		    RadioButton l2Button = new RadioButton("Level 2"); 
 		    l2Button.setTextFill(Color.DARKRED);
 		    
-		    Image image5 = new Image(getClass().getResourceAsStream("threeStars.png"));
+		    Image image5 = new Image(getClass().getResourceAsStream("/imgs/threeStars.png"));
 		    l2Button.setGraphic(new ImageView(image5));
 			  
 		  
@@ -153,14 +154,14 @@ public class Menu extends Application {
 		    cancel.setStyle("-fx-background-color: #021917; -fx-font-size: 20px;");
 		    cancel.setTextFill(Color.BROWN);
 		    
-		    Image image1 = new Image(getClass().getResourceAsStream("Games-512.png"));
+		    Image image1 = new Image(getClass().getResourceAsStream("/imgs/Games-512.png"));
 		    game.setGraphic(new ImageView(image1));
 		    
-		    Image loadImage = new Image(getClass().getResourceAsStream("loadImg.png"));
+		    Image loadImage = new Image(getClass().getResourceAsStream("/imgs/loadImg.png"));
 		    loadGame.setGraphic(new ImageView(loadImage));
 		    
 		    
-		    Image image2 = new Image(getClass().getResourceAsStream("010_x-3-512.png"));
+		    Image image2 = new Image(getClass().getResourceAsStream("/imgs/010_x-3-512.png"));
 		    cancel.setGraphic(new ImageView(image2));
 		    
 		    cancel.setOnAction(new EventHandler<ActionEvent>() {

@@ -1,3 +1,4 @@
+package exacutable;
 
 import java.awt.Graphics;
 import java.io.BufferedReader;
@@ -45,14 +46,14 @@ public class PuzzlePlatController {
 		model.setPlatformFloorY(201); //base floor for testing character movement
 
 	    
-	    Image image1 = new Image(getClass().getResourceAsStream("flatGround.png"));
+	    Image image1 = new Image(getClass().getResourceAsStream("../imgs/flatGround.png"));
 
-	    Image image2 = new Image(getClass().getResourceAsStream("longerGround.png"));
+	    Image image2 = new Image(getClass().getResourceAsStream("../imgs/longerGround.png"));
 	    
 
-	    Image image3 = new Image(getClass().getResourceAsStream("shorterGround.png"));
-	    Image image4 = new Image(getClass().getResourceAsStream("shortestGround.png"));
-	    Image image5 = new Image(getClass().getResourceAsStream("stone.png"));
+	    Image image3 = new Image(getClass().getResourceAsStream("../imgs/shorterGround.png"));
+	    Image image4 = new Image(getClass().getResourceAsStream("../imgs/shortestGround.png"));
+	    Image image5 = new Image(getClass().getResourceAsStream("../imgs/stone.png"));
 		 
 	
 		Rectangle rect = new Rectangle(0,250,300,50);
@@ -98,7 +99,7 @@ public class PuzzlePlatController {
 	}
 	
 	public void makeStageOneObstacles() {
-		Image image1 = new Image(getClass().getResourceAsStream("lava-png-clipart.png"));
+		Image image1 = new Image(getClass().getResourceAsStream("../imgs/lava-png-clipart.png"));
 		Rectangle rect = new Rectangle(300, 275, 100, 25);
 		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
@@ -117,26 +118,26 @@ public class PuzzlePlatController {
 	 */
 	public void makeStageTwoFloors() {
 		
-		Image image1 = new Image(getClass().getResourceAsStream("redbrick.png"));
+		Image image1 = new Image(getClass().getResourceAsStream("../imgs/redbrick.png"));
 
-		Image image2 = new Image(getClass().getResourceAsStream("groupBricks.png"));
+		Image image2 = new Image(getClass().getResourceAsStream("../imgs/groupBricks.png"));
 		
 
-		Image image3 = new Image(getClass().getResourceAsStream("bricks.png"));
+		Image image3 = new Image(getClass().getResourceAsStream("../imgs/bricks.png"));
 		
 
-		Image image4 = new Image(getClass().getResourceAsStream("log.png"));
+		Image image4 = new Image(getClass().getResourceAsStream("../imgs/log.png"));
 		
 
-		Image image5 = new Image(getClass().getResourceAsStream("platform.png"));
+		Image image5 = new Image(getClass().getResourceAsStream("../imgs/platform.png"));
 		
 
-		Image image6 = new Image(getClass().getResourceAsStream("groundPink.png"));
+		Image image6 = new Image(getClass().getResourceAsStream("../imgs/groundPink.png"));
 		
 
-		Image image7 = new Image(getClass().getResourceAsStream("groundPink5.png"));
+		Image image7 = new Image(getClass().getResourceAsStream("../imgs/groundPink5.png"));
 		
-		Image image8 = new Image(getClass().getResourceAsStream("groundPinkMore.png"));
+		Image image8 = new Image(getClass().getResourceAsStream("../imgs/groundPinkMore.png"));
 		
 		
 		model.setPlatformFloorY(201); //base floor for testing character movement
@@ -198,7 +199,7 @@ public class PuzzlePlatController {
 	 * make obstacles for stage2
 	 */
 	public void makeStageTwoObstacles() {
-		Image image1 = new Image(getClass().getResourceAsStream("lava-png-clipart.png"));
+		Image image1 = new Image(getClass().getResourceAsStream("../imgs/lava-png-clipart.png"));
 		
 		Rectangle rect = new Rectangle(125, 275, 75, 25);
 		rect.setFill(new ImagePattern(image1));
@@ -225,7 +226,7 @@ public class PuzzlePlatController {
 	 */
 	public void makeStageTwoButtons() {
 
-		Image image5 = new Image(getClass().getResourceAsStream("button.png"));
+		Image image5 = new Image(getClass().getResourceAsStream("../imgs/button.png"));
 		
 		Rectangle rect = new Rectangle(600,240,20,10);
 		rect.setFill(new ImagePattern(image5));
@@ -238,13 +239,13 @@ public class PuzzlePlatController {
 	public void makeStageThreeFloors() {
 		model.setPlatformFloorY(201); //base floor for testing character movement
 		
-		Image image1 = new Image(getClass().getResourceAsStream("stoneThing.png"));
+		Image image1 = new Image(getClass().getResourceAsStream("../imgs/stoneThing.png"));
 		
 
-		Image image2 = new Image(getClass().getResourceAsStream("groundChunks.png"));
+		Image image2 = new Image(getClass().getResourceAsStream("../imgs/groundChunks.png"));
 		
 
-		Image image3 = new Image(getClass().getResourceAsStream("elevatedBox.png"));
+		Image image3 = new Image(getClass().getResourceAsStream("../imgs/elevatedBox.png"));
 		
 		Rectangle rect = new Rectangle(0,250,125,50);
 		rect.setFill(new ImagePattern(image2));
@@ -331,7 +332,7 @@ public class PuzzlePlatController {
 	public void makeStageThreeObstacles() {
 		Rectangle rect = new Rectangle(125, 275, 75, 25);
 		
-		Image image1 = new Image(getClass().getResourceAsStream("lava-png-clipart.png"));
+		Image image1 = new Image(getClass().getResourceAsStream("../imgs/lava-png-clipart.png"));
 		
 		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);

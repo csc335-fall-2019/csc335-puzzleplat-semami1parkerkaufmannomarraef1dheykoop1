@@ -1,3 +1,4 @@
+package exacutable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -61,9 +62,9 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 	private boolean bridgeStageTwoDrawn = false; // has the bridge been made?
 	private boolean consumed = false;
 	private boolean pauseGame = false;
-	Image image1 = new Image(getClass().getResourceAsStream("background.png"));
-	Image image2 = new Image(getClass().getResourceAsStream("mountains.png"));
-	Image image3 = new Image(getClass().getResourceAsStream("pixelSpace.png"));
+	Image image1 = new Image(getClass().getResourceAsStream("/imgs/background.png"));
+	Image image2 = new Image(getClass().getResourceAsStream("/imgs/mountains.png"));
+	Image image3 = new Image(getClass().getResourceAsStream("/imgs/pixelSpace.png"));
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -133,7 +134,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 
 		}
 
-		gc.drawImage(new Image("door.png"), 1150, 100, 50, 150); // draw exit door
+		gc.drawImage(new Image("/imgs/door.png"), 1150, 100, 50, 150); // draw exit door
 		// print coordinates wherever you click, for testing purposes//
 		EventHandler<MouseEvent> mooso = new EventHandler<MouseEvent>() {
 			@Override
@@ -517,7 +518,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 	public void update(Observable o, Object arg) {
 		if (!pauseGame){
 			
-		Image image5 = new Image(getClass().getResourceAsStream("platform.png"));
+		Image image5 = new Image(getClass().getResourceAsStream("/imgs/platform.png"));
 
 		if (controller.getObstacles().size() < 50) {
 			controller.makeRain(0, 1);
@@ -534,7 +535,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 			if (controller.checkButtonClick() && bridgeStageTwoDrawn == false) { // draw bridge if button is clicked
 				Rectangle rect = new Rectangle(700, 250, 200, 25);
 
-			    Image image = new Image(getClass().getResourceAsStream("stone.png"));
+			    Image image = new Image(getClass().getResourceAsStream("/imgs/stone.png"));
 				
 				rect.setFill(new ImagePattern(image));
 				
@@ -549,7 +550,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 			gc.fillRect(0, 0, 1200, 300);
 			controller.makeRain(0, 1);
 		}
-		gc.drawImage(new Image("door.png"), 1150, 100, 50, 150);
+		gc.drawImage(new Image("/imgs/door.png"), 1150, 100, 50, 150);
 		// int size = ((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).size();
 		// System.out.println(((ArrayList<Shape>)((ArrayList<Object>)arg).get(0)).get(size
 		// - 1));
