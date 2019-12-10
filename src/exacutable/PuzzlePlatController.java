@@ -1019,5 +1019,12 @@ public class PuzzlePlatController {
 		model.addFloor(rect);
 	}
 	
+	/**
+	 * add a new obstacle piece
+	 * @param rect
+	 */
+	public void addObstacle(Shape rect) {
+		model.addObstacle(rect);
+	}
 
 }
