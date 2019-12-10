@@ -642,6 +642,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 				alert.setContentText("Game Over. The poison rain got you!");
 			} else
 				alert.setContentText("Level Completed! Great Work.");
+			currentStage.close();
 			alert.setOnHidden(evt -> Platform.exit());
 			alert.show();
 		}

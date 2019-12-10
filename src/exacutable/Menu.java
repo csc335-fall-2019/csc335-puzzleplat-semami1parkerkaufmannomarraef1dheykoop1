@@ -235,7 +235,7 @@ public class Menu extends Application {
 									break;
 								}
 							}
-				        //	dialog.close();
+				        	dialog.close();
 						}
 						dialog.close();
 						
@@ -267,7 +267,7 @@ public class Menu extends Application {
 						e1.printStackTrace();
 					}
 		        	
-		        	dialog.close();
+		        	//dialog.close();
 
 				}
 		    	
