@@ -8,3 +8,4 @@ testSave2 level 1 644.0 201.0 86 3
 skr_skr level 1 30.0 200.0 100 3
 yeeee level 1 575.0 201.0 86 3
 BigSexy level 2 608.0 201.0 42 3
+yuh level 1 30.0 200.0 100 3
