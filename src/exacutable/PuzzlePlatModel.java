@@ -98,6 +98,8 @@ public class PuzzlePlatModel extends Observable{
 	 * @param p, player
 	 */
 	public void setP(PlayerOne p) {
+		this.characters.clear();
+		this.characters.add(p);
 		this.p = p;
 	}
 
