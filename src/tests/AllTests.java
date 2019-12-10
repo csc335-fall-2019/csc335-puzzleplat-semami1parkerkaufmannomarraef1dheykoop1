@@ -5,7 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({})
+@SuiteClasses({testPuzzlePlatModel.class, testCollision.class, testMyCircle.class, 
+	testPlayerOne.class, testPuzzlePlatController.class})
 public class AllTests {
 	
 
