@@ -479,9 +479,9 @@ public class PuzzlePlatController {
 		
 		// If there's a collision, we should check what direction it was going last so
 		// we can go a different direction.
-		/*if (getP1().isCancelJump() && getP1().getLastMove().equals(KeyCode.UP)) {
+		if (getP1().isCancelJump() && getP1().getLastMove().equals(KeyCode.UP)) {
 			cancelJump();
-		}*/
+		}
 		land();
 		if((getP1().getX() <= 0) || (getP1().getX() + getP1().getPlayerImg().getWidth()) >= 1250) {
 			cancelJump();
