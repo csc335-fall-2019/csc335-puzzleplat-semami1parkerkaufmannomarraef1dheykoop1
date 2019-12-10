@@ -7,8 +7,9 @@ import org.junit.Test;
 public class testMyCircle {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testGet() {
+		myCircle circ = new myCircle(1,1,1,1);
+		assertTrue(circ.getMoveSpeed() == 1);
 	}
 
 }
