@@ -456,7 +456,6 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 				newGame.setLevel(level);
 	        	Stage currStag = new Stage();
 	        	try {
-	        		
 					newGame.start(currStag);
 					currentStage.close();
 					//setStage(currStag);
