@@ -1,5 +1,9 @@
-import java.awt.Graphics;
+package exacutable;
 
+import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observer;
@@ -33,8 +37,6 @@ public class PuzzlePlatController {
 	private AnimationTimer at;
 	private boolean gameOver = false;
 	
-	
-	
 	/**
 	 * make all the floors for level one
 	 */
@@ -42,23 +44,22 @@ public class PuzzlePlatController {
 		model.setPlatformFloorY(201); //base floor for testing character movement
 
 	    
-	    Image image1 = new Image(getClass().getResourceAsStream("flatGround.png"));
+	    Image image1 = new Image(getClass().getResourceAsStream("../imgs/flatGround.png"));
 
-	    Image image2 = new Image(getClass().getResourceAsStream("longerGround.png"));
+	    Image image2 = new Image(getClass().getResourceAsStream("../imgs/longerGround.png"));
 	    
 
-	    Image image3 = new Image(getClass().getResourceAsStream("shorterGround.png"));
-	    Image image4 = new Image(getClass().getResourceAsStream("shortestGround.png"));
-	    Image image5 = new Image(getClass().getResourceAsStream("stone.png"));
+	    Image image3 = new Image(getClass().getResourceAsStream("../imgs/shorterGround.png"));
+	    Image image4 = new Image(getClass().getResourceAsStream("../imgs/shortestGround.png"));
+	    Image image5 = new Image(getClass().getResourceAsStream("../imgs/stone.png"));
 		 
-	    //Image image2 = new Image(getClass().getResourceAsStream(""));
 	
 		Rectangle rect = new Rectangle(0,250,300,50);
 		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(400,250,100,50);
-		rect.setFill(new ImagePattern(image4));
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(600,250,400,50);
@@ -69,7 +70,7 @@ public class PuzzlePlatController {
 		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
-		rect = new Rectangle(125,180,125,20);
+		rect = new Rectangle(125,180,125,20); 
 		rect.setFill(new ImagePattern(image5));
 		model.addFloor(rect);
 		
@@ -96,7 +97,7 @@ public class PuzzlePlatController {
 	}
 	
 	public void makeStageOneObstacles() {
-		Image image1 = new Image(getClass().getResourceAsStream("lava-png-clipart.png"));
+		Image image1 = new Image(getClass().getResourceAsStream("../imgs/lava-png-clipart.png"));
 		Rectangle rect = new Rectangle(300, 275, 100, 25);
 		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
@@ -115,26 +116,26 @@ public class PuzzlePlatController {
 	 */
 	public void makeStageTwoFloors() {
 		
-		Image image1 = new Image(getClass().getResourceAsStream("redbrick.png"));
+		Image image1 = new Image(getClass().getResourceAsStream("../imgs/redbrick.png"));
 
-		Image image2 = new Image(getClass().getResourceAsStream("groupBricks.png"));
+		Image image2 = new Image(getClass().getResourceAsStream("../imgs/groupBricks.png"));
 		
 
-		Image image3 = new Image(getClass().getResourceAsStream("bricks.png"));
+		Image image3 = new Image(getClass().getResourceAsStream("../imgs/bricks.png"));
 		
 
-		Image image4 = new Image(getClass().getResourceAsStream("log.png"));
+		Image image4 = new Image(getClass().getResourceAsStream("../imgs/log.png"));
 		
 
-		Image image5 = new Image(getClass().getResourceAsStream("platform.png"));
+		Image image5 = new Image(getClass().getResourceAsStream("../imgs/platform.png"));
 		
 
-		Image image6 = new Image(getClass().getResourceAsStream("groundPink.png"));
+		Image image6 = new Image(getClass().getResourceAsStream("../imgs/groundPink.png"));
 		
 
-		Image image7 = new Image(getClass().getResourceAsStream("groundPink5.png"));
+		Image image7 = new Image(getClass().getResourceAsStream("../imgs/groundPink5.png"));
 		
-		Image image8 = new Image(getClass().getResourceAsStream("groundPinkMore.png"));
+		Image image8 = new Image(getClass().getResourceAsStream("../imgs/groundPinkMore.png"));
 		
 		
 		model.setPlatformFloorY(201); //base floor for testing character movement
@@ -196,7 +197,7 @@ public class PuzzlePlatController {
 	 * make obstacles for stage2
 	 */
 	public void makeStageTwoObstacles() {
-		Image image1 = new Image(getClass().getResourceAsStream("lava-png-clipart.png"));
+		Image image1 = new Image(getClass().getResourceAsStream("../imgs/lava-png-clipart.png"));
 		
 		Rectangle rect = new Rectangle(125, 275, 75, 25);
 		rect.setFill(new ImagePattern(image1));
@@ -219,11 +220,11 @@ public class PuzzlePlatController {
 		model.addObstacle(rect);
 	}
 	/**
-	 * maek buttons for stage2
+	 * make buttons for stage2
 	 */
 	public void makeStageTwoButtons() {
 
-		Image image5 = new Image(getClass().getResourceAsStream("button.png"));
+		Image image5 = new Image(getClass().getResourceAsStream("../imgs/button.png"));
 		
 		Rectangle rect = new Rectangle(600,240,20,10);
 		rect.setFill(new ImagePattern(image5));
@@ -236,127 +237,138 @@ public class PuzzlePlatController {
 	public void makeStageThreeFloors() {
 		model.setPlatformFloorY(201); //base floor for testing character movement
 		
+		Image image1 = new Image(getClass().getResourceAsStream("../imgs/stoneThing.png"));
+		
+
+		Image image2 = new Image(getClass().getResourceAsStream("../imgs/groundChunks.png"));
+		
+
+		Image image3 = new Image(getClass().getResourceAsStream("../imgs/elevatedBox.png"));
+		
 		Rectangle rect = new Rectangle(0,250,125,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image2));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(200,250,25,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(300,240,25,60);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(400,250,25,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(500,240,25,60);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(600,250,25,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(700,240,25,60);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(800,240,25,60);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(900,250,25,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(1000,240,25,60);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image1));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(1100,250,100,50);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image2));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(200,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(300,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(400,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(500,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(600,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(700,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(800,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(900,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 		rect = new Rectangle(1000,50,25,25);
-		rect.setFill(Color.FIREBRICK);
+		rect.setFill(new ImagePattern(image3));
 		model.addFloor(rect);
 		
 	}
 	
 	public void makeStageThreeObstacles() {
 		Rectangle rect = new Rectangle(125, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		
+		Image image1 = new Image(getClass().getResourceAsStream("../imgs/lava-png-clipart.png"));
+		
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(225, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(325, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(425, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(525, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(625, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(725, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(825, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(925, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 		rect = new Rectangle(1025, 275, 75, 25);
-		rect.setFill(Color.ORANGERED);
+		rect.setFill(new ImagePattern(image1));
 		model.addObstacle(rect);
 		
 	}
@@ -463,19 +475,15 @@ public class PuzzlePlatController {
 	public void tick() {
 		ArrayList<ArrayList<? extends Object>> state = new ArrayList<ArrayList<? extends Object>>();//state of the character, obstacles, and floor
 		
-		//floorCollision();
 		// If there's a collision, we should check what direction it was going last so
 		// we can go a different direction.
 		if (getP1().isCancelJump() && getP1().getLastMove().equals(KeyCode.UP)) {
 			cancelJump();
 		}
 		land();
-		/*
-		if (getP1().getY() >= this.model.getPlatformFloorY()-4 && !getP1().isCanJump() && !getP1().inLava()) {
-			getP1().setY(this.model.getPlatformFloorY());
-
+		if((getP1().getX() <= 0) || (getP1().getX() + getP1().getPlayerImg().getWidth()) >= 1250) {
+			cancelJump();
 		}
-		*/
 		if (isCollision()) {
 			if (getP1().getLastMove().equals(KeyCode.RIGHT)) {
 				if(model.getP().isCanMoveLeft()) { //&& !isCollision()) {
@@ -512,23 +520,14 @@ public class PuzzlePlatController {
 				playerJump();
 			}
 		}
-		/*
-		if (getP1().getLastMove() != null) {
-			if (!getP1().getLastMove().equals(KeyCode.UP) || noMovement())
-				bringToFloor();
-		}
-		*/
-		//moveEnemies();
+
 		moveRain();
 		checkForDeath();
-		
-		//checkForWin();
 		
 		// Calling the onFloor() method has an issue since the sprite's height alternates between the moves
 		// and the image is larger than the actual character.
 		if (!onFloor() && !getP1().isCanJump()) {//!getP1().getLastMove().equals(KeyCode.UP)) {
 			// The negative jump strength makes the second half of the jump start (falling)
-			
 			getP1().setJumpStrength(-11);
 			bringToFloor();
 		}
@@ -596,8 +595,8 @@ public class PuzzlePlatController {
 					((myCircle) shape).getCenterX() - .5,
 					((myCircle) shape).getCenterY() - .5, 1, 1);
 			if(rainCol.isCollision()) {
-				model.getCharacters().get(0).setHealth(model.getCharacters().get(0).getHealth() - 10);
-				System.out.println(model.getCharacters().get(0).getHealth());
+				model.getCharacters().get(0).lostHealth();
+				//System.out.println(model.getCharacters().get(0).getHealth());
 				if(model.getCharacters().get(0).getHealth() == 0) {
 					gameOver = true;
 				}
@@ -610,13 +609,45 @@ public class PuzzlePlatController {
 	}
 	
 	
+	public boolean isNameVacant(String name){
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader("src/SavedGames.txt"));
+			ArrayList<String[]> gamesInfo = new ArrayList<>();
+			
+			String lineTokens[] = null;
+			String line = null;
+			try {
+				while((line = reader.readLine()) != null) {
+					lineTokens = line.split(" ");
+					gamesInfo.add(lineTokens);
+				}
+				reader.close();
+				for(int i = 0; i < gamesInfo.size(); i++) {
+					if(gamesInfo.get(i)[0].equals(name)) {
+						return false;
+					}
+				}
+				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		return true;
+	}
 	
 	
 	/**
 	 * Creates Player One and adds them to character Array
 	 */
-	public void createPlayerOne() {
-		PlayerOne p1 = new PlayerOne(30, 200);
+	public void createPlayerOne(double x, double y, int health, int lives) {
+		PlayerOne p1 = new PlayerOne(x, y);
+		p1.setLives(lives);
+		p1.setHealth(health);
 		model.setP(p1);
 		model.characters.add(model.getP());
 	}
@@ -684,11 +715,8 @@ public class PuzzlePlatController {
 						 getP1().setCancelJump(true);
 						 return true;
 					 }
-				 }
-				 
+				 }	 
 			 }
-			 // if (s instanceof myCircle){
-			 // }
 		}
 		return false;
 	}
@@ -701,23 +729,15 @@ public class PuzzlePlatController {
 	 */
 	public void bringToFloor() {
 		PlayerOne player = getP1();
-		//player.setY(player.getY()+2);
-		//System.out.println(getP1().getJumpStrength());
+	
+		getP1().setY(player.getY()-player.getJumpStrength());
 		
-		// Here I'm trying to mimic what the end of the jump (when the player is falling) looks like 
-		// Difficult because 
+		getP1().setJumpStrength(player.getJumpStrength() - player.getWeight());
 		
-		getP1().setY(getP1().getY()-getP1().getJumpStrength());
-		
-		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
-		
-		if(getP1().getY() >= this.model.getPlatformFloorY() && !aboveLava()) {
-			getP1().setInLava(true);
-			//System.out.println("Yarp");
-			// || collision with floor
-			getP1().setY(this.model.getPlatformFloorY());
+		if(player.getY() >= this.model.getPlatformFloorY() && !aboveLava()) {
+			player.setY(this.model.getPlatformFloorY());
 			setCanJump(false);
-			getP1().setJumpStrength(13);
+			player.setJumpStrength(13);
 		}
 		
 		
@@ -864,27 +884,19 @@ public class PuzzlePlatController {
 		getP1().setY(getP1().getY()-getP1().getJumpStrength());
 		
 		getP1().setJumpStrength(getP1().getJumpStrength() - getP1().getWeight());
-		
-		//Collision new_collision = floorCollision();
-		
+				
 		if(getP1().getY() >= this.model.getPlatformFloorY()) {
 			// || collision with floor
 			getP1().setY(this.model.getPlatformFloorY());
 			setCanJump(false);
 			getP1().setJumpStrength(13);
 		}
-		/*
-		else if(new_collision != null) {
-			if (getP1().getY() >= new_collision.getY2()) {
-				System.out.println("floor collision at " + new_collision.getY2());
-				getP1().setY(new_collision.getY2());
-				setCanJump(false);
-				getP1().setJumpStrength(13);
-			}
-		}
-		*/
 	}
 	
+	/**
+	 * Determines if there is a collision between the player and the floor
+	 * @return A Collision object
+	 */
 	public Collision floorCollision() {
 		PlayerOne player = getP1();
 		ArrayList<Shape> floors = getFloors();
@@ -1005,5 +1017,12 @@ public class PuzzlePlatController {
 		model.addFloor(rect);
 	}
 	
+	/**
+	 * add a new obstacle piece
+	 * @param rect
+	 */
+	public void addObstacle(Shape rect) {
+		model.addObstacle(rect);
+	}
 
 }

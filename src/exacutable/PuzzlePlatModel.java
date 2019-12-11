@@ -1,3 +1,5 @@
+package exacutable;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,11 +17,15 @@ public class PuzzlePlatModel extends Observable{
 	ArrayList<PlayerOne> characters = new ArrayList<>();
 	
 	ArrayList<Shape> buttons = new ArrayList<>();
+
+	
 	
 	//Character player1
 	private PlayerOne p;
 	
 	private int platformFloorY; //updated with every stage initiation
+	
+	
 	
 	/**
 	 * getter for list of floors
@@ -92,6 +98,8 @@ public class PuzzlePlatModel extends Observable{
 	 * @param p, player
 	 */
 	public void setP(PlayerOne p) {
+		this.characters.clear();
+		this.characters.add(p);
 		this.p = p;
 	}
 

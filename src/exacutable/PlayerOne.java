@@ -1,3 +1,5 @@
+package exacutable;
+
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,7 +14,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
+/**
+ * 
+ * @author omargebril
+ *
+ */
 public class PlayerOne{
+	
+	private boolean level0Completed = false;
+	private boolean level1Completed = false;
+	private boolean level2Completed = false;
+	
 	private double xPos;
 	private double yPos;
 	
@@ -96,8 +108,8 @@ public class PlayerOne{
 		
 		this.rightGroup = new Group(this.ppR1);
 		
-		rightGroup.setTranslateX(40);
-		rightGroup.setTranslateY(200);
+	//	rightGroup.setTranslateX(40);
+	//	rightGroup.setTranslateY(200);
 	}
 	
 	/**
@@ -198,9 +210,9 @@ public class PlayerOne{
 	 * renders image, for sprite draft, not used
 	 * @param g
 	 */
-	public void render(GraphicsContext g) {
+	/*public void render(GraphicsContext g) {
 		g.drawImage(this.playerPic.getImage(), xPos, yPos);
-	}
+	}*/
 	/**
 	 * returns xPos
 	 * @return xPos
@@ -504,7 +516,7 @@ public class PlayerOne{
 	 * called on damaged health event
 	 */
 	public void lostHealth() {
-		this.health = this.health - 10;
+		this.health = this.health - 2;
 	}
 
 	/**
@@ -617,20 +629,34 @@ public class PlayerOne{
 		this.playerImgNumber = playerImgNumber;
 	}
 	
-	
+	/**
+	 * Gets the last move the player did
+	 * @return a KeyCode which is whatever button the user clicked on the keyboard
+	 */
 	public KeyCode getLastMove() {
 		return lastMove;
 	}
 	
-	
+	/**
+	 * Sets the lastMove variable equal to whatever the caller says was clicked
+	 * @param lastMove is the last key pressed
+	 */
 	public void setLastMove(KeyCode lastMove) {
 		this.lastMove = lastMove;
 	}
 	
+	/**
+	 * Gets whether the player can jump again
+	 * @return boolean that tells if a player can double jump
+	 */
 	public boolean isCanJumpAgain() {
 		return canJumpAgain;
 	}
 	
+	/**
+	 * Sets the canJumpAgain equal to the boolean the caller gives
+	 * @param canJumpAgain whether the player can jump again
+	 */
 	public void setCanJumpAgain(boolean canJumpAgain) {
 		this.canJumpAgain = canJumpAgain;
 		
