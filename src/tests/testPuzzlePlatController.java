@@ -24,7 +24,6 @@ public class testPuzzlePlatController {
 	
 	@Test
 	public void testStage2FloorsAndObstacles() {
-		//fail("Not yet implemented");
 		PuzzlePlatController control = new PuzzlePlatController();
 		control.makeStageTwoFloors();
 		control.makeRain(0, 1);
@@ -39,7 +38,6 @@ public class testPuzzlePlatController {
 	
 	@Test
 	public void testStage3FloorsAndObstacles() {
-		//fail("Not yet implemented");
 		PuzzlePlatController control = new PuzzlePlatController();
 		control.makeStageThreeFloors();
 		control.makeRain(0, 1);
