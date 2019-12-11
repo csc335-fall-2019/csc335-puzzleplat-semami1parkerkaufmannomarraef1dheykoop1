@@ -92,6 +92,75 @@ public class testCollision {
 		
 	}
 	
+	@Test
+	public void testOnFloor() {
+		PuzzlePlatController controller = new PuzzlePlatController();
+		PuzzlePlatModel model = new PuzzlePlatModel();
+		controller.createPlayerOne(126,200,90,1);
+		Rectangle rect = new Rectangle(125,180,50,50); 
+		controller.addFloor(rect);
+		Shape s = new Circle();
+		controller.addFloor(s);
+		assertTrue(controller.onFloor());
+	}
+	
+	@Test
+	public void testOnFloor2() {
+		PuzzlePlatController controller = new PuzzlePlatController();
+		PuzzlePlatModel model = new PuzzlePlatModel();
+		controller.createPlayerOne(10,10,90,1);
+		Rectangle rect = new Rectangle(125,180,50,50); 
+		controller.addFloor(rect);
+		Shape s = new Circle();
+		controller.addFloor(s);
+		assertFalse(controller.onFloor());
+	}
+	
+	@Test
+	public void testNoMovement() {
+		PuzzlePlatController controller = new PuzzlePlatController();
+		PuzzlePlatModel model = new PuzzlePlatModel();
+		controller.createPlayerOne(126,200,90,1);
+		assertTrue(controller.noMovement());
+		controller.getP1().setMovingRight(true);
+		controller.getP1().setMovingLeft(false);
+		assertFalse(controller.noMovement());
+		controller.getP1().setMovingLeft(true);
+		assertFalse(controller.noMovement());
+		controller.getP1().setMovingLeft(true);
+		controller.getP1().setMovingRight(false);
+		assertFalse(controller.noMovement());
+	}
+	
+	@Test
+	public void testCheckForDeath() {
+		PuzzlePlatController controller = new PuzzlePlatController();
+		PuzzlePlatModel model = new PuzzlePlatModel();
+		controller.createPlayerOne(126,200,90,1);
+		Rectangle rect = new Rectangle(125,180,50,50); 
+		Shape s = new Circle();
+		controller.addObstacle(s);
+		controller.addObstacle(rect);
+		controller.checkForDeath();
+		assertTrue(controller.isGameOver());
+		
+	}
+	
+	@Test
+	public void testCheckForNotDeath() {
+		PuzzlePlatController controller = new PuzzlePlatController();
+		PuzzlePlatModel model = new PuzzlePlatModel();
+		controller.createPlayerOne(500,200,90,1);
+		Rectangle rect = new Rectangle(125,180,50,50); 
+		Shape s = new Circle();
+		controller.addObstacle(s);
+		controller.addObstacle(rect);
+		controller.checkForDeath();
+		assertFalse(controller.isGameOver());
+		controller.getP1().setX(1400);
+		assertTrue(controller.isGameOver());
+	}
+	
 	
 
 }
