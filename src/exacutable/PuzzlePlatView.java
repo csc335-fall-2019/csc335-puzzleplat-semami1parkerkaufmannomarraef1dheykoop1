@@ -479,7 +479,7 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 				pauseGame = true;
 				Alert alert = new Alert(Alert.AlertType.INFORMATION);
 				alert.setTitle("Pause Menu");
-				alert.setHeaderText("Your game is pause");
+				alert.setHeaderText("Your game is paused, Click Ok to continue");
 				alert.setOnHidden(evt -> pauseGame = false);
 				alert.show();
 				
