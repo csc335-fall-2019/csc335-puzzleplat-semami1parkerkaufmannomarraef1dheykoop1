@@ -37,8 +37,6 @@ public class PuzzlePlatController {
 	private AnimationTimer at;
 	private boolean gameOver = false;
 	
-	
-	
 	/**
 	 * make all the floors for level one
 	 */
