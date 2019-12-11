@@ -81,7 +81,6 @@ public class testPuzzlePlatController {
 	
 	@Test
 	public void testObserver() {
-		//fail("Not yet implemented");
 		PuzzlePlatController control = new PuzzlePlatController();
 
 		PuzzlePlatView view = new PuzzlePlatView();
