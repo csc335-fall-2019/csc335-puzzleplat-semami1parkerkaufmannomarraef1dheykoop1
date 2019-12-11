@@ -525,7 +525,6 @@ public class PuzzlePlatView extends Application implements java.util.Observer {
 	 * draws all shapes on the GUI that are saved in the state of the game
 	 * 
 	 * @param shapes list of shapes to be drawn
-	 * @param gc     graphicContext being drawn on
 	 */
 	public void drawShapes(ArrayList<Shape> shapes) {
 		for (Shape shape : shapes) {
