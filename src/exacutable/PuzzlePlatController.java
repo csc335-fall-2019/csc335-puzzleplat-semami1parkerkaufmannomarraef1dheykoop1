@@ -541,8 +541,10 @@ public class PuzzlePlatController {
 		model.notifyObservers(state);
 	}
 	
-	
-	private void movePlayer() {
+	/**
+	 * updates player's position by velocity
+	 */
+	public void movePlayer() {
 		model.getP().setX(model.getP().getX() + model.getP().getVelX());
 		model.getP().setY(model.getP().getY() + model.getP().getVelY());
 	}
@@ -550,7 +552,7 @@ public class PuzzlePlatController {
 	/**
 	 * update location of the rain
 	 */
-	private void moveRain() {
+	public void moveRain() {
 		myCircle newCirc;
 		ArrayList<Shape> newRain = new ArrayList<>();
 		
@@ -577,7 +579,7 @@ public class PuzzlePlatController {
 	 * @param shape rain
 	 * @return boolean representing if rain is touching a floor
 	 */
-	private boolean endRain(Shape shape) {
+	public boolean endRain(Shape shape) {
 		if(shape instanceof myCircle) {
 			for(Shape floor: model.getFloors()) {
 				if(floor instanceof Rectangle) {
@@ -978,7 +980,7 @@ public class PuzzlePlatController {
 	 * 
 	 * @param b true if we need to cancel a jump
 	 */
-	private void setCancelJump(boolean b) {
+	public void setCancelJump(boolean b) {
 		this.model.getP().setCancelJump(b);
 	}
 	
